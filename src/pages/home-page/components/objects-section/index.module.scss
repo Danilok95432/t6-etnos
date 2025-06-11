@@ -1,0 +1,51 @@
+.objectsSection {
+	padding: 40px 52px 35px;
+	background: var(--color-white);
+
+	@include mobile {
+		padding: 50px 0 37px;
+	}
+
+	.objectsSliderBtns {
+		@include mobile {
+			width: 86%;
+			top: 34%;
+		}
+	}
+}
+
+.slideItem {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	row-gap: 17px;
+
+	@include hover {
+		.objectImg {
+			transition: filter var(--transition-duration) ease;
+			filter: invert(11%) sepia(100%) saturate(6135%) hue-rotate(353deg) brightness(88%)
+				contrast(98%);
+		}
+
+		.objectDescription {
+			color: var(--color-red);
+		}
+	}
+}
+
+.objectImg {
+	@include square(48px);
+}
+
+.objectDescription {
+	line-height: 1.2;
+	text-align: center;
+	font-size: 24px;
+	transition: color var(--transition-duration) ease;
+	max-width: 210px;
+	text-align: center;
+
+	@include mobile {
+		margin-top: 29px;
+	}
+}

@@ -1,0 +1,83 @@
+.monthsFilterWrapper {
+	position: relative;
+	display: flex;
+	gap: 20px;
+	margin-bottom: 30px;
+	@media (max-width: 768px) {
+		gap: 8px;
+	}
+
+	.monthsFilterSlider {
+		:global {
+			.slider-nav-btns {
+				opacity: 1;
+				visibility: visible;
+				svg rect {
+					transition: all 0.3s;
+					fill: #ffffff;
+				}
+			}
+		}
+		&:hover {
+			svg rect {
+				fill: #b3b3b3;
+			}
+		}
+
+		@media (max-width: 768px) {
+			padding: 0;
+		}
+	}
+}
+
+.monthSlide {
+	min-width: 100px;
+
+	p {
+		font-size: 18px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 40px;
+		line-height: 1.1;
+		padding-top: 4px;
+		background: #f2f5f8;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+}
+
+.allMonthsBtn {
+	min-width: max-content;
+	padding: 6px 10px;
+	font-size: 18px;
+	height: 40px;
+	line-height: 1.1;
+	background: #f2f5f8;
+	border-radius: 5px;
+	cursor: pointer;
+	@media (max-width: 768px) {
+		padding: 4px 10px;
+	}
+}
+
+._disableSlide {
+	cursor: default;
+
+	p {
+		cursor: default;
+		color: #8d8d8d;
+	}
+}
+
+._activeSlide {
+	p {
+		background-color: #dd0a15;
+		color: #ffffff;
+	}
+}
+
+._activeMonthsBtn {
+	background-color: #dd0a15;
+	color: #ffffff;
+}

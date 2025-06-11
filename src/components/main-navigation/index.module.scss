@@ -1,0 +1,29 @@
+@use 'src/assets/styles/helpers' as *;
+
+.menuWrapper {
+	background: var(--color-red);
+	padding-block: 13px;
+
+	@include mobile {
+		padding: 16px 0;
+	}
+}
+
+.menuContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.searchLink {
+	display: flex;
+	align-items: center;
+
+	svg {
+		@include square(fluid(30, 24));
+	}
+
+	@include hover {
+		scale: 1.1;
+	}
+}

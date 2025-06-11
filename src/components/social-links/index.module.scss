@@ -1,0 +1,22 @@
+@use '../../assets/styles/helpers' as *;
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+
+  li {
+    a {
+      @include square(40px);
+      @include flex-center(true);
+
+      background-color: var(--color-gray-01);
+      border-radius: 3px;
+
+      @include hover {
+        background-color: var(--color-red);
+      }
+    }
+  }
+
+}

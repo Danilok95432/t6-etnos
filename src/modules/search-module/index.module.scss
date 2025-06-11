@@ -1,0 +1,31 @@
+.searchWrapper {
+	position: relative;
+}
+
+.searchList {
+	position: absolute;
+	z-index: 50;
+	max-height: 400px;
+	overflow-y: auto;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background: #ffffff;
+	padding: 25px 20px;
+	border-radius: 5px;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	h5 {
+		font-size: 30px;
+		font-family: 'PT Sans', sans-serif;
+		margin-bottom: 20px;
+	}
+	.showBtn {
+		width: 100%;
+	}
+	.searchCloseBtn {
+		position: absolute;
+		right: 20px;
+		top: 20px;
+	}
+}

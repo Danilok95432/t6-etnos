@@ -1,0 +1,18 @@
+section.videotapeSection {
+  padding: 40px 0 40px;
+  h4 {
+    @media (max-width: 550px) {
+      margin-bottom: 1px;
+    }
+  }
+  .videotapeTop {
+    @media (max-width: 550px) {
+      margin-bottom: 17px;
+    }
+  }
+}
+
+.objSwiperWrapper {
+  position: relative;
+}
+

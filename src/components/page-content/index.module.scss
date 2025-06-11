@@ -1,0 +1,22 @@
+.pageContent {
+	flex-grow: 1;
+
+	h2 {
+		color: #000;
+		font-size: 50px;
+		margin-bottom: 20px;
+		font-weight: 400;
+		@media (max-width: 768px) {
+			font-size: 35px;
+		}
+	}
+	h4 {
+		font-weight: 400;
+		font-size: 35px;
+		margin-bottom: 20px;
+	}
+
+	a {
+		font-size: 16px;
+	}
+}

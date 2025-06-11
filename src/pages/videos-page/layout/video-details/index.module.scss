@@ -1,0 +1,61 @@
+.videoDetailPage {
+  width: 1025px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  @media (max-width: 1440px) {
+    width: 100%;
+    max-width: 1025px;
+  }
+  @media (max-width: 1300px) {
+    flex-direction: column;
+  }
+  @media (max-width: 768px) {
+    line-height: 1.32;
+  }
+  .videoContent {
+    h2 {
+      margin-bottom: 25px;
+      font-size: 40px;
+      @media (max-width: 768px) {
+        font-size: 35px;
+        margin-bottom: 17px;
+      }
+   }
+  }
+}
+
+
+.mainVideo {
+  margin-bottom: 30px;
+  iframe {
+    border: none;
+    border-radius: 9px;
+    width: 970px;
+    height: 546px;
+
+    @media (max-width: 1024px) {
+      width: 600px;
+      height: 400px;
+    }
+
+    @media (max-width: 768px) {
+      width: 450px;
+      height: 300px;
+    }
+
+    @media (max-width: 510px) {
+      width: 300px;
+      height: 200px;
+    }
+  }
+}
+
+.descVideo {
+  padding-bottom: 30px;
+  .descVideoText {
+    font-size: 17px;
+  }
+}
+
+

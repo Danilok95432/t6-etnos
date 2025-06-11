@@ -1,0 +1,15 @@
+.gallerySection {
+  padding-top: 50px;
+}
+
+.galleryDescs {
+  margin-top: 20px;
+
+  p {
+    font-size: 20px;
+    line-height: 1.19;
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}

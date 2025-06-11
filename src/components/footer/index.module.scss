@@ -1,0 +1,118 @@
+@use 'src/assets/styles/helpers' as *;
+
+.footer {
+  background-color: var(--color-white);
+}
+
+.footerTop {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 30px;
+  align-items: center;
+
+  @include mobile {
+    align-items: start !important;
+    padding-top: 35px !important;
+    padding-bottom: 40px !important;
+    flex-direction: column !important;
+    row-gap: 40px !important;
+  }
+
+  a {
+    font-size: 18px;
+    text-transform: uppercase;
+
+    @include hover {
+      color: var(--color-red);
+    }
+  }
+}
+
+.footerTopLinks {
+  gap: 42px;
+  @include mobile {
+    row-gap: 25px !important;
+    flex-direction: column !important;
+  }
+}
+
+.footerLogo {
+  width: fluid(264, 225);
+  height: fluid(70, 60);
+}
+
+.footerLine {
+  width: 100%;
+  border-bottom: 1px solid var(--color-gray);
+}
+
+.footerContacts {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 15px;
+  padding-top: 45px;
+  padding-bottom: 60px;
+  font-style: normal;
+
+  @include mobile {
+    flex-wrap: wrap;
+    row-gap: 35px;
+  }
+}
+
+.footerContactsColumns {
+  display: flex;
+  justify-content: space-between;
+  column-gap: fluid(100, 30);
+
+  @include laptop {
+    flex-wrap: wrap;
+    justify-content: start;
+    row-gap: 35px;
+  }
+}
+
+.footerContactsTitle {
+  font-weight: 400;
+  font-size: inherit;
+}
+
+.footerContactsLink {
+  @include hover {
+    color: var(--color-red);
+  }
+}
+
+// продолжить с этого места
+.footerCopyright {
+  color: var(--color-gray-02);
+  padding-bottom: fluid(65, 40);
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
+
+  @include tablet {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}
+
+.footerInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.footerSmallText {
+  font-size: 10px;
+  max-width: 620px;
+}
+
+.footerDevInfo {
+  align-self: flex-end;
+
+  @include tablet {
+    align-self: flex-start;
+  }
+}

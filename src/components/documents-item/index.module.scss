@@ -1,0 +1,53 @@
+.documentsItem {
+    background: #F2F5F8;
+    padding: 13px 22px 5px 15px;
+
+    h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    h4 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    p {
+        margin-bottom: 13px;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 1000px) {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .downloadLinks {
+            display: flex;
+            gap: 18px;
+
+            @media (max-width: 1000px) {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        a {
+            color: #DE0008;
+        }
+
+        p {
+            color: #9D9D9D;
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+}
+
+.mainDocument {
+    padding: 20px 22px 5px 15px;
+    margin-bottom: 40px;
+}

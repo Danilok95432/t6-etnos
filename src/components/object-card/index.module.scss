@@ -1,0 +1,96 @@
+.objCard {
+	width: 420px;
+	height: 498px;
+	box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	transition: all .3s;
+	@media (max-width: 768px) {
+		margin: 0 auto;
+		height: auto;
+	}
+	@media (max-width: 440px) {
+		width: 300px;
+	}
+
+	.skeleton {
+		width: 190px;
+		height: 50px;
+		margin: 0 auto;
+	}
+	&:hover {
+		background: #dd0a15;
+		box-shadow: -2px -6px 19px 6px rgba(34, 60, 80, 0.21);
+		.objInfo {
+			color: #ffffff;
+		}
+		.objAddress {
+			&::before {
+				background: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.668842 8.65629L8.10008 9.22878L8.68433 16.4635C8.74293 17.192 9.75909 17.366 10.0694 16.7005L17.3276 1.1144C17.5865 0.558757 17 -0.0131911 16.4292 0.239075L0.426658 7.30742C-0.256366 7.60916 -0.0783557 8.5992 0.6694 8.65683L0.668842 8.65629Z" fill="%23D5D5D5"/></svg>')
+					no-repeat;
+			}
+		}
+	}
+}
+
+.objTop {
+	background: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px 5px 0 0;
+	transition: all 0.3s;
+	height: 280px;
+	@media (max-width: 768px) {
+		height: 200px;
+	}
+	img {
+		width: 100%;
+		height: 100%;
+		aspect-ratio: 3/2;
+		object-fit: cover;
+  	object-position: top left;
+	}
+}
+.objInfo {
+	color: #000000;
+	padding: 20px 25px 25px;
+	border-radius: 0 0 5px 5px;
+	transition: all 0.3s;
+	h6 {
+		font-size: 20px;
+		margin-bottom: 14px;
+		font-weight: 400;
+		line-height: 1.2;
+	}
+}
+.objAddress {
+	padding-left: 30px;
+	font-size: 15px;
+	position: relative;
+	margin-bottom: 12px;
+	line-height: 1.2;
+	min-height: 36px;
+
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 3px;
+		width: 18px;
+		height: 18px;
+		background: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.668842 8.65629L8.10008 9.22878L8.68433 16.4635C8.74293 17.192 9.75909 17.366 10.0694 16.7005L17.3276 1.1144C17.5865 0.558757 17 -0.0131911 16.4292 0.239075L0.426658 7.30742C-0.256366 7.60916 -0.0783557 8.5992 0.6694 8.65683L0.668842 8.65629Z" fill="%23DD0A15"/></svg>')
+			no-repeat;
+	}
+}
+
+.objDesc {
+	font-size: 17px;
+	line-height: 1.18;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-clamp: 3;
+	max-height: 65px;
+}

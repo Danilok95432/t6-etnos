@@ -1,0 +1,71 @@
+.detailedAside {
+	min-width: 205px;
+	width: 205px;
+	display: flex;
+	flex-direction: column;
+	gap: 33px;
+	h6 {
+		font-weight: 400;
+		margin-bottom: 10px;
+	}
+	@media (max-width: 768px) {
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 100%;
+		padding-bottom: 50px;
+	}
+}
+
+.asideEl {
+	h6 {
+		font-size: fluid(18, 14);
+	}
+
+	@media (max-width: 768px) {
+		width: 30%;
+		min-width: 205px;
+	}
+
+	.asideSimpleLinks {
+		a {
+			font-size: fluid(18, 14);
+		}
+	}
+}
+
+.asideImg {
+	width: 170px;
+	height: 110px;
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.asideSimpleLinks {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+
+	a {
+		color: #de0008;
+		font-size: 14px;
+	}
+}
+
+.detailedAsideLinks {
+	h4 {
+		font-size: fluid(16, 14);
+	}
+	li {
+		line-height: 1.2;
+		p {
+			line-height: 1.1;
+		}
+	}
+
+	a {
+		font-size: fluid(16, 14);
+	}
+}

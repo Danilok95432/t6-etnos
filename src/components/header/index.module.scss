@@ -1,0 +1,44 @@
+@use 'src/assets/styles/helpers' as *;
+
+.logoWrapper {
+	width: fluid(282, 226);
+	height: fluid(100, 60);
+	flex-shrink: 0;
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.topMainNavWrapper {
+	padding-block: fluid(30, 15);
+	background-color: var(--color-white);
+}
+
+.topMainNav {
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	column-gap: 20px;
+
+	@include mobile {
+		height: auto;
+		flex-wrap: wrap;
+	}
+}
+
+
+.personMenu {
+	@include square(fluid(40, 32));
+	@include flex-center;
+
+	background-color: var(--color-red);
+	border-radius: 50%;
+
+	@include hover {
+		background-color: var(--color-red-01);
+		box-shadow: var(--box-shadow);
+	}
+}

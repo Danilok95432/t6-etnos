@@ -1,0 +1,122 @@
+.objectPreviewSection {
+	padding: 0px 0 50px;
+
+	@include mobile {
+		padding: 50px 0 35px;
+	}
+
+	.objectSliderBtns {
+		@include mobile {
+			visibility: hidden;
+		}
+	}
+}
+
+.swiper {
+	border-radius: 25px;
+}
+
+.objPreview {
+	display: flex;
+	min-height: 480px;
+	border-radius: 25px;
+
+	@include mobile {
+		flex-direction: column;
+	}
+}
+
+.objLocation {
+	flex-grow: 1;
+	border-radius: 25px 0 0 25px;
+	max-width: 720px;
+
+	@include mobile {
+		border-radius: 5px 5px 0 0;
+		height: 300px;
+		border: 1px solid var(--color-white);
+	}
+
+	iframe {
+		border: none;
+		border-radius: 25px 0 0 25px;
+
+		@include mobile {
+			border-radius: 5px 5px 0 0;
+		}
+	}
+}
+
+.objInfo {
+	background: var(--color-white);
+	min-width: 605px;
+	width: 605px;
+	padding: 30px 50px 30px 45px;
+	border-radius: 0 25px 25px 0;
+	box-shadow: 0 0 15px 0 rgb(0 0 0 / 0.1);
+	.objInfoRow {
+		align-items: center;
+		gap: 16px;
+		flex-wrap: nowrap;
+		h3 {
+			max-width: 446px;
+			font-size: 22px;
+			margin-bottom: 0;
+		}
+	}
+
+	@include mobile {
+		min-width: 100%;
+		width: 100%;
+		border-radius: 0 0px 5px 5px;
+		height: 100%;
+		padding: 25px 20px;
+	}
+
+	.objLogo {
+		display: block;
+		width: 48px;
+		height: 48px;
+		margin: 20px 0 20px;
+
+		@include mobile {
+			margin-bottom: 20px;
+			width: 100px;
+		}
+	}
+
+	h3 {
+		font-weight: 400;
+		font-size: 25px;
+		margin-bottom: 19px;
+		line-height: 1.2;
+	}
+
+	.objAddress {
+		padding-left: 30px;
+		position: relative;
+		max-width: 375px;
+		margin-bottom: 20px;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 5px;
+			left: 0;
+			background: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.668842 8.65629L8.10008 9.22878L8.68433 16.4635C8.74293 17.192 9.75909 17.366 10.0694 16.7005L17.3276 1.1144C17.5865 0.558757 17 -0.0131911 16.4292 0.239075L0.426658 7.30742C-0.256366 7.60916 -0.0783557 8.5992 0.6694 8.65683L0.668842 8.65629Z" fill="%23D5D5D5"/></svg>')
+				no-repeat;
+			width: 18px;
+			height: 18px;
+		}
+
+		span {
+			display: block;
+			font-size: 15px;
+		}
+	}
+
+	.objDesc {
+		line-height: 1.2;
+		font-size: 18px;
+	}
+}

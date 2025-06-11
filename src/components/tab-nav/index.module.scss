@@ -1,0 +1,71 @@
+.tabNavWrapper {
+  h5 {
+    font-weight: 400;
+    font-size: 20px;
+    margin-bottom: 20px;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
+
+.tabNav {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  li {
+    position: relative;
+    a {
+      display: block;
+      padding-top: 5px;
+      text-decoration: none;
+      color: #000;
+      transition: color 0.3s ease;
+      position: relative;
+      z-index: 1;
+      font-size: 18px;
+      &:hover,
+      &.activeLink {
+        color: #E30613;
+      }
+    }
+  
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 2px;
+      background-color: #E30613;
+      transition: width 0.3s ease;
+      z-index: 2;
+    }
+  
+    &:hover::before {
+      width: 100%;
+    }
+    .activeLink::before {
+      width: 100%;
+    }
+  }
+
+  .activeLink {
+    color: #E30613;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #E30613;
+      transition: width 0.3s ease;
+      z-index: 2;
+    }
+  }
+}

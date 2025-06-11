@@ -1,0 +1,28 @@
+.documentsContainer {
+  display: flex;
+  flex-direction: column;
+  h4 {
+    font-size: 17px;
+    font-weight: 400;
+  }
+  .documents {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+    li {
+      line-height: 1.2;
+      font-size: 14px;
+    }
+  
+    .documentLink {
+      color: #DE0008;
+      line-height: 1.25;
+    }
+  
+    .documentInfo {
+      color: #9D9D9D;
+      font-size: 14px;
+    }
+  }
+}

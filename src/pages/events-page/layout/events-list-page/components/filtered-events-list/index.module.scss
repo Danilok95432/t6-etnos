@@ -1,0 +1,53 @@
+.filteredListWrapper {
+	padding: 15px 0 0 0;
+	@include tablet {
+		padding: 0 15px;
+	}
+
+	@include mobile {
+		padding: 0 0 30px 0;
+	}
+
+	h4 {
+		margin-bottom: 30px;
+	}
+}
+
+.eventsList {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	@media (max-width: 440px) {
+		justify-content: center;
+	}
+}
+
+.eventCard {
+	width: fluid(311, 311);
+	height: 485px;
+
+	figure {
+		& div {
+			height: 205px;
+
+			@include mobile {
+				height: 255px;
+			}
+		}
+	}
+	@media (max-width: 768px) {
+		width: 300px;
+	}
+
+	@include mobile {
+		height: auto;
+	}
+
+	figcaption {
+		padding-block: 15px;
+
+		@include mobile {
+			padding-block: 28px;
+		}
+	}
+}

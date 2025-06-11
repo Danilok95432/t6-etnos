@@ -1,0 +1,21 @@
+.aboutGeneralPage {
+	h2 {
+		margin-bottom: fluid(27, 15);
+	}
+
+	.inner {
+		display: flex;
+		flex-direction: column;
+		row-gap: fluid(30, 20);
+	}
+
+	.blockquoteBody {
+      .mainDescs {
+        margin: 0 0 15px 0;
+      }
+      span {
+        font-size: 15px;
+        color: #9D9D9D;
+      }
+    }
+}

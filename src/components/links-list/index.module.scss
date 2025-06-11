@@ -1,0 +1,33 @@
+.linksListWrapper {
+	h4 {
+		font-size: 14px;
+		font-weight: 400;
+		margin-bottom: 10px;
+	}
+
+	li {
+		display: flex;
+		align-items: flex-start;
+		gap: 6px;
+		&:not(:last-child) {
+			margin-bottom: 15px;
+		}
+	}
+
+	p {
+		margin: 0;
+	}
+
+	a {
+		color: #de0008;
+		font-size: fluid(16, 14);
+		font-weight: 400;
+	}
+
+	.linksDesc {
+		span {
+			color: #9d9d9d;
+			font-size: fluid(16, 14);
+		}
+	}
+}

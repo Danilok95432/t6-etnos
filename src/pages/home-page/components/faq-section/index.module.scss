@@ -1,0 +1,68 @@
+.faqSection {
+	padding-bottom: 40px;
+
+	h2 {
+		margin-bottom: 17px;
+
+		@include mobile {
+			line-height: 1.2;
+			margin-bottom: 25px;
+		}
+	}
+}
+
+.homeFaqList {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	.faqItem {
+		box-shadow: none;
+
+		button {
+			font-size: 20px;
+			font-weight: 400;
+			padding: 18px 45px 18px 26px;
+			color: var(--color-black);
+			background: var(--color-white);
+			transition: all 0.3s;
+
+			@include hover {
+				color: var(--color-white);
+				background: var(--color-red);
+
+				svg path {
+					fill: var(--color-white);
+				}
+			}
+
+			@include mobile {
+				padding-left: 20px;
+			}
+
+			& > svg {
+				width: 21px;
+				height: 14px;
+				top: 23px;
+			}
+		}
+
+		:global {
+			.accordion-content {
+				background: var(--color-white);
+				font-size: 18px;
+				line-height: 1.2;
+				padding: 15px 20px 20px 25px;
+			}
+
+			._triggerOpen {
+				color: var(--color-white);
+				background: var(--color-red);
+
+				svg path {
+					fill: var(--color-white);
+				}
+			}
+		}
+	}
+}

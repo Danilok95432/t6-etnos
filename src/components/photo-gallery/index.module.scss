@@ -1,0 +1,17 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 27px 12px;
+
+
+  li {
+    p {
+      color: #9D9D9D;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-top: 7px;
+      max-width: 164px;
+    }
+  }
+}

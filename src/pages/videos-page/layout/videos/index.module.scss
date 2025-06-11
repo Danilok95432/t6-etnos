@@ -1,0 +1,24 @@
+.videosPage {
+  h2 {
+    margin-bottom: 28px;
+  }
+}
+
+.videosList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 245px));
+  gap: 30px 23px;
+  margin-bottom: 30px;
+  @media (max-width: 768px) {
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  }
+}
+
+.videosAbsence {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 150px;
+  font-size: 25px;
+}

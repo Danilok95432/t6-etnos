@@ -1,0 +1,26 @@
+.cultureElem {
+	display: flex;
+	flex-direction: column;
+	padding: 25px fluid(25, 15);
+	background: #F2F1F7;
+
+	h5 {
+		font-weight: 400;
+		font-size: fluid(22, 22);
+		color: #E30613;
+	}
+
+	p {
+		font-size: fluid(17, 17);
+		line-height: 1.15;
+
+		@include mobile {
+			line-height: 1.42;
+		}
+	}
+
+	a {
+		font-size: fluid(18, 16);
+		color: #de0008;
+	}
+}

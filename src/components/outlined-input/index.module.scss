@@ -1,0 +1,57 @@
+@import 'src/assets/styles/vars';
+
+.outlinedInput {
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.outlinedWrapper {
+  p {
+    position: absolute;
+    top: 50%;
+    left: 17px;
+    display: inline-block;
+    transform: translateY(-50%);
+    color: #CBCAD0;
+    @include ptsans-bold;
+    font-size: 20px;
+    transition: all .3s;
+  }
+
+  textarea {
+    height: 190px;
+  }
+
+  &._textarea {
+    p {
+      top: 29px;
+    }
+  }
+
+  &._focused {
+    p {
+      top: 0;
+      left: 12px;
+      color: #025DB9;
+      font-size: 16px;
+      padding: 0 5px;
+      background-color: #fff;
+    }
+  }
+
+}
+
+.inputEl {
+  @include ptsans-bold;
+  font-size: 20px;
+  padding: 15px;
+  border: 2px solid #E1E0E8;
+  width: 100%;
+  background-color: #fff;
+  outline: none;
+  border-radius: 10px;
+
+  &:focus {
+    border-color: #025DB9;
+  }
+}

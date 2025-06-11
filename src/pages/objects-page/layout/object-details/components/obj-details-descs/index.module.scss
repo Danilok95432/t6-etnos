@@ -1,0 +1,9 @@
+.descs {
+  p {
+    font-size: 20px;
+    line-height: 1.19;
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}

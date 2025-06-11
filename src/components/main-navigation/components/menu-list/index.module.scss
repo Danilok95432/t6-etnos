@@ -1,0 +1,55 @@
+@use 'src/assets/styles/helpers' as *;
+
+.menuList {
+	max-width: fluid(1300, 1000);
+	text-align: center;
+	display: flex;
+	align-items: center;
+	column-gap: fluid(65, 25);
+	flex-grow: 1;
+
+	@include mobile {
+		@include visually-hidden;
+	}
+}
+
+.menuItem {
+	position: relative;
+
+	a {
+		font-size: fluid(25, 18);
+		color: var(--color-white);
+
+		&::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			position: absolute;
+			rotate: 45deg;
+			background-color: var(--color-white);
+			top: 12px;
+			left: -20px;
+			opacity: 0;
+			transition: all var(--transition-duration) ease;
+
+			@include laptop {
+				top: 11px;
+				left: -18px;
+			}
+
+			@include laptop-s {
+				top: 9px;
+			}
+
+			@include tablet {
+				left: -16px;
+			}
+		}
+
+		@include hover {
+			&::before {
+				opacity: 1;
+			}
+		}
+	}
+}

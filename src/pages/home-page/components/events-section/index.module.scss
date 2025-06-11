@@ -1,0 +1,39 @@
+.eventsSection {
+	padding: 37px 0 40px;
+
+	.eventsSectionRow {
+		margin: 17px 0;
+		align-items: center;
+		justify-content: space-between;
+		gap: 17px;
+	}
+
+	@include mobile {
+		padding: 50px 0 55px;
+	}
+
+	.eventsSliderBtns {
+		@media (max-width: 768px) {
+			width: 70%;
+			top: 45%;
+		}
+		@media (max-width: 440px) {
+			width: 270px;
+			top: 30%;
+		}
+	}
+}
+
+.homeEventCard {
+	@media (max-width: 768px) {
+		margin: 0 auto;
+	}
+	:global {
+		.event-item-img {
+			height: 207px;
+			@media (max-width: 768px) {
+				height: 200px;
+			}
+		}
+	}
+}

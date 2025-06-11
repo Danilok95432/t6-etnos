@@ -1,0 +1,126 @@
+.posterSection {
+	padding: 0px 0 0;
+
+	@include mobile {
+		padding: 0px 0 55px;
+	}
+
+	.posterSliderBtns {
+		@include mobile {
+			top: 43%;
+			width: 93%;
+		}
+	}
+
+	.posterSlider {
+		position: relative;
+		:global {
+			.swiper-pagination-horizontal {
+				
+			}
+      .swiper-pagination-bullet {
+				background: var(--color-white);
+				opacity: 1;
+			}
+			.swiper-pagination-bullet-active {
+				background: var(--color-red);
+			}
+    }
+	}
+
+	.posterInfoContainer {
+		height: fluid(646, 500);
+		width: 100%;
+	}
+}
+
+.slideItem {
+	height: fluid(646, 500);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	.slideItemWrapperImg {
+		@include abs-cover;
+
+		overflow: hidden;
+
+		@include mobile {
+			border-radius: var(--border-radius);
+		}
+	}
+
+	.slideItemImage {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.slideInfo {
+		position: absolute;
+		left: 40px;
+		bottom: 40px;
+		z-index: 10;
+
+		@include mobile {
+			left: 10px;
+			right: 10px;
+		}
+
+		.slideInfoInner {
+			display: flex;
+			flex-direction: column-reverse;
+			align-items: start;
+			row-gap: fluid(20, 15);
+
+			.sliderInfoTitle {
+				color: var(--color-white);
+				font-size: fluid(50, 30);
+				background: var(--color-red);
+				line-height: 1.1;
+				padding: fluid(10, 4) fluid(21, 10);
+				border-radius: var(--border-radius);
+				font-weight: 400;
+
+				@include mobile {
+					line-height: 1.3;
+				}
+			}
+
+			.sliderInfoTitle {
+				color: var(--color-black);
+				font-size: fluid(32, 28);
+				background: var(--color-white);
+				line-height: 1.1;
+				padding: fluid(10, 4) fluid(21, 10);
+				border-radius: var(--border-radius);
+				font-weight: 400;
+
+				@include mobile {
+					line-height: 1.3;
+				}
+			}
+
+			.sliderInfoList {
+				display: flex;
+				column-gap: 15px;
+
+				.sliderInfoItem {
+					display: flex;
+					align-items: center;
+					font-size: fluid(18, 15);
+					padding: 3px 10px;
+					color: var(--color-black);
+					background: var(--color-white);
+					border-radius: var(--border-radius);
+
+					@include mobile {
+						padding-block: 5px;
+						line-height: 1.15;
+					}
+				}
+			}
+
+		}
+	}
+}

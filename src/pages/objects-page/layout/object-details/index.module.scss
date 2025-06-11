@@ -1,0 +1,32 @@
+div.objDetailsPage {
+	margin: 0;
+	padding: 42px 35px 30px 50px;
+	@media (max-width: 768px) {
+		padding: 20px 0 0 0;
+		min-height: auto;
+	}
+	section {
+		padding-bottom: 40px;
+
+		&:not(:first-child) {
+			padding: 20px 0 20px;
+		}
+
+		&:not(:last-child) {
+			border-bottom: 7px solid #f2f5f8;
+		}
+	}
+}
+
+a.pageMainLink {
+	font-size: 20px;
+	display: inline-block;
+	margin-top: 30px;
+	color: #de0008;
+}
+
+.objDetailsStyles {
+	h5 {
+		font-size: 35px;
+	}
+}

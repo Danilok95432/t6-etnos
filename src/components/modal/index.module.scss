@@ -1,0 +1,46 @@
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.modalContent {
+  transform: scale(0.5);
+  transition: 0.4s;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  width: 50vw;
+  max-height: 98vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
+}
+
+.active {
+  pointer-events: all;
+  opacity: 1;
+
+  .modalContent {
+    transform: scale(1);
+  }
+}
+

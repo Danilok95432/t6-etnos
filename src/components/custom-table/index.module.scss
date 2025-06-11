@@ -1,0 +1,56 @@
+.customTable {
+  display: grid;
+  min-width: 100%;
+  width: auto;
+  background: #F2F5F8;
+
+  border: none;
+  border-collapse: collapse;
+  overflow-x: auto;
+
+  thead,
+  tbody,
+  tr {
+    display: contents;
+  }
+
+  td,
+  th {
+    padding-right: 5px;
+  }
+
+  th {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    display: flex;
+    flex-grow: 1;
+    border: 2px solid #fff;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 47px;
+    padding: 0 0;
+  }
+
+  td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #fff;
+    font-size: 14px;
+    padding: 12px 0;
+    line-height: 1.2;
+    a {
+      margin: 0;
+    }
+  }
+
+  a {
+    color: #015DB9;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}

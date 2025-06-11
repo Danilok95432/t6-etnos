@@ -1,0 +1,32 @@
+.videoGallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 27px 25px;
+
+
+  li {
+    max-width: 204px;
+
+
+    a {
+      font-size: 14px;
+      color: #015DB9;
+      margin-top: 10px;
+      display: -webkit-box;
+      line-height: 18px;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      text-overflow: ellipsis;
+      height: 39px;
+    }
+
+    p {
+      color: #9D9D9D;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-top: 3px;
+    }
+  }
+}

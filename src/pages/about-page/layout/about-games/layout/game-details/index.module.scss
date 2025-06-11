@@ -1,0 +1,47 @@
+div.gameDetails {
+	p {
+		font-size: fluid(20, 16);
+		line-height: 1.37;
+	}
+	div.gameDetailsInfo {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 25px;
+		padding-bottom: 20px;
+		border-bottom: 5px solid #f2f5f8;
+		margin-bottom: 20px;
+		@media (max-width: 768px) {
+			flex-direction: column-reverse;
+		}
+		h2 {
+			margin-bottom: 15px;
+		}
+		.gameMain {
+			display: flex;
+			flex-direction: column;
+			@include mobile {
+				flex-direction: column;
+			}
+		
+			p {
+				flex-grow: 1;
+				font-size: fluid(17, 17);
+				line-height: 1.5;
+			}
+		}
+		
+		.gameLogo {
+			min-width: 300px;
+			min-height: 200px;
+			width: 320px;
+			height: 213px;
+			border-radius: 5px;
+			img {
+				width: 100%;
+				height: 100%;
+				aspect-ratio: 3 / 2;
+			}
+		}
+	}
+}
