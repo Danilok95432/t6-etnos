@@ -12,9 +12,7 @@ export enum AppRoute {
 	News = 'news',
 	Videos = 'videos',
 	Events = 'events',
-	EventHistory = 'event-history',
-	EventGallery = 'event-gallery',
-	EventProgram = 'event-program',
-	EventNews = 'event-news',
-	EventVideos = 'event-videos',
+	EventMaps = 'event-maps',
+	EventParticipants = 'event-participants',
+	EventTeams = 'event-teams',
 }

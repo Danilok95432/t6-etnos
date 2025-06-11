@@ -2,21 +2,21 @@ import { type NavigationItem } from 'src/types/navigation'
 
 export const EventInfoNavItems: NavigationItem[] = [
 	{
-		title: 'Информация',
+		title: 'О событии',
 		link: '',
 		exact: true,
 	},
 	{
-		title: 'Новости',
-		link: 'event-news',
+		title: 'Участники',
+		link: 'event-participants',
 	},
 	{
-		title: 'Видеолента',
-		link: 'event-videos',
+		title: 'Ватаги и коллективы',
+		link: 'event-teams',
 	},
 
 	{
-		title: 'Программа',
-		link: 'event-program',
+		title: 'Карты и маршруты',
+		link: 'event-maps',
 	},
 ]

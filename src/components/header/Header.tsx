@@ -4,7 +4,7 @@ import { Container } from 'src/UI/Container/Container'
 import { PersonIconSvg } from 'src/UI/icons/personIconSVG'
 import { NavBanner } from '../main-navigation/components/nav-banner/nav-banner'
 
-import mainLogo from 'src/assets/img/main-logo.svg'
+import mainLogo from 'src/assets/img/logo-etno.svg'
 
 import styles from './index.module.scss'
 

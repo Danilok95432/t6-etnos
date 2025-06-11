@@ -8,6 +8,7 @@ import { EventPoster } from 'src/pages/events-page/layout/events-list-page/compo
 import styles from './index.module.scss'
 import { Container } from 'src/UI/Container/Container'
 import { useGetEventsMonthsQuery } from 'src/store/events/events.api'
+import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 
 export const EventsListPage: FC = () => {
 	const { data: eventsList } = useGetEventsMonthsQuery({
@@ -15,6 +16,7 @@ export const EventsListPage: FC = () => {
 		category: '0',
 	})
 	const [mainEvent, setMainEvent] = useState('')
+	const breakPoint = useBreakPoint()
 	useEffect(() => {
 		if (eventsList && eventsList?.length > 0) {
 			const currentEvent = eventsList?.find((item) => item.status === 'current')
@@ -36,7 +38,7 @@ export const EventsListPage: FC = () => {
 				<title>Cобытия</title>
 			</Helmet>
 			<Container>
-				{mainEvent !== '' && <EventPoster posterEventId={mainEvent} />}
+				{mainEvent !== '' && breakPoint === 'S' && <EventPoster posterEventId={mainEvent} />}
 				<FilteredEventsList />
 			</Container>
 		</PageContent>

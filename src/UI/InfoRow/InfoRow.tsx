@@ -45,7 +45,7 @@ const StyledInfoRow = styled.div<InfoRowStyleProps>`
 	}
 
 	& > p {
-		font-size: 20px;
+		font-size: 17px;
 		max-width: ${({ $labelMaxWidth }) => $labelMaxWidth ?? 'initial'};
 	}
 `

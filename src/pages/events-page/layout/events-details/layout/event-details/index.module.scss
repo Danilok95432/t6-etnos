@@ -1,7 +1,11 @@
 .eventDetailTab {
+	h2 {
+		font-size: 28px;
+		margin-bottom: 20px;
+	}
 	h4 {
-		font-size: 25px;
-		margin-bottom: 17px;
+		font-size: 22px;
+		margin-bottom: 10px;
 	}
 	.ageRating {
 		color: #ed1c24;
@@ -20,6 +24,10 @@
 			}
 		}
 	}
+
+	.partnerSlider {
+		position: relative;
+	}
 	
 	.galleryLengthInfo {
 		font-size: 16px;
@@ -28,6 +36,14 @@
 
 	.mapSection {
 		border-bottom: 5px solid #f2f5f8;
+	}
+
+	.faqSection {
+		border-bottom: 5px solid #f2f5f8;
+	}
+
+	.sliderSection {
+		position: relative;
 	}
 
 	.footerSection {
@@ -52,33 +68,59 @@
 	}
 }
 
+
 .faqList {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 15px;
 }
 
 .eventFaqItem {
+	box-shadow: none;
+
 	button {
-		padding: 16px 45px 16px 18px;
+		font-size: 20px;
+		font-weight: 400;
+		padding: 18px 45px 18px 26px;
+		color: var(--color-black);
+		background: #F2F1F7;
 		transition: all 0.3s;
-		svg path {
-			transition: all 0.3s;
-		}
-		&:hover {
-			color: #ed1c24;
+
+		@include hover {
+			color: var(--color-white);
+			background: var(--color-red);
+
 			svg path {
-				fill: #ed1c24;
+				fill: var(--color-white);
 			}
 		}
-	}
-	:global {
-		._triggerOpen {
-			color: #ed1c24;
+
+		@include mobile {
+			padding-left: 20px;
 		}
+
+		& > svg {
+			width: 21px;
+			height: 14px;
+			top: 23px;
+		}
+	}
+
+	:global {
 		.accordion-content {
-			background: #ebeef2;
-			padding: 10px 65px 10px 15px;
+			background: var(--color-white);
+			font-size: 18px;
+			line-height: 1.2;
+			padding: 15px 20px 20px 25px;
+		}
+
+		._triggerOpen {
+			color: var(--color-white);
+			background: var(--color-red);
+
+			svg path {
+				fill: var(--color-white);
+			}
 		}
 	}
 }

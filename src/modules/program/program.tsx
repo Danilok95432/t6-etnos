@@ -1,8 +1,15 @@
 import { type FC, useState } from 'react'
 import { type ProgramDay } from 'src/types/program'
+import cn from 'classnames'
 
 import { ProgramNav } from 'src/modules/program/components/program-nav/program-nav'
 import { ProgramList } from 'src/modules/program/components/program-list/program-list'
+import { FlexRow } from 'src/components/flex-row/flex-row'
+
+import styles from './index.module.scss'
+import { ListPropgramSVG } from 'src/UI/icons/listProgramSVG'
+import { TabProgramSVG } from 'src/UI/icons/tabProgramSVG'
+import { SwitcherView } from 'src/components/switcherView/switcherView'
 
 type EventProgramProps = {
 	programDays: ProgramDay[] | []
@@ -10,6 +17,7 @@ type EventProgramProps = {
 
 export const Program: FC<EventProgramProps> = ({ programDays }) => {
 	const [activeDayId, setActiveDayId] = useState(0)
+	const [view, setView] = useState<string>('list')
 
 	const navDays = programDays.map((day) => ({ id: day.id, date: day.date }))
 
@@ -25,12 +33,15 @@ export const Program: FC<EventProgramProps> = ({ programDays }) => {
 
 	return (
 		<div>
-			<ProgramNav
-				days={navDays}
-				activeDayId={activeDayId}
-				onChangeActiveDay={handleChangeActiveDay}
-			/>
-			<ProgramList list={getActiveProgram()} />
+			<FlexRow className={styles.headProgram}>
+				<ProgramNav
+					days={navDays}
+					activeDayId={activeDayId}
+					onChangeActiveDay={handleChangeActiveDay}
+				/>
+				<SwitcherView view={view} switchView={setView} />
+			</FlexRow>
+			<ProgramList list={getActiveProgram()} viewMode={view} />
 		</div>
 	)
 }

@@ -34,6 +34,25 @@ export const mainFormatMonthDate = (
 	return `${monthName}`
 }
 
+export const formatDateToRussian = (dateString: Date): string => {
+  const date = new Date(dateString)
+  
+  if (isNaN(date.getTime())) {
+    throw new Error('Неверный формат даты')
+  }
+
+  const day = date.getDate()
+  const month = date.getMonth()
+  const year = date.getFullYear()
+
+  const months = [
+    'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+    'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+  ]
+
+  return `${day} ${months[month]} ${year} года`
+}
+
 // утилитарная функция для кастомного селекта
 export const getValue = (value: string, options: SelOption[]) => {
 	return value ? options.find((option) => option.value === value) : ''
@@ -155,6 +174,31 @@ export const parseTimeFromDate = (date: Date | string | undefined): string | nul
 				':' +
 				date.toDateString().split('T')[1].split(':')[1]
 	return time
+}
+
+export const formatSingleDate = (dateString: Date): string => {
+	const date = new Date(dateString)
+	
+	if (isNaN(date.getTime())) {
+		throw new Error(`Неверный формат даты: ${dateString}`)
+	}
+
+	const day = date.getDate().toString().padStart(2, '0')
+	const month = (date.getMonth() + 1).toString().padStart(2, '0')
+	const year = date.getFullYear()
+
+	return `${day}.${month}.${year}`
+}
+
+export const formatDateRangeNumeric = (dates: [Date, Date]): string  => {
+	if (!Array.isArray(dates) || dates.length !== 2) {
+    throw new Error('Функция принимает массив ровно из двух дат')
+  }
+
+  const startDate = formatSingleDate(dates[0])
+  const endDate = formatSingleDate(dates[1])
+
+  return `${startDate} — ${endDate}`
 }
 
 export const formatDateRange = (

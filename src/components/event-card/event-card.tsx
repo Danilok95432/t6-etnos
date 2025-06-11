@@ -49,6 +49,9 @@ export const EventCard: FC<EventItemProps> = ({
 							{address}
 						</span>
 					</p>
+					<p className={styles.eventCicle}>
+						Цикл Атмановские кулачки
+					</p>
 					{description && <p className={styles.eventDesc}>{description}</p>}
 				</figcaption>
 			</figure>

@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
 import { useGetEventByIdQuery } from 'src/store/events/events.api'
-import { formatDateRange, mainFormatDate, parseTimeFromDate } from 'src/helpers/utils'
+import { formatDateRange, formatDateRangeNumeric, formatSingleDate, mainFormatDate, parseTimeFromDate } from 'src/helpers/utils'
 import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 import { useAdditionalCrumbs } from 'src/hooks/additional-crumbs/additional-crumbs'
 
@@ -22,6 +22,7 @@ import styles from './index.module.scss'
 import { useEffect, useState } from 'react'
 import { type ImageItemWithText } from 'src/types/photos'
 import { GalleryImg } from 'src/components/image-gallery/image-gallery'
+import { MainButton } from 'src/UI/MainButton/MainButton'
 
 export const EventInfo = () => {
 	const { id = '' } = useParams()
@@ -52,7 +53,7 @@ export const EventInfo = () => {
 					<FlexRow className={styles.topLineEvent}>
 						<CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
 							{eventData?.date && eventData.date.length > 1
-								? formatDateRange(eventData?.date as [Date, Date])
+								? formatDateRangeNumeric(eventData?.date as [Date, Date])
 								: mainFormatDate(eventData?.date[0])}
 						</CustomText>
 						<div className={styles.dot}></div>
@@ -62,6 +63,10 @@ export const EventInfo = () => {
 						<div className={styles.dot}></div>
 						<EventStatus className={styles.status} statusCode={eventData?.status} />
 						<div className={cn(styles.dot, styles._red)}></div>
+						<CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
+							{'Цикл Атмановские кулачки'}
+						</CustomText>
+						<div className={cn(styles.dot, styles._red)}></div>
 						<CustomText
 							className={styles.ageRating}
 							$fontSize={breakPoint === 'S' ? '18px' : '16px'}
@@ -69,20 +74,32 @@ export const EventInfo = () => {
 						>
 							{eventData?.ageRating}+
 						</CustomText>
+						<div className={styles.dot}></div>
+						<CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
+							{`Начало: ${formatSingleDate(eventData?.date[0] ?? new Date())}, в ${parseTimeFromDate(eventData?.date[0])}`}
+						</CustomText>
+					</FlexRow>
+					<FlexRow className={styles.linkRules}>
+						<a href='#'>Правила вида</a>
+						<a href='#'>Регламент проведения</a>
+						<a href='#'>Требования к участникам</a>
+					</FlexRow>
+					<FlexRow className={styles.regButtons}>
+						<MainButton as='route' to={AppRoute.Events}>
+							Регистрация участников
+						</MainButton>
+						<MainButton as='route' to={AppRoute.Events}>
+							Регистрация гостей
+						</MainButton>
 					</FlexRow>
 					<CustomText $lineHeight='1.3' $margin='0 0 10px 0' className={styles.infoBlockText}>
 						{eventData?.description}
-					</CustomText>
-					<CustomText $lineHeight='1.3' $margin='0 0 15px 0' className={styles.infoBlockText}>
-						{eventData?.date[0]
-							? `Начало в ${parseTimeFromDate(eventData?.date[0])}`
-							: 'Нет информации о времени начала'}
 					</CustomText>
 					<div className={styles.listInfo}>
 						<div className={styles.locationInfo}>
 							{eventData?.location?.address && (
 								<InfoRow
-									title='Место проведения:'
+									title=''
 									label={
 										<span className={styles.infoBlockText}>{eventData?.location?.address}</span>
 									}
@@ -96,7 +113,7 @@ export const EventInfo = () => {
 
 							{eventData?.object?.title && (
 								<InfoRow
-									title='Объект:'
+									title=''
 									label={
 										<Link
 											to={`/${AppRoute.Objects}/${eventData?.object.id}`}
@@ -116,7 +133,7 @@ export const EventInfo = () => {
 
 							{eventData?.website && (
 								<InfoRow
-									title='Сайт события:'
+									title=''
 									label={
 										<a href={eventData?.website} className={styles.infoBlockText}>
 											{eventData?.website}
@@ -134,7 +151,7 @@ export const EventInfo = () => {
 						<div className={styles.contactsInfo}>
 							{eventData?.contact_telphone && (
 								<InfoRow
-									title='Телефон:'
+									title=''
 									label={
 										<a href={`tel:${eventData?.contact_telphone}`} className={styles.infoBlockText}>
 											{eventData?.contact_telphone}
@@ -151,7 +168,7 @@ export const EventInfo = () => {
 
 							{eventData?.contact_tg && (
 								<InfoRow
-									title='Телеграм:'
+									title=''
 									label={
 										<a href={eventData?.contact_tg} className={styles.infoBlockText}>
 											{eventData?.contact_tg}
@@ -168,7 +185,7 @@ export const EventInfo = () => {
 
 							{eventData?.contact_email && (
 								<InfoRow
-									title='Электронная почта:'
+									title=''
 									label={
 										<a href={`mailto:${eventData?.contact_email}`} className={styles.infoBlockText}>
 											{eventData?.contact_email}

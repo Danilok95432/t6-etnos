@@ -25,10 +25,9 @@ import { VideoDetails } from 'src/pages/videos-page/layout/video-details/video-d
 import { EventsLayout } from 'src/pages/events-page/events-layout'
 import { EventsListPage } from 'src/pages/events-page/layout/events-list-page/events-list-page'
 import { EventDetailsLayout } from 'src/pages/events-page/layout/events-details/layout/event-details-layout'
-import { EventGallery } from 'src/pages/events-page/layout/events-details/layout/event-gallery/event-gallery'
-import { EventProgram } from 'src/pages/events-page/layout/events-details/layout/event-program/layout/event-program'
-import { EventNews } from 'src/pages/events-page/layout/events-details/layout/event-news/event-news'
-import { EventVideos } from 'src/pages/events-page/layout/events-details/layout/event-videos/event-videos'
+import { EventParticipants } from 'src/pages/events-page/layout/events-details/layout/event-participants/event-participants'
+import { EventMaps } from 'src/pages/events-page/layout/events-details/layout/event-maps/layout/event-maps'
+import { EventTeams } from 'src/pages/events-page/layout/events-details/layout/event-teams/event-teams'
 
 import { AboutCultureLayout } from 'src/pages/about-page/layout/about-culture/about-culture-layout'
 import { CultureGeneral } from 'src/pages/about-page/layout/about-culture/layout/culture-general/culture-general'
@@ -82,10 +81,9 @@ export const MainRoutes = () => {
 					<Route index element={<EventsListPage />} />
 					<Route path=':id' element={<EventDetailsLayout />}>
 						<Route index element={<EventDetails />} />
-						<Route path={AppRoute.EventNews} element={<EventNews />} />
-						<Route path={AppRoute.EventProgram} element={<EventProgram />} />
-						<Route path={AppRoute.EventGallery} element={<EventGallery />} />
-						<Route path={AppRoute.EventVideos} element={<EventVideos />} />
+						<Route path={AppRoute.EventParticipants} element={<EventParticipants />} />
+						<Route path={AppRoute.EventMaps} element={<EventMaps />} />
+						<Route path={AppRoute.EventTeams} element={<EventTeams />} />
 					</Route>
 				</Route>
 			</Route>
