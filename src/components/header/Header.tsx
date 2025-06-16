@@ -7,8 +7,14 @@ import { NavBanner } from '../main-navigation/components/nav-banner/nav-banner'
 import mainLogo from 'src/assets/img/logo-etno.svg'
 
 import styles from './index.module.scss'
+import { useActions } from 'src/hooks/actions/actions'
+import { AuthModal } from 'src/modals/auth-modal/auth-modal'
 
 export const Header = () => {
+	const { openModal } = useActions()
+	const openAuthModal = () => {
+		openModal(<AuthModal />)
+	}
 	return (
 		<header className={styles.mainNav}>
 			<div className={styles.topMainNavWrapper}>
@@ -22,9 +28,9 @@ export const Header = () => {
 						<img src={mainLogo} alt='logo' width={282} height={100} />
 					</Link>
 					<NavBanner />
-					<Link className={styles.personMenu} to='/' aria-label='Профиль' title='Профиль'>
+					<button className={styles.personMenu} aria-label='Профиль' title='Профиль' onClick={openAuthModal}>
 						<PersonIconSvg />
-					</Link>
+					</button>
 				</Container>
 			</div>
 		</header>

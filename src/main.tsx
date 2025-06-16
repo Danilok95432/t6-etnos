@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { HelmetProvider } from 'react-helmet-async'
 import { ToastContainer } from 'react-toastify'
 import { ScrollToTop } from 'src/components/scroll-to-top/scroll-to-top'
+import { Modal } from './modules/modal/modal'
 
 import 'react-toastify/dist/ReactToastify.min.css'
 import 'swiper/swiper-bundle.css'
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 				<ScrollToTop />
 				<ToastContainer />
 				<App />
+				<Modal />
 			</BrowserRouter>
 		</HelmetProvider>
 	</Provider>,

@@ -13,10 +13,12 @@ import { searchApi } from 'src/store/search/search.api'
 
 import { NameSpace } from 'src/helpers/consts'
 import { gamesApi } from './games/games.api'
+import { modalReducer } from 'src/modules/modal/store/modal.slice'
 
 export const store = configureStore({
 	reducer: {
 		[NameSpace.BreadCrumbs]: breadCrumbsReducer,
+		[NameSpace.Modal]: modalReducer,
 		[objectsApi.reducerPath]: objectsApi.reducer,
 		[newsApi.reducerPath]: newsApi.reducer,
 		[eventsApi.reducerPath]: eventsApi.reducer,
