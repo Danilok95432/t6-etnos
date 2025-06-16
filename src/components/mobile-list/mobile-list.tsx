@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import cn from 'classnames'
 
 import { MainButton } from 'src/UI/MainButton/MainButton'
 import styles from './index.module.scss'
@@ -8,12 +9,14 @@ type MobileListProps<T> = {
 	defaultVisibleCount?: number
 	renderItem: React.ComponentType<T>
 	classListItems: string
+	classNameBtn?: string
 }
 
 export const MobileList = <T extends { id: string }>({
 	items,
 	defaultVisibleCount = 2,
 	renderItem: RenderItem,
+	classNameBtn,
 	classListItems,
 }: MobileListProps<T>) => {
 	const [isExpanded, setIsExpanded] = useState(false)
@@ -30,7 +33,7 @@ export const MobileList = <T extends { id: string }>({
 				{visibleItems?.map((item) => <RenderItem key={item.id} {...item} />)}
 			</div>
 			{items?.length > defaultVisibleCount && (
-				<MainButton $variant='show' className={styles.showMoreBtn} onClick={toggleList}>
+				<MainButton $variant='show' className={cn(styles.showMoreBtn, classNameBtn)} onClick={toggleList}>
 					{isExpanded ? 'Скрыть' : 'Показать ещё'}
 				</MainButton>
 			)}

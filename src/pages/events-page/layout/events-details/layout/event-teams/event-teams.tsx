@@ -7,9 +7,13 @@ import styles from './index.module.scss'
 import { FilterPanel } from './components/filter-panel/filterPanel'
 import { ParticipantCard } from 'src/components/participant-card/participant-card'
 import { TeamCard } from 'src/components/team-card/team-card'
+import { CustomTable } from 'src/components/custom-table/custom-table'
+import { MobileList } from 'src/components/mobile-list/mobile-list'
+import { TeamItem } from 'src/types/teams'
+import { formatSingleDate, parseTimeFromDate } from 'src/helpers/utils'
 
 export const EventTeams: FC = () => {
-  const mockTeams = [
+  const eventDataTeams = [
     {
       id: '1',
       logo: [
@@ -17,52 +21,230 @@ export const EventTeams: FC = () => {
           id: '1',
           author: '',
           title: '',
-          original: '',
+          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
           thumbnail: '',
         },
       ],
-			name: 'Название группы участников 1',
+      name: 'Название группы участников 1',
       region: 'Татарстан, республика (16)',
       participants: [
         {
-          id: '1',
+          id: '3',
           photo: [
             {
-              id: '1',
-              original: '',
+              id: '3',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
               thumbnail: '',
               author: '',
               title: '',
             },
           ],
-          name: 'Даниил «Гусь» Гусев',
+          name: 'Петр Петров',
+          alias: '«Зельда»',
           region: 'Татарстан, республика (16)',
-          age: '30',
+          age: '1',
           group: 'Название группы участников',
           type: ['Спортсмен'],
           registration: '2025-06-01T14:30:00+03:00',
         },
         {
-          id: '2',
+          id: '4',
           photo: [
             {
-              id: '2',
-              original: '',
+              id: '4',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
               thumbnail: '',
               author: '',
               title: '',
             },
           ],
-          name: 'Роман «Зельда» Романов',
+          name: 'Егор Глебов',
+          alias: '«Зельда»',
           region: 'Татарстан, республика (16)',
-          age: '25',
+          age: '21',
           group: 'Название группы участников',
           type: ['Спортсмен'],
           registration: '2025-06-01T14:30:00+03:00',
         },
       ],
-			type: 'Фольклористы',
-			registration: '2025-06-01T14:30:00+03:00',
+      type: 'Фольклористы',
+      registration: '2025-06-01T14:30:00+03:00',
+    },
+    {
+      id: '2',
+      logo: [
+        {
+          id: '1',
+          author: '',
+          title: '',
+          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
+          thumbnail: '',
+        },
+      ],
+      name: 'Название группы участников 1',
+      region: 'Татарстан, республика (16)',
+      participants: [
+        {
+          id: '3',
+          photo: [
+            {
+              id: '3',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
+              thumbnail: '',
+              author: '',
+              title: '',
+            },
+          ],
+          name: 'Петр Петров',
+          alias: '«Зельда»',
+          region: 'Татарстан, республика (16)',
+          age: '1',
+          group: 'Название группы участников',
+          type: ['Спортсмен'],
+          registration: '2025-06-01T14:30:00+03:00',
+        },
+        {
+          id: '4',
+          photo: [
+            {
+              id: '4',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
+              thumbnail: '',
+              author: '',
+              title: '',
+            },
+          ],
+          name: 'Егор Глебов',
+          alias: '«Зельда»',
+          region: 'Татарстан, республика (16)',
+          age: '21',
+          group: 'Название группы участников',
+          type: ['Спортсмен'],
+          registration: '2025-06-01T14:30:00+03:00',
+        },
+      ],
+      type: 'Фольклористы',
+      registration: '2025-06-01T14:30:00+03:00',
+    },
+    {
+      id: '3',
+      logo: [
+        {
+          id: '1',
+          author: '',
+          title: '',
+          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
+          thumbnail: '',
+        },
+      ],
+      name: 'Название группы участников 1',
+      region: 'Татарстан, республика (16)',
+      participants: [
+        {
+          id: '3',
+          photo: [
+            {
+              id: '3',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
+              thumbnail: '',
+              author: '',
+              title: '',
+            },
+          ],
+          name: 'Петр Петров',
+          alias: '«Зельда»',
+          region: 'Татарстан, республика (16)',
+          age: '1',
+          group: 'Название группы участников',
+          type: ['Спортсмен'],
+          registration: '2025-06-01T14:30:00+03:00',
+        },
+        {
+          id: '4',
+          photo: [
+            {
+              id: '4',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
+              thumbnail: '',
+              author: '',
+              title: '',
+            },
+          ],
+          name: 'Егор Глебов',
+          alias: '«Зельда»',
+          region: 'Татарстан, республика (16)',
+          age: '21',
+          group: 'Название группы участников',
+          type: ['Спортсмен'],
+          registration: '2025-06-01T14:30:00+03:00',
+        },
+      ],
+      type: 'Фольклористы',
+      registration: '2025-06-01T14:30:00+03:00',
+    },
+    {
+      id: '4',
+      logo: [
+        {
+          id: '1',
+          author: '',
+          title: '',
+          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
+          thumbnail: '',
+        },
+      ],
+      name: 'Название группы участников 1',
+      region: 'Татарстан, республика (16)',
+      participants: [
+        {
+          id: '3',
+          photo: [
+            {
+              id: '3',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
+              thumbnail: '',
+              author: '',
+              title: '',
+            },
+          ],
+          name: 'Петр Петров',
+          alias: '«Зельда»',
+          region: 'Татарстан, республика (16)',
+          age: '1',
+          group: 'Название группы участников',
+          type: ['Спортсмен'],
+          registration: '2025-06-01T14:30:00+03:00',
+        },
+        {
+          id: '4',
+          photo: [
+            {
+              id: '4',
+              original:
+                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
+              thumbnail: '',
+              author: '',
+              title: '',
+            },
+          ],
+          name: 'Егор Глебов',
+          alias: '«Зельда»',
+          region: 'Татарстан, республика (16)',
+          age: '21',
+          group: 'Название группы участников',
+          type: ['Спортсмен'],
+          registration: '2025-06-01T14:30:00+03:00',
+        },
+      ],
+      type: 'Фольклористы',
+      registration: '2025-06-01T14:30:00+03:00',
     },
   ]
 
@@ -84,23 +266,57 @@ export const EventTeams: FC = () => {
     setView: setView,
   }
 
+  const tableTitles = [
+    'ID',
+    'Лого',
+    'Название группы',
+    'Регион',
+    'Участников',
+    'Тип группы',
+    'Регистрация',
+  ]
+  const formatEventsTableData = (teams: TeamItem[]) => {
+    return eventDataTeams.map((teamEl) => {
+      return {
+        rowId: teamEl.id,
+        cells: [
+          <p key='0' className={styles.idCell}>{teamEl.id}</p>,
+          <img key='1' src={teamEl.logo[0].original} alt='' />,
+          <p key='2'>{teamEl.name}</p>,
+          <p key='3'>{teamEl.region}</p>,
+          <a className={styles.participantsLink} key='4' href='#'>
+            {teamEl.participants.length + ' участников'}
+          </a>,
+          <p key='5'>{teamEl.type}</p>,
+          <p key='6'>{formatSingleDate(teamEl.registration ?? new Date())}<br />{parseTimeFromDate(teamEl.registration)}</p>,
+        ],
+      }
+    })
+  }
+
   return (
     <div className={styles.teamsSection}>
       <h4>Ватаги и коллективы</h4>
       <div className={styles.headTeams}>
         <FilterPanel options={options} />
       </div>
-      <GridRow
-        $template={
-          breakpoint === 'S'
-            ? 'auto / repeat(auto-fit, minmax(300px, 300px))'
-            : 'auto / repeat(auto-fit, minmax(245px, 245px))'
-        }
-        $gap='20px'
-        $margin='0 0 30px 0'
-      >
-        {mockTeams?.map((teamEl) => <TeamCard key={teamEl.id} {...teamEl} />)}
-      </GridRow>
+      <p className={styles.numberOfFilter}>Всего групп по выбранным фильтрам: 15</p>
+      {view === 'list' ? (
+        <CustomTable
+          className={styles.teamsTable}
+          rowData={formatEventsTableData(eventDataTeams)}
+          colTitles={tableTitles}
+          initialVisibleRows={1}
+        />
+      ) : (
+        <MobileList
+          items={eventDataTeams}
+          renderItem={TeamCard}
+          classListItems={styles.teamsTab}
+          defaultVisibleCount={3}
+          classNameBtn={styles.showMoreBtnTab}
+        />
+      )}
     </div>
   )
 }

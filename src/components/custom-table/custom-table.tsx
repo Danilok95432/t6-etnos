@@ -1,43 +1,79 @@
-import React, { type FC, type ReactNode } from 'react'
-
+import React, { type FC, type ReactNode, useState } from 'react'
 import cn from 'classnames'
-
 import styles from './index.module.scss'
+import { MainButton } from 'src/UI/MainButton/MainButton'
 
-export type TableCells = Array<string | ReactNode>
+export type RowData = {
+  rowId: string
+  cells: Array<string | ReactNode>
+}
 
 type CustomTableProps = {
-	colTitles?: ReactNode[]
-	cellsData: TableCells[]
+  colTitles?: ReactNode[]
+  rowData: RowData[]
+  rowClickHandler?: (id: string) => void
+  initialVisibleRows?: number // Новый пропс для ограничения количества отображаемых строк
 }
 
 export const CustomTable: FC<CustomTableProps & React.HTMLAttributes<HTMLTableElement>> = ({
-	colTitles,
-	cellsData,
-	className,
-	...props
+  colTitles,
+  rowData,
+  className,
+  rowClickHandler,
+  initialVisibleRows,
+  ...props
 }) => {
-	return (
-		<table {...props} className={cn(styles.customTable, className)}>
-			{!!colTitles && (
-				<thead>
-					<tr>
-						{colTitles.map((title, idx) => (
-							<th key={idx}>{title}</th>
-						))}
-					</tr>
-				</thead>
-			)}
+  const [showAll, setShowAll] = useState(false)
 
-			<tbody>
-				{cellsData?.map((row, rowIdx) => (
-					<tr key={rowIdx} data-idx={rowIdx + 1}>
-						{row.map((cell, cellIdx) => (
-							<td key={cellIdx}>{cell}</td>
-						))}
-					</tr>
-				))}
-			</tbody>
-		</table>
-	)
+  // Определяем, сколько строк показывать
+  const visibleRows =
+    initialVisibleRows && !showAll ? rowData.slice(0, initialVisibleRows) : rowData
+
+  // Нужно ли показывать кнопку "Показать ещё"
+  const shouldShowMoreButton = initialVisibleRows && rowData.length > initialVisibleRows && !showAll
+
+  const handleShowMore = () => {
+    setShowAll(true)
+  }
+
+  return (
+    <div className={styles.tableContainer}>
+      <table
+        {...props}
+        className={cn(styles.customTable, className, {
+          [styles._short]: rowData?.length < 3,
+        })}
+      >
+        {!!colTitles && (
+          <thead>
+            <tr>
+              {colTitles.map((title, idx) => (
+                <th key={idx}>{title}</th>
+              ))}
+            </tr>
+          </thead>
+        )}
+
+        <tbody>
+          {visibleRows?.map((rowEl, rowIdx) => (
+            <tr
+              key={rowEl.rowId}
+              data-idx={rowIdx + 1}
+              onClick={() => rowClickHandler?.(rowEl.rowId)}
+            >
+              {rowEl.cells.map((cell, cellIdx) => (
+                <td key={cellIdx}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {shouldShowMoreButton && (
+        <MainButton $variant='show' className={styles.showMoreBtn} onClick={handleShowMore}>
+					{showAll ? 'Скрыть' : 'Показать ещё'}
+				</MainButton>
+      )}
+    </div>
+  )
 }

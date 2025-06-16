@@ -10,6 +10,10 @@
 
 .placeMap {
 	height: 620px;
+	padding: 5px;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 0 0 10px 0 rgba(105, 119, 132, 0.25);
 	iframe {
 		border: none;
 		height: 100%;
