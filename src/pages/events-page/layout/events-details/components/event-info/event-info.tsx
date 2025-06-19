@@ -23,10 +23,14 @@ import { useEffect, useState } from 'react'
 import { type ImageItemWithText } from 'src/types/photos'
 import { GalleryImg } from 'src/components/image-gallery/image-gallery'
 import { MainButton } from 'src/UI/MainButton/MainButton'
+import { useActions } from 'src/hooks/actions/actions'
+import { RegEventPartModal } from 'src/modals/reg-part-modal/reg-part-modal'
+import { RegEventGuestModal } from 'src/modals/reg-guest-modal/reg-guest-modal'
 
 export const EventInfo = () => {
 	const { id = '' } = useParams()
 	const { data: eventData } = useGetEventByIdQuery(id ?? '')
+	const { openModal } = useActions()
 
 	const breakPoint = useBreakPoint()
 
@@ -85,10 +89,10 @@ export const EventInfo = () => {
 						<a href='#'>Требования к участникам</a>
 					</FlexRow>
 					<FlexRow className={styles.regButtons}>
-						<MainButton as='route' to={AppRoute.Events}>
+						<MainButton onClick={() => openModal(<RegEventPartModal id={eventData?.id ?? ''} />)}>
 							Регистрация участников
 						</MainButton>
-						<MainButton as='route' to={AppRoute.Events}>
+						<MainButton onClick={() => openModal(<RegEventGuestModal id={eventData?.id ?? ''} />)}>
 							Регистрация гостей
 						</MainButton>
 					</FlexRow>

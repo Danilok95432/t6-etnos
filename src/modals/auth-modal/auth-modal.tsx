@@ -9,11 +9,22 @@ import { LogoModalSVG } from 'src/UI/icons/logoModalSVG'
 import { FormInput } from 'src/UI/FormInput/FormInput'
 import { MainButton } from 'src/UI/MainButton/MainButton'
 import { useEffect, useRef } from 'react'
+import { AuthInputs, authSchema } from './schema'
 
 export const AuthModal = () => {
   const { openModal, closeModal } = useActions()
   const navigate = useNavigate()
   const modalRef = useRef<HTMLDivElement>(null)
+
+  const methods = useForm<AuthInputs>({
+		mode: 'onBlur',
+		resolver: yupResolver(authSchema),
+	})
+
+  const onSubmit: SubmitHandler<AuthInputs> = async (data) => {
+		console.log(data)
+    closeModal()
+	}
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,11 +44,13 @@ export const AuthModal = () => {
         <div className={styles.modalContent}>
           <LogoModalSVG />
           <h2>Вход в кабинет</h2>
-          <form action='' className={styles.authForm}>
-            <FormInput label='Логин (номер телефона)' isPhone={true} />
-            <FormInput label='Пароль' isPassword={true} />
-            <MainButton>Войти</MainButton>
-          </form>
+          <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.authForm}>
+                <FormInput name='phone' label='Логин (номер телефона)' isPhone={true} />
+                <FormInput name='password' label='Пароль' isPassword={true} />
+                <MainButton type='submit'>Войти</MainButton>
+              </form>
+          </FormProvider>
           <p>
             Забыли пароль? <a href='#'>Восстановить</a>
           </p>

@@ -12,14 +12,18 @@ type ButtonComponentProps = {
 	children?: ReactNode
 	svgNode?: ReactNode
 	classname?: string
+	disabled?: boolean
+	type?: string
 	$variant?: 'primary' | 'light' | 'show'
 }
 
 export const MainButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps | LinkProps)> = ({
 	children,
 	className,
+	disabled,
 	as = 'button',
 	$variant = 'primary',
+	type,
 	...props
 }) => {
 	const containerClassName = classNames(
@@ -30,7 +34,7 @@ export const MainButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps | 
 
 	if (as === 'button') {
 		return (
-			<button className={containerClassName} {...(props as ButtonProps)}>
+			<button className={containerClassName} disabled={disabled} {...(props as ButtonProps)}>
 				{children}
 			</button>
 		)

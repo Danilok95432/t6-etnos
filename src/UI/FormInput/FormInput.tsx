@@ -1,20 +1,19 @@
-import React, {
-  useState,
-  useRef,
-  InputHTMLAttributes,
-  FocusEvent,
-  ChangeEvent,
-} from 'react'
+import React, { useState, useRef, InputHTMLAttributes, FocusEvent } from 'react'
 import InputMask from 'react-input-mask'
 import cn from 'classnames'
 import styles from './index.module.scss'
+import { Controller, FieldError, useFormContext } from 'react-hook-form'
+import { MainButton } from '../MainButton/MainButton'
 
 interface CustomProps {
   label: string
   error?: string
   isPassword?: boolean
   isPhone?: boolean
+  isPhoneWithCode?: boolean
   maskChar?: string
+  dynamicError?: FieldError | undefined
+  name: string
 }
 
 type TextInputProps = InputHTMLAttributes<HTMLInputElement> & CustomProps
@@ -24,37 +23,25 @@ export const FormInput: React.FC<TextInputProps> = ({
   error,
   isPassword = false,
   isPhone = false,
+  isPhoneWithCode = false,
   className,
   onFocus,
-  onBlur,
-  onChange,
-  value,
   maskChar = '_',
+  name,
   ...restProps
 }) => {
-  const [isFocused, setIsFocused] = useState(false)
-  const [hasValue, setHasValue] = useState(!!value)
-  const [showPassword, setShowPassword] = useState(false)
+  const { register, control, watch } = useFormContext()
   const inputRef = useRef<HTMLInputElement>(null)
+  const [isFocused, setIsFocused] = useState(false)
+  const [isSended, setIsSended] = useState(false)
+  const fieldValue = watch(name)
+  const shouldRaiseLabel = isFocused || fieldValue?.length > 0
 
-  const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
-    setIsFocused(true)
-    onFocus?.(e)
-  }
-
-  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
-    setIsFocused(false)
-    setHasValue(!!e.target.value)
-    onBlur?.(e)
-  }
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setHasValue(!!e.target.value)
-    onChange?.(e)
-  }
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev)
+  const handleFocus = () => setIsFocused(true)
+  const handleBlur = () => setIsFocused(false)
+  const handleSendCode = () => {
+    console.log('sended')
+    setIsSended(true)
   }
 
   return (
@@ -65,57 +52,59 @@ export const FormInput: React.FC<TextInputProps> = ({
           [styles.error]: !!error,
         })}
       >
-        {isPhone ? (
-          <InputMask
-            mask="+7 (999) 999-99-99"
-            maskChar={maskChar}
-            alwaysShowMask={false}
-            value={value as string}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          >
-            <input
-              ref={inputRef}
-              className={styles.input}
-              type="tel"
-              {...restProps}
-            />
-          </InputMask>
+        {isPhone || isPhoneWithCode ? (
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <>
+                <InputMask
+                  mask='+7 (999) 999-99-99'
+                  inputRef={(e) => {
+                    field.ref(e)
+                    ;(inputRef as React.MutableRefObject<HTMLInputElement | null>).current = e
+                  }}
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  onFocus={(e) => {
+                    handleFocus()
+                  }}
+                >
+                  <input className={styles.input} type='tel' ref={field.ref} {...restProps} />
+                </InputMask>
+                {isPhoneWithCode && (
+                  <MainButton
+                    className={styles.sendCodeBtn}
+                    onClick={handleSendCode}
+                    disabled={!fieldValue || fieldValue.includes('_') || isSended}
+                  >
+                    Отправить код
+                  </MainButton>
+                )}
+              </>
+            )}
+          />
         ) : (
           <input
-            ref={inputRef}
+            {...register(name)}
             className={styles.input}
+            ref={(e) => {
+              register(name).ref(e)
+              ;(inputRef as React.MutableRefObject<HTMLInputElement | null>).current = e
+            }}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            onChange={handleChange}
-            type={isPassword && !showPassword ? 'password' : 'text'}
-            value={value}
-            {...restProps}
           />
         )}
-
         <label
           className={cn(styles.label, {
-            [styles.raised]: isFocused || hasValue,
+            [styles.raised]: shouldRaiseLabel,
           })}
-          onClick={() => inputRef.current?.focus()}
         >
           {label}
         </label>
-
-        {isPassword && (
-          <button
-            type="button"
-            className={cn({
-              [styles.toggleButtonHide]: !showPassword,
-              [styles.toogleButtonShow]: showPassword,
-            })}
-            onClick={togglePasswordVisibility}
-          ></button>
-        )}
       </div>
-      {error && <span className={styles.errorMessage}>{error}</span>}
     </div>
   )
 }
