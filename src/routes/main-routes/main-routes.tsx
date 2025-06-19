@@ -39,6 +39,15 @@ import { AboutGamesLayout } from 'src/pages/about-page/layout/about-games/about-
 import { GamesGeneral } from 'src/pages/about-page/layout/about-games/layout/games-general/games-general'
 import { GameDetails } from 'src/pages/about-page/layout/about-games/layout/game-details/game-details'
 import { AboutNature } from 'src/pages/about-page/layout/about-nature/about-nature'
+import { ParticipantLayout } from 'src/pages/participant-page/participant-layout'
+import { ParticipantDetailsLayout } from 'src/pages/participant-page/layout/participant-details/layout/participant-details-layout'
+import { ParticipantDetails } from 'src/pages/participant-page/layout/participant-details/layout/participant-details/participant-details'
+import { ParticipantEvents } from 'src/pages/participant-page/layout/participant-details/layout/participant-events/participant-events'
+import { ParticipantGroups } from 'src/pages/participant-page/layout/participant-details/layout/participant-groups/participant-groups'
+import { ParticipantEtnosport } from 'src/pages/participant-page/layout/participant-details/layout/participant-etnosport/participant-etnosport'
+import { ParticipantEnjoy } from 'src/pages/participant-page/layout/participant-details/layout/participant-enjoy/participant-enjoy'
+import { ParticipantGallery } from 'src/pages/participant-page/layout/participant-details/layout/participant-gallery/participant-gallery'
+import { ParticipantArticles } from 'src/pages/participant-page/layout/participant-details/layout/participant-articles/participant-articles'
 
 export const MainRoutes = () => {
 	return (
@@ -84,6 +93,18 @@ export const MainRoutes = () => {
 						<Route path={AppRoute.EventParticipants} element={<EventParticipants />} />
 						<Route path={AppRoute.EventMaps} element={<EventMaps />} />
 						<Route path={AppRoute.EventTeams} element={<EventTeams />} />
+					</Route>
+				</Route>
+
+				<Route path={AppRoute.Participants} element={<ParticipantLayout />}>
+					<Route path=':id' element={<ParticipantDetailsLayout />}>
+						<Route index element={<ParticipantDetails />} />
+						<Route path={AppRoute.ParticipantEvents} element={<ParticipantEvents />} />
+						<Route path={AppRoute.ParticipantGroups} element={<ParticipantGroups />} />
+						<Route path={AppRoute.ParticipantEtnosport} element={<ParticipantEtnosport />} />
+						<Route path={AppRoute.ParticipantEnjoy} element={<ParticipantEnjoy />} />
+						<Route path={AppRoute.ParticipantGallery} element={<ParticipantGallery />} />
+						<Route path={AppRoute.ParticipantArticles} element={<ParticipantArticles />} />
 					</Route>
 				</Route>
 			</Route>

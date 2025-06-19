@@ -6,6 +6,7 @@ import { type VideoItem } from 'src/types/videos'
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { MAIN_PROD_URL, ReducerPath } from 'src/helpers/consts'
+import { ParticipantResponse } from 'src/types/participants'
 
 export const eventsApi = createApi({
 	reducerPath: ReducerPath.Events,
@@ -58,6 +59,14 @@ export const eventsApi = createApi({
 				},
 			}),
 		}),
+		getEventParticipantsById: build.query<ParticipantResponse, string>({
+			query: (eventId) => ({
+				url: `reg_users`,
+				params: {
+					id_event: eventId,
+				},
+			}),
+		}),
 	}),
 })
 
@@ -68,4 +77,5 @@ export const {
 	useGetEventNewsByIdQuery,
 	useGetEventVideosByIdQuery,
 	useGetEventProgramByIdQuery,
+	useGetEventParticipantsByIdQuery,
 } = eventsApi

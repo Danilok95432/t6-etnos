@@ -4,6 +4,7 @@ import cn from 'classnames'
 import styles from './index.module.scss'
 import { Controller, FieldError, useFormContext } from 'react-hook-form'
 import { MainButton } from '../MainButton/MainButton'
+import { useGetRegistrationCodeMutation } from 'src/store/auth/auth.api'
 
 interface CustomProps {
   label: string
@@ -37,10 +38,12 @@ export const FormInput: React.FC<TextInputProps> = ({
   const fieldValue = watch(name)
   const shouldRaiseLabel = isFocused || fieldValue?.length > 0
 
+  const [getCode] = useGetRegistrationCodeMutation()
+
   const handleFocus = () => setIsFocused(true)
   const handleBlur = () => setIsFocused(false)
-  const handleSendCode = () => {
-    console.log('sended')
+  const handleSendCode = async(phone: string) => {
+    const res = await getCode(phone)
     setIsSended(true)
   }
 
@@ -76,7 +79,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 {isPhoneWithCode && (
                   <MainButton
                     className={styles.sendCodeBtn}
-                    onClick={handleSendCode}
+                    onClick={() => handleSendCode(fieldValue)}
                     disabled={!fieldValue || fieldValue.includes('_') || isSended}
                   >
                     Отправить код

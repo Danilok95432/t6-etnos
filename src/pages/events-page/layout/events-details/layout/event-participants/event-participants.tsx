@@ -10,92 +10,15 @@ import { CustomTable } from 'src/components/custom-table/custom-table'
 import { ParticipantItem } from 'src/types/participants'
 import { MobileList } from 'src/components/mobile-list/mobile-list'
 import { formatSingleDate, parseTimeFromDate } from 'src/helpers/utils'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useGetEventParticipantsByIdQuery } from 'src/store/events/events.api'
 
 export const EventParticipants: FC = () => {
-  const eventDataParticipants = [
-    {
-      id: '1',
-      photo: [
-        {
-          id: '1',
-          original:
-            'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-          thumbnail: '',
-          author: '',
-          title: '',
-        },
-      ],
-      name: 'Даниил Гусев',
-      alias: '«Гусь»',
-      region: 'Татарстан, республика (16)',
-      age: '30',
-      group: 'Название группы участников',
-      type: ['Спортсмен'],
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-    {
-      id: '2',
-      photo: [
-        {
-          id: '2',
-          original:
-            'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-          thumbnail: '',
-          author: '',
-          title: '',
-        },
-      ],
-      name: 'Роман Романов',
-      alias: '«Зельда»',
-      region: 'Татарстан, республика (16)',
-      age: '25',
-      group: 'Название группы участников',
-      type: ['Спортсмен'],
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-    {
-      id: '3',
-      photo: [
-        {
-          id: '3',
-          original:
-            'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-          thumbnail: '',
-          author: '',
-          title: '',
-        },
-      ],
-      name: 'Петр Петров',
-      alias: '«Зельда»',
-      region: 'Татарстан, республика (16)',
-      age: '1',
-      group: 'Название группы участников',
-      type: ['Спортсмен'],
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-    {
-      id: '4',
-      photo: [
-        {
-          id: '4',
-          original:
-            'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-          thumbnail: '',
-          author: '',
-          title: '',
-        },
-      ],
-      name: 'Егор Глебов',
-      alias: '«Зельда»',
-      region: 'Татарстан, республика (16)',
-      age: '21',
-      group: 'Название группы участников',
-      type: ['Спортсмен'],
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-  ]
+  const { id } = useParams()
+  const { data: eventDataParticipants } = useGetEventParticipantsByIdQuery(id ?? '')
 
   const breakpoint = useBreakPoint()
+  const navigate = useNavigate()
 
   const [searchName, setSearchName] = useState<string>('')
   const [searchRegion, setSearchRegion] = useState<string>('')
@@ -113,6 +36,10 @@ export const EventParticipants: FC = () => {
     setView: setView,
   }
 
+  const rowClickHandler = (id: string) => {
+		navigate(`/participants/${id}`)
+	}
+
   const tableTitles = [
     'ID',
     'Фото',
@@ -124,24 +51,28 @@ export const EventParticipants: FC = () => {
     'Регистрация',
   ]
   const formatEventsTableData = (participants: ParticipantItem[]) => {
-    return eventDataParticipants.map((participantEl) => {
-      return {
-        rowId: participantEl.id,
-        cells: [
-          <p key='0' className={styles.idCell}>{participantEl.id}</p>,
-          <img key='1' src={participantEl.photo[0].original} alt='' />,
-          <p key='2'>{participantEl.name}</p>,
-          <p key='3'>{participantEl.region}</p>,
-          <p className={styles.ageCell} key='4'>
-            {participantEl.age}
-          </p>,
-          <p key='5'>{participantEl.group}</p>,
-          <p key='6'>{participantEl.type}</p>,
-          <p key='7'>{formatSingleDate(participantEl.registration ?? new Date())}<br />{parseTimeFromDate(participantEl.registration)}</p>,
-        ],
-      }
-    })
-  }
+  return participants?.map((participantEl) => {
+    return {
+      rowId: participantEl.id,
+      cells: [
+        <p key='0' className={styles.idCell}>{participantEl.id}</p>,
+        <img key='1' src={participantEl.photo?.[0]?.original ?? ''} alt='' />,
+        <p key='2'>{`${participantEl.surname} ${participantEl.firstname} ${participantEl.fathname}`}</p>,
+        <p key='3'>{participantEl.region_name}</p>,
+        <p className={styles.ageCell} key='4'>{participantEl.age}</p>,
+        <p key='5'>{participantEl.group_name}</p>,
+        <p key='6'>
+          {participantEl.user_roles?.map(role => role.title).join(', ') || 'Не указано'}
+        </p>,
+        <p key='7'>
+          {formatSingleDate(participantEl.createdate ?? new Date())}
+          <br />
+          {parseTimeFromDate(participantEl.createdate)}
+        </p>,
+      ],
+    }
+  })
+}
 
   return (
     <div className={styles.participantsSection}>
@@ -150,16 +81,16 @@ export const EventParticipants: FC = () => {
         <FilterPanel options={options} />
       </div>
       <p className={styles.numberOfFilter}>Всего участников по выбранным фильтрам: 15</p>
-      {view === 'list' ? (
+      {view === 'list' && eventDataParticipants ? (
         <CustomTable
           className={styles.participantsTable}
-          rowData={formatEventsTableData(eventDataParticipants)}
+          rowData={formatEventsTableData(eventDataParticipants.reg_users ?? [])}
           colTitles={tableTitles}
-          initialVisibleRows={1}
+          rowClickHandler={rowClickHandler}
         />
       ) : (
         <MobileList
-          items={eventDataParticipants}
+          items={eventDataParticipants?.reg_users ?? []}
           renderItem={ParticipantCard}
           classListItems={styles.participantsTab}
           defaultVisibleCount={3}

@@ -1,0 +1,28 @@
+.articlesSection {
+  h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .numberOfFilter {
+    margin: 10px 0 20px 0;
+    font-size: 18px;
+  }
+
+  .articlesList {
+    margin-bottom: 8px;
+    font-size: 18px;
+    .articleElem {
+      list-style: decimal;
+      margin-left: 10px;
+      margin-top: 10px;
+      .additionalInfo {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        span {
+          color: #9D9D9D;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.groupsSection {
+  h4 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .numberOfFilter {
+    margin: 10px 0 20px 0;
+    font-size: 18px;
+  }
+  .groupsTable {
+    grid-template-columns:
+      minmax(42px, 42px)
+      minmax(372px, 372px)
+      minmax(175px, 175px)
+      minmax(340px, 340px)
+      minmax(110px, 110px)
+      minmax(120px, 120px)
+      minmax(146px, 1fr);
+    td {
+      padding: 18px 10px;
+    }
+    .middleCell {
+      margin-left: 20px;
+    }
+    .idCell {
+      width: 100%;
+      margin: 0;
+      text-align: center;
+    }
+  }
+}

@@ -23,6 +23,7 @@
     gap: 20px;
     flex-direction: column;
     .infoBlock {
+      max-width: 210px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

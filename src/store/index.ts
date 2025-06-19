@@ -14,6 +14,7 @@ import { searchApi } from 'src/store/search/search.api'
 import { NameSpace } from 'src/helpers/consts'
 import { gamesApi } from './games/games.api'
 import { modalReducer } from 'src/modules/modal/store/modal.slice'
+import { authApi } from './auth/auth.api'
 
 export const store = configureStore({
 	reducer: {
@@ -28,6 +29,7 @@ export const store = configureStore({
 		[searchApi.reducerPath]: searchApi.reducer,
 		[aboutApi.reducerPath]: aboutApi.reducer,
 		[gamesApi.reducerPath]: gamesApi.reducer,
+		[authApi.reducerPath]: authApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false }).concat(
@@ -40,6 +42,7 @@ export const store = configureStore({
 			searchApi.middleware,
 			aboutApi.middleware,
 			gamesApi.middleware,
+			authApi.middleware,
 		),
 })
 

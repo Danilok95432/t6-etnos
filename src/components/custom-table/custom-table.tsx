@@ -12,7 +12,7 @@ type CustomTableProps = {
   colTitles?: ReactNode[]
   rowData: RowData[]
   rowClickHandler?: (id: string) => void
-  initialVisibleRows?: number // Новый пропс для ограничения количества отображаемых строк
+  initialVisibleRows?: number
 }
 
 export const CustomTable: FC<CustomTableProps & React.HTMLAttributes<HTMLTableElement>> = ({
@@ -25,11 +25,9 @@ export const CustomTable: FC<CustomTableProps & React.HTMLAttributes<HTMLTableEl
 }) => {
   const [showAll, setShowAll] = useState(false)
 
-  // Определяем, сколько строк показывать
   const visibleRows =
     initialVisibleRows && !showAll ? rowData.slice(0, initialVisibleRows) : rowData
 
-  // Нужно ли показывать кнопку "Показать ещё"
   const shouldShowMoreButton = initialVisibleRows && rowData.length > initialVisibleRows && !showAll
 
   const handleShowMore = () => {

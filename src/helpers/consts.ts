@@ -31,4 +31,4 @@ export enum DisplayBreakpoints {
 
 export const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4020/api/v1' // express js сервер
 export const PROD_URL = '/api' // для локальной разработки
-export const MAIN_PROD_URL = 'https://auapi.npotau.ru' // для выкладки на vercel
+export const MAIN_PROD_URL = 'https://etnosportapi.npotau.ru' // для выкладки на vercel

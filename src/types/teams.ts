@@ -6,7 +6,7 @@ export type TeamItem = {
   logo: ImageItemWithText[],
   name: string,
   region: string,
-  participants: ParticipantItem[],
+  participants: string,
   type: string,
   registration: string,
 }

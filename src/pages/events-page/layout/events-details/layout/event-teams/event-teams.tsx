@@ -27,48 +27,7 @@ export const EventTeams: FC = () => {
       ],
       name: 'Название группы участников 1',
       region: 'Татарстан, республика (16)',
-      participants: [
-        {
-          id: '3',
-          photo: [
-            {
-              id: '3',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Петр Петров',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '1',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-        {
-          id: '4',
-          photo: [
-            {
-              id: '4',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Егор Глебов',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '21',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-      ],
+      participants: '3',
       type: 'Фольклористы',
       registration: '2025-06-01T14:30:00+03:00',
     },
@@ -85,48 +44,7 @@ export const EventTeams: FC = () => {
       ],
       name: 'Название группы участников 1',
       region: 'Татарстан, республика (16)',
-      participants: [
-        {
-          id: '3',
-          photo: [
-            {
-              id: '3',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Петр Петров',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '1',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-        {
-          id: '4',
-          photo: [
-            {
-              id: '4',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Егор Глебов',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '21',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-      ],
+      participants: '3',
       type: 'Фольклористы',
       registration: '2025-06-01T14:30:00+03:00',
     },
@@ -143,48 +61,7 @@ export const EventTeams: FC = () => {
       ],
       name: 'Название группы участников 1',
       region: 'Татарстан, республика (16)',
-      participants: [
-        {
-          id: '3',
-          photo: [
-            {
-              id: '3',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Петр Петров',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '1',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-        {
-          id: '4',
-          photo: [
-            {
-              id: '4',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Егор Глебов',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '21',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-      ],
+      participants: '3',
       type: 'Фольклористы',
       registration: '2025-06-01T14:30:00+03:00',
     },
@@ -201,48 +78,7 @@ export const EventTeams: FC = () => {
       ],
       name: 'Название группы участников 1',
       region: 'Татарстан, республика (16)',
-      participants: [
-        {
-          id: '3',
-          photo: [
-            {
-              id: '3',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Петр Петров',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '1',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-        {
-          id: '4',
-          photo: [
-            {
-              id: '4',
-              original:
-                'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=13',
-              thumbnail: '',
-              author: '',
-              title: '',
-            },
-          ],
-          name: 'Егор Глебов',
-          alias: '«Зельда»',
-          region: 'Татарстан, республика (16)',
-          age: '21',
-          group: 'Название группы участников',
-          type: ['Спортсмен'],
-          registration: '2025-06-01T14:30:00+03:00',
-        },
-      ],
+      participants: '3',
       type: 'Фольклористы',
       registration: '2025-06-01T14:30:00+03:00',
     },
@@ -276,7 +112,7 @@ export const EventTeams: FC = () => {
     'Регистрация',
   ]
   const formatEventsTableData = (teams: TeamItem[]) => {
-    return eventDataTeams.map((teamEl) => {
+    return teams.map((teamEl) => {
       return {
         rowId: teamEl.id,
         cells: [
@@ -285,7 +121,7 @@ export const EventTeams: FC = () => {
           <p key='2'>{teamEl.name}</p>,
           <p key='3'>{teamEl.region}</p>,
           <a className={styles.participantsLink} key='4' href='#'>
-            {teamEl.participants.length + ' участников'}
+            {teamEl.participants + ' участников'}
           </a>,
           <p key='5'>{teamEl.type}</p>,
           <p key='6'>{formatSingleDate(teamEl.registration ?? new Date())}<br />{parseTimeFromDate(teamEl.registration)}</p>,
