@@ -1,0 +1,96 @@
+.etnosportEventsPage {
+  display: flex;
+  flex-direction: column;
+  .filteredListWrapper {
+    padding: 15px 0 30px 0;
+    margin-bottom: 30px;
+    border-bottom: 5px solid #F2F5F8;
+    @include tablet {
+      padding: 0 15px;
+      border: 0;
+    }
+
+    @include mobile {
+      padding: 15px 0 30px 0;
+    }
+
+    h4 {
+      margin-bottom: 30px;
+    }
+  }
+
+  .eventsList {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    @media (max-width: 440px) {
+      justify-content: center;
+    }
+  }
+
+  .eventCard {
+    width: fluid(311, 311);
+    height: 485px;
+
+    figure {
+      & div {
+        height: 205px;
+
+        @include mobile {
+          height: 255px;
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      width: 300px;
+    }
+
+    @include mobile {
+      height: auto;
+    }
+
+    figcaption {
+      padding-block: 15px;
+
+      @include mobile {
+        padding-block: 28px;
+      }
+    }
+  }
+
+  .headSubEvents {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    h4 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .subEventsTable {
+    grid-template-columns:
+      minmax(180px, 180px)
+      minmax(270px, 270px)
+      minmax(699px, 699px)
+      minmax(156px, 1fr);
+      td {
+        padding: 19px 10px;
+      }
+      .requestBtn {
+        padding: 4px 6px;
+      }
+  }
+
+  .subEventsTab {
+    display: grid;
+    grid-template: auto / repeat(auto-fit, minmax(245px, 245px));
+    gap: 25px;
+    margin: 0 0 30px 0;
+    padding-top: 10px;
+    @media (max-width: 768px) {
+      grid-template: auto / repeat(auto-fit, minmax(300px, 300px));
+    }
+  }
+}

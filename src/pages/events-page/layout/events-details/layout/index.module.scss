@@ -41,6 +41,12 @@ div.eventDetailsContent {
 	padding-top: 24px;
 	border-top: 7px solid #f2f5f8;
 	margin-bottom: 0px;
+	ul {
+		gap: 30px;
+		@media (max-width: 768px) {
+			gap: 10px;
+		}
+	}
 }
 
 .eventTabContent {

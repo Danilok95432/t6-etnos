@@ -19,7 +19,7 @@ export const AboutLayout: FC = () => {
 
 	const getCurrentLocation = () => {
 		if (
-			location.pathname.startsWith(`/about/about-traditions/`) ||
+			location.pathname.startsWith(`/about/about-etnosport/`) ||
 			location.pathname.startsWith(`/about/about-games/`)
 		) {
 			return true
@@ -35,7 +35,7 @@ export const AboutLayout: FC = () => {
 					crumbsLinksMap={[
 						...AboutMenuItems,
 						{
-							title: 'Атманов угол',
+							title: 'Об этноспорте',
 							link: 'about',
 						},
 					]}
@@ -50,7 +50,7 @@ export const AboutLayout: FC = () => {
 								className={styles.aboutSideMenu}
 								sideItems={[
 									{
-										title: 'Атманов угол',
+										title: 'Об этноспорте',
 										link: '/about',
 									},
 									...AboutMenuItems,
@@ -66,7 +66,7 @@ export const AboutLayout: FC = () => {
 								position='bottom'
 								sideItems={[
 									{
-										title: 'Атманов угол',
+										title: 'Об этноспорте',
 										link: '/about',
 									},
 									...AboutMenuItems,
@@ -81,7 +81,7 @@ export const AboutLayout: FC = () => {
 					crumbsLinksMap={[
 						...AboutMenuItems,
 						{
-							title: 'Атманов угол',
+							title: 'Об этноспорте',
 							link: 'about',
 						},
 					]}

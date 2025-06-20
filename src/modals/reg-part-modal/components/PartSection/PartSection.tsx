@@ -76,9 +76,13 @@ export const PartSection = () => {
         </div>
         <div className={styles.footerBox}>
           <FlexRow className={styles.groupInputsStart}>
-            <FormInput name='count_ts' label='Кол-во' className={styles.shortInput} />
             <div className={styles.carsList}>
-              <CarsFields />
+              <ControlledSelect
+                className={styles.selectForm}
+                name={`type`}
+                selectOptions={[{ label: 'Машина', value: '0' }]}
+              />
+              <FormInput name={`number`} label='Госномер' />
             </div>
           </FlexRow>
         </div>

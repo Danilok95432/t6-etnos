@@ -15,7 +15,7 @@ export const InfoSection = () => {
         <FormInput name='part' label='Отчество' />
         <ControlledDateInput name='date' dateFormat='dd.MM.YYYY' placeholder='Дата рождения' className={styles.adminDateInput} />
       </FlexRow>
-      <FormInput name='email' label='Электронная почта (рекомендуется)' />
+      <FormInput name='email' label='Электронная почта' />
       <FlexRow className={styles.groupInputsStart}>
         <div className={styles.inputwithLabel}>
           <FormInput name='phone' label='Номер телефона' isPhoneWithCode={true} className={styles.noMargin} />

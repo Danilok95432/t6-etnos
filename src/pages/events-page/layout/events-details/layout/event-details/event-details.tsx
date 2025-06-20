@@ -166,7 +166,7 @@ export const EventDetails: FC = () => {
             <SliderBtns
               className={styles.partnersSliderBtns}
               $topPosition='82%'
-              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '90%'}
+              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '100%'}
               swiperRef={swiperRef}
               color='#5C5C5C'
             />
@@ -201,7 +201,7 @@ export const EventDetails: FC = () => {
             <SliderBtns
               className={styles.partnersSliderBtns}
               $topPosition='82%'
-              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '90%'}
+              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '100%'}
               swiperRef={swiperRef}
               color='#5C5C5C'
             />
@@ -313,7 +313,7 @@ export const EventDetails: FC = () => {
             <SliderBtns
               className={styles.partnersSliderBtns}
               $topPosition='82%'
-              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '90%'}
+              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '100%'}
               swiperRef={swiperRef}
               color='#5C5C5C'
             />

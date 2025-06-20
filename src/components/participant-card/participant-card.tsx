@@ -29,7 +29,7 @@ export const ParticipantCard: FC<ParticipantCardProps> = ({
     <Link className={styles.participantItem} to={`/${AppRoute.Participants}/${id}`} aria-label={id} title={id}>
       <figure>
         <figcaption className={styles.participantItemContent}>
-          <FlexRow>
+          <FlexRow className={styles.headCard}>
             <div className={styles.participantImgWrapper}>
               {
                 photo ? <img src={photo[0]?.original} width={286} height={160} loading='lazy' /> : <img src="#" alt="" />

@@ -1,3 +1,4 @@
+import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
 import styles from '../../index.module.scss'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { FormInput } from 'src/UI/FormInput/FormInput'
@@ -12,9 +13,9 @@ export const InfoSection = () => {
       </FlexRow>
       <FlexRow className={styles.groupInputs}>
         <FormInput name='part' label='Отчество' className={styles.inputWrapperContainer} />
-        <FormInput name='age' label='Возраст' className={styles.shortInput} />
+        <ControlledDateInput name='date' dateFormat='dd.MM.YYYY' placeholder='Дата рождения' className={styles.adminDateInput} />
       </FlexRow>
-      <FormInput name='email' label='Электронная почта (рекомендуется)' />
+      <FormInput name='email' label='Электронная почта' />
       <FlexRow className={styles.groupInputsStart}>
         <div className={styles.inputwithLabel}>
           <FormInput name='phone' label='Номер телефона' isPhoneWithCode={true} className={styles.noMargin} />

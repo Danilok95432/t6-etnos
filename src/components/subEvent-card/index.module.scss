@@ -1,0 +1,100 @@
+.listTabCard {
+  display: block;
+  border-radius: var(--border-radius);
+  width: 245px;
+  overflow: hidden;
+  box-shadow: 0 0 15px 0 rgb(0 0 0 / 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    width: 300px;
+  }
+
+  @include hover {
+    scale: 1.03;
+  }
+
+  .imgWrapper {
+    width: 245px;
+    height: 163px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
+    @media (max-width: 768px) {
+      width: 300px;
+      height: 200px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      border-radius: var(--border-radius);
+    }
+  }
+  figcaption {
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    font-size: 15px;
+    .eventTitle {
+      color: #ed1c24;
+      height: 40px;
+      max-height: 40px;
+      font-size: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+    .eventDate {
+      padding-left: 28px;
+      padding-top: 15px;
+      font-size: 15px;
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 14px;
+        height: 14px;
+        margin-top: 17px;
+        background-image: url("data:image/svg+xml,%3Csvg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.2614 2.39003V1.91266C12.2614 1.81586 12.2423 1.72 12.2052 1.63058C12.1682 1.54115 12.1139 1.4599 12.0454 1.39147C11.9769 1.32304 11.8957 1.26877 11.8062 1.23176C11.7168 1.19475 11.6209 1.17573 11.5241 1.17578C11.4273 1.17573 11.3314 1.19475 11.242 1.23176C11.1526 1.26877 11.0713 1.32304 11.0028 1.39147C10.9343 1.4599 10.88 1.54115 10.843 1.63058C10.8059 1.72 10.7868 1.81586 10.7868 1.91266V2.13525H10.726H9.23811V1.91266C9.23811 1.71723 9.16047 1.5298 9.02228 1.39161C8.88409 1.25342 8.69667 1.17578 8.50124 1.17578C8.40443 1.17573 8.30857 1.19475 8.21912 1.23176C8.12968 1.26877 8.0484 1.32304 7.97993 1.39147C7.91146 1.4599 7.85715 1.54115 7.8201 1.63058C7.78304 1.72 7.76397 1.81586 7.76397 1.91266V2.13525H6.27609H6.21524V1.91187C6.21503 1.71658 6.1373 1.52935 5.99913 1.39133C5.86096 1.25331 5.67366 1.17578 5.47836 1.17578C5.28293 1.17578 5.0955 1.25342 4.95731 1.39161C4.81912 1.5298 4.74149 1.71723 4.74149 1.91266V2.39003C3.98521 2.65003 3.3069 3.09694 2.76957 3.68925C2.23223 4.28156 1.8533 5.00006 1.66797 5.77801C3.15488 5.62536 4.64867 5.54949 6.14339 5.5507H10.8591C12.3538 5.54949 13.8476 5.62536 15.3345 5.77801C15.1493 5.00007 14.7704 4.28157 14.2332 3.68925C13.6959 3.09694 13.0176 2.65002 12.2614 2.39003Z' fill='%23D5D5D5'/%3E%3Cpath d='M10.8585 6.71291H6.14285C4.60574 6.71161 3.06964 6.79181 1.54102 6.95317L1.60461 11.5044C1.62184 12.7488 2.12829 13.9364 3.01438 14.8103C3.90048 15.6842 5.09499 16.1741 6.33953 16.1741H10.6603C11.905 16.1745 13.0999 15.6848 13.9863 14.811C14.8727 13.9371 15.3794 12.7494 15.3968 11.5047L15.4604 6.95356C13.9318 6.79206 12.3957 6.71173 10.8585 6.71291Z' fill='%23D5D5D5'/%3E%3C/svg%3E%0A");
+      }
+
+      @include mobile {
+        text-align: left;
+        width: 100%;
+      }
+    }
+
+    .eventPlace {
+      font-size: 15px;
+      padding-left: 28px;
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 14px;
+        height: 14px;
+        margin-top: 2px;
+        background-image: url("data:image/svg+xml,%3Csvg width='17' height='19' viewBox='0 0 17 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5769 9.34401L7.9866 9.82947L8.49054 15.9644C8.54108 16.5822 9.41756 16.7297 9.68517 16.1654L15.9457 2.94857C16.169 2.4774 15.6631 1.99239 15.1707 2.20631L1.36801 8.20019C0.778875 8.45606 0.931934 9.29514 1.5769 9.34401Z' fill='%23D5D5D5'/%3E%3C/svg%3E%0A");
+      }
+      @include mobile {
+        width: 100%;
+      }
+    }
+
+    .requestBtn {
+      margin-top: 15px;
+    }
+  }
+}

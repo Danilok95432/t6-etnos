@@ -1,0 +1,143 @@
+.etnoInfoWrapper {
+  padding-bottom: 30px;
+	margin-bottom: 30px;
+  border-bottom: 5px solid #F2F5F8;
+  @media (max-width: 768px) {
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+  }
+	h2 {
+		margin-bottom: 15px;
+	}
+	.topLineEtno {
+		gap: 9px;
+		align-items: center;
+		margin-bottom: 15px;
+		max-width: 500px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: start;
+      gap: 5px;
+    }
+    .etnoType, .etnoTeams, .etnoParticipants {
+      position: relative;
+      padding-left: 20px;
+    }
+    .etnoType::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 0;
+      left: 0;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("data:image/svg+xml,%3Csvg width='17' height='16' viewBox='0 0 17 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.50046 6.71205C10.1289 6.71205 11.449 5.32143 11.449 3.60602C11.449 1.89061 10.1289 0.5 8.50046 0.5C6.87202 0.5 5.55191 1.89061 5.55191 3.60602C5.55191 5.32143 6.87202 6.71205 8.50046 6.71205Z' fill='%23D5D5D5'/%3E%3Cpath d='M10.265 8.51145C12.3267 8.51145 14 10.2746 14 12.4459V13.2316C14 14.4837 13.0353 15.5 11.8466 15.5H5.15337C3.96473 15.5 3 14.4837 3 13.2316V12.4459C3 10.2741 4.67376 8.51145 6.73499 8.51145H10.265Z' fill='%23D5D5D5'/%3E%3C/svg%3E%0A");
+    }
+    .etnoTeams::before, .etnoParticipants::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 0;
+      left: 0;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.4935 4.63433L10.4812 1.53819C10.3155 1.36777 10.1177 1.23238 9.8993 1.13996C9.68091 1.04754 9.44638 0.999954 9.20946 1H3.96787C3.44618 1.00023 2.94591 1.20883 2.57694 1.57998C2.20797 1.95114 2.00046 2.45449 2 2.9795V13.0188C2 13.2789 2.05092 13.5366 2.14986 13.7769C2.2488 14.0173 2.39382 14.2357 2.57663 14.4197C2.75944 14.6037 2.97648 14.7496 3.21534 14.8492C3.4542 14.9488 3.7102 15 3.96874 15H12.0313C12.5534 15 13.0542 14.7913 13.4234 14.4197C13.7926 14.0482 14 13.5442 14 13.0188V5.88661C14.0002 5.41862 13.8184 4.96914 13.4935 4.63433ZM4.76385 5.05438C4.76385 4.90224 4.82391 4.75634 4.9308 4.64876C5.0377 4.54118 5.18269 4.48075 5.33387 4.48075H8.47869C8.62987 4.48075 8.77486 4.54118 8.88175 4.64876C8.98865 4.75634 9.04871 4.90224 9.04871 5.05438C9.04871 5.20652 8.98865 5.35243 8.88175 5.46C8.77486 5.56758 8.62987 5.62802 8.47869 5.62802H5.33387C5.18269 5.62802 5.0377 5.56758 4.9308 5.46C4.82391 5.35243 4.76385 5.20652 4.76385 5.05438ZM10.6622 8.51631H5.33387C5.25901 8.51631 5.18489 8.50148 5.11573 8.47265C5.04657 8.44382 4.98373 8.40157 4.9308 8.3483C4.87787 8.29503 4.83589 8.2318 4.80724 8.1622C4.7786 8.0926 4.76385 8.01801 4.76385 7.94268C4.76379 7.86731 4.7785 7.79267 4.80712 7.72302C4.83574 7.65338 4.87772 7.59009 4.93066 7.53678C4.98359 7.48346 5.04645 7.44117 5.11563 7.41231C5.18482 7.38346 5.25898 7.36861 5.33387 7.36861H10.6622C10.8133 7.36838 10.9583 7.42853 11.0654 7.53585C11.1724 7.64317 11.2328 7.78887 11.2331 7.94093C11.2331 8.01633 11.2183 8.091 11.1896 8.16065C11.1609 8.23031 11.1189 8.29358 11.0658 8.34686C11.0128 8.40014 10.9499 8.44237 10.8806 8.47115C10.8114 8.49993 10.7372 8.51468 10.6622 8.51456V8.51631ZM10.6622 11.4917H5.33387C5.25901 11.4917 5.18489 11.4768 5.11573 11.448C5.04657 11.4192 4.98373 11.3769 4.9308 11.3237C4.87787 11.2704 4.83589 11.2072 4.80724 11.1376C4.7786 11.068 4.76385 10.9934 4.76385 10.9181C4.76385 10.8427 4.7786 10.7681 4.80724 10.6985C4.83589 10.6289 4.87787 10.5657 4.9308 10.5124C4.98373 10.4592 5.04657 10.4169 5.11573 10.3881C5.18489 10.3593 5.25901 10.3444 5.33387 10.3444H10.6622C10.8133 10.3442 10.9582 10.4043 11.0652 10.5115C11.1723 10.6187 11.2326 10.7643 11.2331 10.9163C11.2331 10.9917 11.2183 11.0664 11.1896 11.136C11.1609 11.2057 11.1189 11.269 11.0658 11.3222C11.0128 11.3755 10.9499 11.4177 10.8806 11.4465C10.8114 11.4753 10.7372 11.4901 10.6622 11.4899V11.4917Z' fill='%23D5D5D5'/%3E%3C/svg%3E%0A");
+    }
+	}
+}
+
+.mainInfo {
+	display: flex;
+	align-items: flex-start;
+	gap: 40px;
+	@media (max-width: 900px) {
+		flex-direction: column-reverse;
+		gap: 20px;
+	}
+}
+.avatarWrapper {
+	width: 322px;
+	min-width: 322px;
+	height: 214px;
+	border-radius: 5px;
+	img {
+		border-radius: 5px;
+		width: 100%;
+		height: 100%;
+		aspect-ratio: 3/2;
+		object-fit: cover;
+		@media (max-width: 768px) {
+			width: 100%;
+			min-width: 300px;
+			height: 200px;
+			display: block;
+		}
+	}
+	@media (max-width: 768px) {
+      height: 0;
+      visibility: hidden;
+    }
+}
+
+div.infoBlock {
+	flex-grow: 1;
+	.title {
+		font-size: 36px;
+    margin-bottom: 15px;
+	}
+	.listInfo {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: space-between;
+		@media (max-width: 768px) {
+			flex-direction: column;
+		}
+		h6 {
+			font-size: 17px;
+		}
+		.locationInfo, .contactsInfo {
+			display: flex;
+			flex-direction: column;
+			gap: 9px;
+		}
+	}
+	.infoBlockText {
+		font-size: fluid(17, 17);
+		-webkit-line-clamp: 4;
+		line-clamp: 4;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+  .descsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 17px;
+    @media (max-width: 768px) {
+      height: 0;
+      visibility: hidden;
+    }
+  }
+}
+
+.ageRating {
+	position: relative;
+}
+
+.dot {
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: #000000;
+  @media (max-width: 768px) {
+      height: 0;
+      visibility: hidden;
+    }
+}
+
+._red {
+	background: #de0008;
+}

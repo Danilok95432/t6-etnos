@@ -8,6 +8,7 @@ import { useDebounce } from 'src/hooks/debounce/debounce'
 import { SwitcherView } from 'src/components/switcherView/switcherView'
 import { MainButton } from 'src/UI/MainButton/MainButton'
 import { MainSelect } from 'src/UI/MainSelect/MainSelect'
+import { FiltersIconSVG } from 'src/UI/icons/filtersIconSVG'
 
 type FilterPanelProps = {
   options: {
@@ -36,7 +37,7 @@ export const FilterPanel:FC<FilterPanelProps> = ({options}) => {
             required
           />
         </div>
-        <div className={styles.searchWrapper}>
+        <div className={cn(styles.searchWrapper, styles.hiddenMobile)}>
           <MainInput
             className={cn(styles.searchInput, { [styles._activeSearch]: options.region })}
             name='searchRegion'
@@ -46,7 +47,7 @@ export const FilterPanel:FC<FilterPanelProps> = ({options}) => {
             required
           />
         </div>
-        <div className={styles.searchWrapper}>
+        <div className={cn(styles.searchWrapper, styles.hiddenMobile)}>
           <MainSelect
             wrapperClassName={cn(styles.searchSelect)}
             name='type'
@@ -56,11 +57,14 @@ export const FilterPanel:FC<FilterPanelProps> = ({options}) => {
             required
           />
         </div>
-        <MainButton>
+        <MainButton className={styles.hiddenMobile}>
           Найти
         </MainButton>
+        <MainButton className={styles.mobileFilters}>
+          <FiltersIconSVG />
+        </MainButton>
       </div>
-      <SwitcherView view={options.view} switchView={options.setView} />
+      <SwitcherView view={options.view} switchView={options.setView} className={styles.hiddenMobile} />
     </div>
   )
 }

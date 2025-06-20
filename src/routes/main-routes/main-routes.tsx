@@ -6,8 +6,6 @@ import { HomePage } from 'src/pages/home-page/home-page'
 
 import { AboutLayout } from 'src/pages/about-page/about-layout'
 import { AboutGeneral } from 'src/pages/about-page/layout/about-general/about-general'
-import { AboutHistory } from 'src/pages/about-page/layout/about-history/about-history'
-import { AboutContacts } from 'src/pages/about-page/layout/about-contacts/about-contacts'
 
 import { ObjectsLayout } from 'src/pages/objects-page/objects-layout'
 import { ObjectsList } from 'src/pages/objects-page/layout/objects-list/objects-list'
@@ -29,16 +27,8 @@ import { EventParticipants } from 'src/pages/events-page/layout/events-details/l
 import { EventMaps } from 'src/pages/events-page/layout/events-details/layout/event-maps/layout/event-maps'
 import { EventTeams } from 'src/pages/events-page/layout/events-details/layout/event-teams/event-teams'
 
-import { AboutCultureLayout } from 'src/pages/about-page/layout/about-culture/about-culture-layout'
-import { CultureGeneral } from 'src/pages/about-page/layout/about-culture/layout/culture-general/culture-general'
-import { CultureDetails } from 'src/pages/about-page/layout/about-culture/layout/culture-details/culture-details'
-
 import { SearchPage } from 'src/pages/search-page/search-page'
 import { EventDetails } from 'src/pages/events-page/layout/events-details/layout/event-details/event-details'
-import { AboutGamesLayout } from 'src/pages/about-page/layout/about-games/about-games-layout'
-import { GamesGeneral } from 'src/pages/about-page/layout/about-games/layout/games-general/games-general'
-import { GameDetails } from 'src/pages/about-page/layout/about-games/layout/game-details/game-details'
-import { AboutNature } from 'src/pages/about-page/layout/about-nature/about-nature'
 import { ParticipantLayout } from 'src/pages/participant-page/participant-layout'
 import { ParticipantDetailsLayout } from 'src/pages/participant-page/layout/participant-details/layout/participant-details-layout'
 import { ParticipantDetails } from 'src/pages/participant-page/layout/participant-details/layout/participant-details/participant-details'
@@ -48,6 +38,17 @@ import { ParticipantEtnosport } from 'src/pages/participant-page/layout/particip
 import { ParticipantEnjoy } from 'src/pages/participant-page/layout/participant-details/layout/participant-enjoy/participant-enjoy'
 import { ParticipantGallery } from 'src/pages/participant-page/layout/participant-details/layout/participant-gallery/participant-gallery'
 import { ParticipantArticles } from 'src/pages/participant-page/layout/participant-details/layout/participant-articles/participant-articles'
+import { AboutEtnosportLayout } from 'src/pages/about-page/layout/about-etnosport/about-etnosport-layout'
+import { AboutFun } from 'src/pages/about-page/layout/about-fun/about-fun'
+import { EtnosportList } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-list/etnosport-list'
+import { EtnosportDetailsLayout } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/etnosport-details-layout'
+import { EtnosportDetails } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-details/etnosport-details'
+import { EtnosportRules } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-rules/etnosport-rules'
+import { EtnosportParticipants } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-participants/etnosport-participants'
+import { EtnosportOrgs } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-orgs/etnosport-orgs'
+import { EtnosportNews } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-news/etnosport-news'
+import { EtnosportVideos } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-videos/etnosport-videos'
+import { EtnosportEvents } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-events/etnosport-events'
 
 export const MainRoutes = () => {
 	return (
@@ -58,17 +59,19 @@ export const MainRoutes = () => {
 
 				<Route path={AppRoute.About} element={<AboutLayout />}>
 					<Route index element={<AboutGeneral />} />
-					<Route path={AppRoute.AboutHistory} element={<AboutHistory />} />
-					<Route path={AppRoute.AboutNature} element={<AboutNature />} />
-					<Route path={AppRoute.AboutTraditions} element={<AboutCultureLayout />}>
-						<Route index element={<CultureGeneral />} />
-						<Route path=':id' element={<CultureDetails />} />
+					<Route path={AppRoute.AboutEtnosport} element={<AboutEtnosportLayout />}>
+						<Route index element={<EtnosportList />} />
+						<Route path=':id' element={<EtnosportDetailsLayout />}>
+							<Route index element={<EtnosportDetails />} />
+							<Route path={AppRoute.EtnosportRules} element={<EtnosportRules />} />
+							<Route path={AppRoute.EtnosportParticipants} element={<EtnosportParticipants />} />
+							<Route path={AppRoute.EtnosportOrgs} element={<EtnosportOrgs />} />
+							<Route path={AppRoute.EtnosportNews} element={<EtnosportNews />} />
+							<Route path={AppRoute.EtnosportVideos} element={<EtnosportVideos />} />
+							<Route path={AppRoute.EtnosportEvents} element={<EtnosportEvents />} />
+						</Route>
 					</Route>
-					<Route path={AppRoute.AboutGames} element={<AboutGamesLayout />}>
-						<Route index element={<GamesGeneral />} />
-						<Route path=':id' element={<GameDetails />} />
-					</Route>
-					<Route path={AppRoute.AboutContacts} element={<AboutContacts />} />
+					<Route path={AppRoute.AboutFun} element={<AboutFun />} />
 				</Route>
 
 				<Route path={AppRoute.Objects} element={<ObjectsLayout />}>

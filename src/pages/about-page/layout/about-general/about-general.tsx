@@ -10,6 +10,7 @@ import { CollapsibleText } from 'src/components/collapsible-text/collapsible-tex
 import styles from './index.module.scss'
 import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 import { type ImageItemWithText } from 'src/types/photos'
+import { AboutLayoutHeader } from '../../components/about-layout-header'
 
 export const AboutGeneral: FC = () => {
 	const { data: aboutPageData } = useGetAboutGeneralQuery(null)

@@ -14,7 +14,7 @@ export const InfoSection = () => {
         <FormInput name='patr' label='Отчество' className={styles.inputWrapperContainer} />
         <FormInput name='age' label='Возраст' className={styles.shortInput} />
       </FlexRow>
-      <FormInput name='email' label='Электронная почта (рекомендуется)' />
+      <FormInput name='email' label='Электронная почта' />
       <FlexRow className={styles.groupInputsStart}>
         <div className={styles.inputwithLabel}>
           <FormInput name='phone' label='Номер телефона' isPhoneWithCode={true} className={styles.noMargin} />

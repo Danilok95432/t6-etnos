@@ -81,7 +81,7 @@ export const EventParticipants: FC = () => {
         <FilterPanel options={options} />
       </div>
       <p className={styles.numberOfFilter}>Всего участников по выбранным фильтрам: 15</p>
-      {view === 'list' && eventDataParticipants ? (
+      {view === 'list' && eventDataParticipants && breakpoint !== 'S' ? (
         <CustomTable
           className={styles.participantsTable}
           rowData={formatEventsTableData(eventDataParticipants.reg_users ?? [])}

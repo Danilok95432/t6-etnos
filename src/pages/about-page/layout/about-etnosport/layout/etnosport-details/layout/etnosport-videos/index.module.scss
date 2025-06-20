@@ -1,0 +1,32 @@
+.etnoVideosPage {
+	padding: 0px 0 40px;
+
+	h4 {
+		@media (max-width: 550px) {
+			margin-bottom: 1px;
+		}
+	}
+
+  .etnosportVideosTab {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 20px;
+  }
+
+	.videotapeTop {
+		@media (max-width: 550px) {
+			margin-bottom: 17px;
+		}
+	}
+
+	.videoSliderBtns {
+		@media (max-width: 768px) {
+			top: 49%;
+			width: 70%;
+		}
+		@media (max-width: 440px) {
+			width: 270px;
+		}
+	}
+}
