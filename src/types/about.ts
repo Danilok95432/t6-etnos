@@ -10,6 +10,34 @@ export type AboutGeneralPage = {
 	mainphoto: ImageItemWithText[]
 }
 
+export type AboutTraditionPage = {
+	topDesc: string
+	bottomDesc: string
+	photoGallery: ImageItemWithText[]
+	traditions: ShortTraditionElement[]
+}
+
+export type AboutGamesPage = {
+	topDesc: string
+	bottomDesc: string
+	photoGallery: ImageItemWithText[]
+	games: ShortGameElement[]
+	mainVideo: string
+}
+
+
+type ShortGameElement = {
+	id: string
+	title: string
+	desc: string
+}
+
+type ShortTraditionElement = {
+	id: string
+	title: string
+	desc: string
+}
+
 export type EtnosportCardItem = {
 	id: string
 	photo: ImageItemWithText[]

@@ -1,7 +1,9 @@
+import { useGetAboutFunQuery } from 'src/store/about/about.api'
 import styles from './index.module.scss'
 import { FunCard } from 'src/components/fun-card/fun-card'
 
 export const FunList = () => {
+  const { data: funData } = useGetAboutFunQuery(null)
   const funs = [
     {
       id: '1',
@@ -9,7 +11,7 @@ export const FunList = () => {
       photo: [],
       type: 'Одиночный вид',
       teams: '',
-      participants: '220'
+      participants: '220',
     },
     {
       id: '2',
@@ -17,7 +19,7 @@ export const FunList = () => {
       type: 'Групповой вид',
       photo: [],
       teams: '100',
-      participants: '892'
+      participants: '892',
     },
     {
       id: '3',
@@ -25,16 +27,25 @@ export const FunList = () => {
       photo: [],
       type: 'Групповой вид',
       teams: '100',
-      participants: '892'
-    }
-  ] 
-  return(
+      participants: '892',
+    },
+  ]
+  return (
     <div className={styles.funList}>
-      {
-        funs.map((funElem) => {
-          return <FunCard key={funElem.id} {...funElem} />
-        })
-      }
+      {funs.map((funElem) => {
+        return <FunCard key={funElem.id} {...funElem} />
+      })}
+      {funData?.games.map((gameEl) => {
+        const elem = {
+          id: gameEl.id,
+          title: gameEl.title,
+          type: 'Групповой вид',
+          photo: [],
+          teams: '100',
+          participants: '892',
+        }
+        return <FunCard key={gameEl.id} {...elem} />
+      })}
     </div>
   )
 }

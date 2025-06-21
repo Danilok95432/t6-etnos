@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
-import { useGetEventByIdQuery } from 'src/store/events/events.api'
 import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 import { useAdditionalCrumbs } from 'src/hooks/additional-crumbs/additional-crumbs'
 
@@ -12,42 +11,43 @@ import { useEffect, useState } from 'react'
 import { type ImageItemWithText } from 'src/types/photos'
 import { GalleryImg } from 'src/components/image-gallery/image-gallery'
 import { useActions } from 'src/hooks/actions/actions'
+import { useGetTraditionByIdQuery } from 'src/store/cultures/cultures.api'
 
 export const EtnosportInfo = () => {
 	const { id = '' } = useParams()
-	const { data: eventData } = useGetEventByIdQuery(id ?? '')
+	const { data: etnoData } = useGetTraditionByIdQuery(id ?? '')
 	const { openModal } = useActions()
 
 	const breakPoint = useBreakPoint()
 
-	useAdditionalCrumbs(eventData?.title)
+	useAdditionalCrumbs(etnoData?.title)
 	const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
 	useEffect(() => {
-		if (eventData) {
+		if (etnoData) {
 			const images: ImageItemWithText[] = []
-			if (eventData.mainphoto) {
-				images.push(eventData.mainphoto[0])
+			if (etnoData.mainphoto) {
+				images.push(etnoData.mainphoto[0])
 			}
-			if (eventData.photos && Array.isArray(eventData.photos)) {
-				images.push(...eventData.photos)
+			if (etnoData.photos && Array.isArray(etnoData.photos)) {
+				images.push(...etnoData.photos)
 			}
 			setAllPagePhoto(images)
 		}
-	}, [eventData])
+	}, [etnoData])
 
 	return (
 		<div className={styles.etnoInfoWrapper}>
 			<div className={styles.mainInfo}>
 				<div className={styles.infoBlock}>
-					<h4 className={styles.title}>{eventData?.title}</h4>
+					<h4 className={styles.title}>{etnoData?.title}</h4>
 					<FlexRow className={styles.topLineEtno}>
             <span className={styles.etnoType}>{'Одиночный вид'}</span>
             <div className={styles.dot}></div>
             <span className={styles.etnoParticipants}>{`Всего участников: ${892}`}</span>
           </FlexRow>
           <div className={styles.descsWrapper}>
-            <p>Село Атманов Угол славится исконной традицией народного кулачного боя. Исторически достоверные истоки этой традиции датируются 1648 годом: именно тогда впервые прошел сельский праздник «Атмановские Кулачки».</p>
-            <p>Традиция эта бережно хранится жителями села по сию пору — уже в наши дни село Атманов Угол ежегодно принимает до двенадцати тысяч гостей и участников праздника, собирающихся со всей России!</p>
+            <p>{etnoData?.topDesc}</p>
+            <p>{etnoData?.bottomDesc}</p>
           </div>
         </div>
 				<div className={styles.avatarWrapper}>

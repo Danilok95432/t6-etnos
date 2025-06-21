@@ -6,35 +6,35 @@ import { RefObject, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SwiperRef } from 'swiper/react'
 import { ImageItemWithText } from 'src/types/photos'
+import { useGetGameByIdQuery } from 'src/store/games/games.api'
 
 export const FunDetails = () => {
   const { id = '' } = useParams()
-
-  const { data: eventInfo } = useGetEventByIdQuery(id ?? '')
+  const { data: funData } = useGetGameByIdQuery(id ?? '')
 
   const breakPoint = useBreakPoint()
   const swiperRef: RefObject<SwiperRef> = useRef<SwiperRef>(null)
 
   const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
   useEffect(() => {
-    if (eventInfo) {
+    if (funData) {
       const images: ImageItemWithText[] = []
-      if (eventInfo.mainphoto) {
-        images.push(eventInfo.mainphoto[0])
+      if (funData.mainphoto) {
+        images.push(funData.mainphoto[0])
       }
-      if (eventInfo.photos && Array.isArray(eventInfo.photos)) {
-        images.push(...eventInfo.photos)
+      if (funData.photos && Array.isArray(funData.photos)) {
+        images.push(...funData.photos)
       }
       setAllPagePhoto(images)
     }
-  }, [eventInfo])
+  }, [funData])
   return (
     <div className={styles.funDetailTab}>
       <h3>Информация</h3>
       <div className={styles.funGallery}>
         <GalleryImg
           className={styles.funPhotos}
-          images={eventInfo?.photos}
+          images={funData?.photos}
           limit={12}
           limitController
           variant='slider'
@@ -43,11 +43,7 @@ export const FunDetails = () => {
       </div>
       <div className={styles.descsWrapper}>
         <p>
-          Вопреки распространенной практике, кулачные бои Атманова Угла не превратились в аттракцион
-          для туристов: это — самая настоящая традиция, объединяющая сразу несколько боевых и
-          игровых видов спорта (таких, как борьба-за-вороток, русский мяч, кулачный бой
-          стенка-на-стенку, кила и другие). Некоторые из этих видов официально признаны государством
-          в качестве этноспортивных дисциплин.
+          <p>{funData?.desc}</p>
         </p>
         <p>
           Помимо любителей собственно народной традиции, боевые традиции Атманова Угла привлекают

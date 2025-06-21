@@ -1,7 +1,9 @@
 import { EtnosportCard } from 'src/components/etnosport-card/etnosport-card'
 import styles from './index.module.scss'
+import { useGetAboutEtnosportQuery } from 'src/store/about/about.api'
 
 export const EtnosportList = () => {
+  const {data: etnoData } = useGetAboutEtnosportQuery(null)
   const etnosport = [
     {
       id: '1',
@@ -33,6 +35,19 @@ export const EtnosportList = () => {
       {
         etnosport.map((etnoElem) => {
           return <EtnosportCard key={etnoElem.id} {...etnoElem} />
+        })
+      }
+      {
+        etnoData?.traditions.map((etnoElem) => {
+          const elem = {
+            id: etnoElem.id,
+            title: etnoElem.title,
+            type: 'Групповой вид',
+            photo: [],
+            teams: '100',
+            participants: '892'
+          }
+          return <EtnosportCard key={etnoElem.id} {...elem} />
         })
       }
     </div>

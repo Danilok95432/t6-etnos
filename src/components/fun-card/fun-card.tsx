@@ -21,7 +21,7 @@ export const FunCard: FC<FunCardProps> = ({
   className,
 }) => {
   return (
-    <Link to={`/${AppRoute.About}/${AppRoute.AboutFun}/${1}`} aria-label='Переход на страницу события' title={title}>
+    <Link to={`${id}`} aria-label='Переход на страницу события' title={title}>
       <figure className={cn(styles.funItem, className)}>
         <div className={styles.funCardImg}>
           {

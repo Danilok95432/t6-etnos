@@ -54,7 +54,7 @@ export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap }) => {
 					)
 				}
 
-				if (pathEl === 'about-traditions' || pathEl === 'about-games') {
+				if (pathEl === 'about-etnosport' || pathEl === 'about-fun') {
 					return (
 						<li key={pathEl}>
 							<Link to={`${pathEl}`}>{defineLinkTitle(pathEl)}</Link>

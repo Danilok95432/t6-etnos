@@ -21,7 +21,7 @@ export const EtnosportCard: FC<EtnosportCardProps> = ({
   className,
 }) => {
   return (
-    <Link to={`/${AppRoute.About}/${AppRoute.AboutEtnosport}/${1}`} aria-label='Переход на страницу события' title={title}>
+    <Link to={`${id}`} aria-label='Переход на страницу этноспорта' title={title}>
       <figure className={cn(styles.etnoItem, className)}>
         <div className={styles.etnoCardImg}>
           {

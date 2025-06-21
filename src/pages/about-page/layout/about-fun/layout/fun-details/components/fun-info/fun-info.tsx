@@ -12,43 +12,44 @@ import { useEffect, useState } from 'react'
 import { type ImageItemWithText } from 'src/types/photos'
 import { GalleryImg } from 'src/components/image-gallery/image-gallery'
 import { useActions } from 'src/hooks/actions/actions'
+import { useGetGameByIdQuery } from 'src/store/games/games.api'
 
 export const FunInfo = () => {
 	const { id = '' } = useParams()
-	const { data: eventData } = useGetEventByIdQuery(id ?? '')
+		const { data: funData } = useGetGameByIdQuery(id ?? '')
 	const { openModal } = useActions()
 
 	const breakPoint = useBreakPoint()
 
-	useAdditionalCrumbs(eventData?.title)
+	useAdditionalCrumbs(funData?.title)
 	const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
 	useEffect(() => {
-		if (eventData) {
+		if (funData) {
 			const images: ImageItemWithText[] = []
-			if (eventData.mainphoto) {
-				images.push(eventData.mainphoto[0])
+			if (funData.mainphoto) {
+				images.push(funData.mainphoto[0])
 			}
-			if (eventData.photos && Array.isArray(eventData.photos)) {
-				images.push(...eventData.photos)
+			if (funData.photos && Array.isArray(funData.photos)) {
+				images.push(...funData.photos)
 			}
 			setAllPagePhoto(images)
 		}
-	}, [eventData])
+	}, [funData])
 
 	return (
 		<div className={styles.funInfoWrapper}>
 			<div className={styles.mainInfo}>
 				<div className={styles.infoBlock}>
-					<h4 className={styles.title}>{eventData?.title}</h4>
+					<h4 className={styles.title}>{funData?.title}</h4>
 					<FlexRow className={styles.topLineFun}>
             <span className={styles.funType}>{'Одиночный вид'}</span>
             <div className={styles.dot}></div>
             <span className={styles.funParticipants}>{`Всего участников: ${892}`}</span>
           </FlexRow>
           <div className={styles.descsWrapper}>
-            <p>Село Атманов Угол славится исконной традицией народного кулачного боя. Исторически достоверные истоки этой традиции датируются 1648 годом: именно тогда впервые прошел сельский праздник «Атмановские Кулачки».</p>
-            <p>Традиция эта бережно хранится жителями села по сию пору — уже в наши дни село Атманов Угол ежегодно принимает до двенадцати тысяч гостей и участников праздника, собирающихся со всей России!</p>
-          </div>
+          	<p>{funData?.topDesc}</p>
+            <p>{funData?.bottomDesc}</p>
+					</div>
         </div>
 				<div className={styles.avatarWrapper}>
 					<GalleryImg images={allPagePhoto} variant='newsMain' />

@@ -1,4 +1,6 @@
 import {
+	AboutGamesPage,
+	AboutTraditionPage,
 	type AboutGeneralPage,
 } from 'src/types/about'
 
@@ -17,9 +19,21 @@ export const aboutApi = createApi({
 				url: `about/general`,
 			}),
 		}),
+		getAboutEtnosport: build.query<AboutTraditionPage, null>({
+			query: () => ({
+				url: `about/tradition`,
+			}),
+		}),
+		getAboutFun: build.query<AboutGamesPage, null>({
+			query: () => ({
+				url: `about/game`,
+			}),
+		}),
 	}),
 })
 
 export const {
 	useGetAboutGeneralQuery,
+	useGetAboutEtnosportQuery,
+	useGetAboutFunQuery,
 } = aboutApi
