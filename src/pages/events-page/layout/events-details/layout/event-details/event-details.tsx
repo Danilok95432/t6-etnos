@@ -25,6 +25,8 @@ import { NewsCard } from 'src/components/news-card/news-card'
 import { VideoCard } from 'src/components/video-card/video-card'
 import { eventDetailsSliderOptions } from './consts'
 import { CardNewsItem } from 'src/types/news'
+import { FlexRow } from 'src/components/flex-row/flex-row'
+import { SwitcherView } from 'src/components/switcherView/switcherView'
 
 export const EventDetails: FC = () => {
   const { id = '' } = useParams()
@@ -33,6 +35,7 @@ export const EventDetails: FC = () => {
   const { data: programDays } = useGetEventProgramByIdQuery(id)
   const { data: newsList } = useGetEventNewsByIdQuery(id ?? '')
   const { data: eventVideos } = useGetEventVideosByIdQuery(id)
+  const [view, setView] = useState<string>('list')
 
   const breakPoint = useBreakPoint()
   const swiperRef: RefObject<SwiperRef> = useRef<SwiperRef>(null)
@@ -212,8 +215,11 @@ export const EventDetails: FC = () => {
       {programDays && (
         <section>
           <div className={styles.programTab}>
-            <h4>Программа</h4>
-            <Program programDays={programDays ?? []} />
+            <FlexRow className={styles.headProgram}>
+              <h4>Программа</h4>
+              <SwitcherView view={view} switchView={setView} className={styles.hiddenDesktop} />
+            </FlexRow>
+            <Program programDays={programDays ?? []} parentView={view} />
           </div>
         </section>
       )}

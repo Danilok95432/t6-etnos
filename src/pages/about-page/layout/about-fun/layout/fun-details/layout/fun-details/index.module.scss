@@ -1,0 +1,52 @@
+.funDetailTab {
+  @media (max-width: 768px) {
+    padding-bottom: 30px;
+  }
+	h3 {
+		font-size: 28px;
+    font-weight: 500;
+		margin-bottom: 20px;
+	}
+	h4 {
+		font-size: 22px;
+		margin-bottom: 10px;
+	}
+	.ageRating {
+		color: #ed1c24;
+	}
+	.funGallery {
+		padding-top: 15px;
+		.funGalleryButton {
+			width: 100%;
+			padding-block: 16px;
+			border-radius: 3px;
+			background-color: var(--color-white-01);
+			margin-top: fluid(10, 0);
+	
+			@include hover {
+				background-color: var(--color-gray);
+			}
+		}
+	}
+
+  .descsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 25px;
+    p {
+      font-size: 17px;
+    }
+  }
+
+	.footerSection {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		justify-content: space-between;
+		div, ul {
+			width: 420px;
+		}
+	}
+}
+

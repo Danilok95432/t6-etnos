@@ -1,4 +1,7 @@
 .teamsSection {
+  @media (max-width: 768px) {
+    padding-bottom: 30px;
+  }
   h4 {
     font-size: 28px;
     margin-bottom: 20px;
@@ -35,6 +38,9 @@
     grid-template: auto / repeat(auto-fit, minmax(423px, 423px));
     gap: 25px;
     margin: 0 0 30px 0;
+    @media (max-width: 768px) {
+      grid-template: auto / repeat(auto-fit, minmax(300px, 423px));
+    }
   }
 
   .showMoreBtnTab {

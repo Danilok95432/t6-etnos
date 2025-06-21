@@ -25,6 +25,20 @@
 		}
 	}
 
+	.headProgram {
+		align-items: center;
+		justify-content: space-between;
+		h4 {
+			margin-bottom: 0;
+		}
+		.hiddenDesktop {
+			display: none;
+			@media (max-width: 768px) {
+				display: flex;
+			}
+		}
+	}
+
 	.partnerSlider {
 		position: relative;
 	}

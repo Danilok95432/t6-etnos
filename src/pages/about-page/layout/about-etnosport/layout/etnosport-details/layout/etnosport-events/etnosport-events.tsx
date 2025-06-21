@@ -24,7 +24,8 @@ export const EtnosportEvents = () => {
       id: '1',
       date: '2025-08-23T08:00:00+03:00',
       mainEvent: 'Атмановские кулачки 2024',
-      subEventTitle: 'Общее построение. Приветственное слово генерала армии Нечипоренко. Объявление администрации о том, что...',
+      subEventTitle:
+        'Общее построение. Приветственное слово генерала армии Нечипоренко. Объявление администрации о том, что...',
       place: 'Спортивный комплекс «Лужники», мини-футбольное поле №14 ',
       request: false,
     },
@@ -51,31 +52,26 @@ export const EtnosportEvents = () => {
       subEventTitle: 'Открытый хоровод',
       place: 'Спортивный комплекс «Лужники», мини-футбольное поле №14 ',
       request: false,
-    }
+    },
   ]
 
   const breakpoint = useBreakPoint()
 
-  const tableTitles = [
-    'Дата проведения',
-    'Главное событие',
-    'Подсобытие',
-    'Заявка',
-  ]
+  const tableTitles = ['Дата проведения', 'Главное событие', 'Подсобытие', 'Заявка']
   const formatEventsTableData = (subEvents: EtnosportSubEventItem[]) => {
     return subEvents?.map((subEvent) => {
       return {
         rowId: subEvent.id,
         cells: [
-          <p key='0'>
-            {formatSingleDate(subEvent.date ?? new Date())}
-          </p>,
+          <p key='0'>{formatSingleDate(subEvent.date ?? new Date())}</p>,
           <p key='1'>{subEvent.mainEvent}</p>,
           <p key='2'>{subEvent.subEventTitle}</p>,
           <p key='3'>
-            {
-              subEvent.request && <MainButton key='3' className={styles.requestBtn}>Подать заявку</MainButton>
-            }
+            {subEvent.request && (
+              <MainButton key='3' className={styles.requestBtn}>
+                Подать заявку
+              </MainButton>
+            )}
           </p>,
         ],
       }
@@ -106,20 +102,37 @@ export const EtnosportEvents = () => {
           <SwitcherView view={view} switchView={setView} />
         </div>
         {view === 'list' && subEvent ? (
-        <CustomTable
-          className={styles.subEventsTable}
-          rowData={formatEventsTableData(subEvent)}
-          colTitles={tableTitles}
-        />
-      ) : (
-        <div className={styles.subEventsTab}>
-          {
-            subEvent.map((event) => {
+          <>
+            {breakpoint === 'S' ? (
+              <div className={styles.subEventList}>
+                {subEvent.map((event) => {
+                  return (
+                    <div key={event.id} className={styles.subEvent}>
+                      <p className={styles.subEventDate}>{formatSingleDate(event.date)}</p>
+                      <p className={styles.subEventMain}>{event.mainEvent}</p>
+                      <p className={styles.subEventTitle}>{event.subEventTitle}</p>
+                      {event.request && (
+                        <MainButton className={styles.requestBtn}>Подать заявку</MainButton>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <CustomTable
+                className={styles.subEventsTable}
+                rowData={formatEventsTableData(subEvent)}
+                colTitles={tableTitles}
+              />
+            )}
+          </>
+        ) : (
+          <div className={styles.subEventsTab}>
+            {subEvent.map((event) => {
               return <SubEventCard key={event.id} {...event} />
-            })
-          }
-        </div>
-      )}
+            })}
+          </div>
+        )}
       </div>
     </div>
   )

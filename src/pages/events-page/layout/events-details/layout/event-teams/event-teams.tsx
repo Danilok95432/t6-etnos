@@ -137,7 +137,7 @@ export const EventTeams: FC = () => {
         <FilterPanel options={options} />
       </div>
       <p className={styles.numberOfFilter}>Всего групп по выбранным фильтрам: 15</p>
-      {view === 'list' ? (
+      {view === 'list' && breakpoint !== 'S' ? (
         <CustomTable
           className={styles.teamsTable}
           rowData={formatEventsTableData(eventDataTeams)}

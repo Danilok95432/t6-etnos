@@ -1,4 +1,9 @@
 .headProgram {
   align-items: center;
   justify-content: space-between;
+  .hiddenMobile {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
 }

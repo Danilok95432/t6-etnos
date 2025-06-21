@@ -42,9 +42,6 @@
     &:hover,
     &.activeLink {
       color: #E30613;
-      @media (max-width: 768px) {
-        color: #000;
-      }
     }
   }
 

@@ -1,0 +1,9 @@
+.funList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  @media (max-width: 660px) {
+    justify-content: center;
+  }
+}

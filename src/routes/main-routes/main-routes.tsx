@@ -39,7 +39,7 @@ import { ParticipantEnjoy } from 'src/pages/participant-page/layout/participant-
 import { ParticipantGallery } from 'src/pages/participant-page/layout/participant-details/layout/participant-gallery/participant-gallery'
 import { ParticipantArticles } from 'src/pages/participant-page/layout/participant-details/layout/participant-articles/participant-articles'
 import { AboutEtnosportLayout } from 'src/pages/about-page/layout/about-etnosport/about-etnosport-layout'
-import { AboutFun } from 'src/pages/about-page/layout/about-fun/about-fun'
+import { AboutFunLayout } from 'src/pages/about-page/layout/about-fun/about-fun-layout'
 import { EtnosportList } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-list/etnosport-list'
 import { EtnosportDetailsLayout } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/etnosport-details-layout'
 import { EtnosportDetails } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-details/etnosport-details'
@@ -49,6 +49,15 @@ import { EtnosportOrgs } from 'src/pages/about-page/layout/about-etnosport/layou
 import { EtnosportNews } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-news/etnosport-news'
 import { EtnosportVideos } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-videos/etnosport-videos'
 import { EtnosportEvents } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-events/etnosport-events'
+import { FunList } from 'src/pages/about-page/layout/about-fun/layout/fun-list/fun-list'
+import { FunDetailsLayout } from 'src/pages/about-page/layout/about-fun/layout/fun-details/fun-details-layout'
+import { FunDetails } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-details/fun-details'
+import { FunRules } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-rules/fun-rules'
+import { FunParticipants } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-participants/fun-participants'
+import { FunOrgs } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-orgs/fun-orgs'
+import { FunNews } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-news/fun-news'
+import { FunVideos } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-videos/fun-videos'
+import { FunEvents } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-events/fun-events'
 
 export const MainRoutes = () => {
 	return (
@@ -71,7 +80,18 @@ export const MainRoutes = () => {
 							<Route path={AppRoute.EtnosportEvents} element={<EtnosportEvents />} />
 						</Route>
 					</Route>
-					<Route path={AppRoute.AboutFun} element={<AboutFun />} />
+					<Route path={AppRoute.AboutFun} element={<AboutFunLayout />}>
+						<Route index element={<FunList />} />
+						<Route path=':id' element={<FunDetailsLayout />}>
+							<Route index element={<FunDetails />} />
+							<Route path={AppRoute.FunRules} element={<FunRules />} />
+							<Route path={AppRoute.FunParticipants} element={<FunParticipants />} />
+							<Route path={AppRoute.FunOrgs} element={<FunOrgs />} />
+							<Route path={AppRoute.FunNews} element={<FunNews />} />
+							<Route path={AppRoute.FunVideos} element={<FunVideos />} />
+							<Route path={AppRoute.FunEvents} element={<FunEvents />} />
+						</Route>
+					</Route>
 				</Route>
 
 				<Route path={AppRoute.Objects} element={<ObjectsLayout />}>

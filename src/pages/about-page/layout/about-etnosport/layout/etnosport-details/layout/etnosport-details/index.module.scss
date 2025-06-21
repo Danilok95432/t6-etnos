@@ -1,4 +1,7 @@
 .etnoDetailTab {
+	@media (max-width: 768px) {
+    padding-bottom: 30px;
+  }
 	h3 {
 		font-size: 28px;
     font-weight: 500;

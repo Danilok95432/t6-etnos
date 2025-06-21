@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 import { FC, useState } from 'react'
 import { MainButton } from 'src/UI/MainButton/MainButton'
 import { MainSelect } from 'src/UI/MainSelect/MainSelect'
+import { FiltersIconSVG } from 'src/UI/icons/filtersIconSVG'
 
 type FilterPanelProps = {
   options: {
@@ -30,7 +31,7 @@ export const FilterPanel:FC<FilterPanelProps> = ({options}) => {
             required
           />
         </div>
-        <div className={cn(styles.searchWrapper, styles.shortWrapper)}>
+        <div className={cn(styles.searchWrapper, styles.shortWrapper, styles.hiddenMobile)}>
           <MainSelect
             wrapperClassName={cn(styles.searchSelect)}
             name='type'
@@ -40,8 +41,11 @@ export const FilterPanel:FC<FilterPanelProps> = ({options}) => {
             required
           />
         </div>
-        <MainButton>
+        <MainButton className={styles.hiddenMobile}>
           Найти
+        </MainButton>
+        <MainButton className={styles.mobileFilters}>
+          <FiltersIconSVG />
         </MainButton>
       </div>
     </div>

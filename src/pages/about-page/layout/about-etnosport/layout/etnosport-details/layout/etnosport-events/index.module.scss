@@ -83,6 +83,40 @@
       }
   }
 
+  .subEventList {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 35px;
+    .subEvent {
+      border-top: 1px solid #E1E1E1;
+      border-bottom: 1px solid #E1E1E1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 15px 0;
+      .subEventDate {
+        font-size: 15px;
+      }
+      .subEventMain {
+        font-size: 15px;
+        padding: 3px 5px;
+        color: #E30613;
+        background: #F2F1F7;
+        width: max-content;
+        border-radius: 5px;
+      }
+      .subEventTitle {
+        color: #E30613;
+        font-size: 17px;
+      }
+      .requestBtn {
+        padding: 4px 6px;
+        width: max-content;
+        height: 31px;
+      }
+    }
+  }
+
   .subEventsTab {
     display: grid;
     grid-template: auto / repeat(auto-fit, minmax(245px, 245px));

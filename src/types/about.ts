@@ -18,3 +18,12 @@ export type EtnosportCardItem = {
 	teams: string
 	participants: string
 }
+
+export type FunCardItem = {
+	id: string
+	photo: ImageItemWithText[]
+	title: string
+	type: string
+	teams: string
+	participants: string
+}

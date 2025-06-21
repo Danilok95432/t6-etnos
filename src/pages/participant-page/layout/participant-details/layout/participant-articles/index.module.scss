@@ -18,6 +18,7 @@
       .additionalInfo {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 20px;
         span {
           color: #9D9D9D;

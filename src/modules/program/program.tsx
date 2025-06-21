@@ -10,14 +10,17 @@ import styles from './index.module.scss'
 import { ListPropgramSVG } from 'src/UI/icons/listProgramSVG'
 import { TabProgramSVG } from 'src/UI/icons/tabProgramSVG'
 import { SwitcherView } from 'src/components/switcherView/switcherView'
+import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 
 type EventProgramProps = {
 	programDays: ProgramDay[] | []
+	parentView?: string
 }
 
-export const Program: FC<EventProgramProps> = ({ programDays }) => {
+export const Program: FC<EventProgramProps> = ({ programDays, parentView = 'list' }) => {
 	const [activeDayId, setActiveDayId] = useState(0)
-	const [view, setView] = useState<string>('list')
+	const [view, setView] = useState<string>(parentView)
+	const breakPoint = useBreakPoint()
 
 	const navDays = programDays.map((day) => ({ id: day.id, date: day.date }))
 
@@ -39,9 +42,9 @@ export const Program: FC<EventProgramProps> = ({ programDays }) => {
 					activeDayId={activeDayId}
 					onChangeActiveDay={handleChangeActiveDay}
 				/>
-				<SwitcherView view={view} switchView={setView} />
+				<SwitcherView view={view} switchView={setView} className={styles.hiddenMobile} />
 			</FlexRow>
-			<ProgramList list={getActiveProgram()} viewMode={view} />
+			<ProgramList list={getActiveProgram()} viewMode={breakPoint === 'S' ? parentView : view} />
 		</div>
 	)
 }

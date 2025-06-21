@@ -5,6 +5,7 @@ import { EtnosportCardItem } from 'src/types/about'
 import { AppRoute } from 'src/routes/main-routes/consts'
 import cn from 'classnames'
 import { FlexRow } from '../flex-row/flex-row'
+import skeleton from 'src/assets/img/skeleton-img.png'
 
 type EtnosportCardProps = {
   className?: string
@@ -27,7 +28,7 @@ export const EtnosportCard: FC<EtnosportCardProps> = ({
             photo && photo.length > 0 ?
             <img src={photo[0]?.original} alt={title} width={415} height={256} loading='lazy' />
             :
-            <img src="src/assets/img/skeleton.img" alt="" />
+            <img className={styles.skeletonImg} src={skeleton} alt="" />
           }
         </div>
         <figcaption className={cn(styles.etnoContent)}>
