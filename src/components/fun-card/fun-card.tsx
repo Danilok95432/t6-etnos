@@ -1,23 +1,26 @@
 import { Link } from 'react-router-dom'
 import styles from './index.module.scss'
 import { FC } from 'react'
-import { FunCardItem } from 'src/types/about'
-import { AppRoute } from 'src/routes/main-routes/consts'
 import cn from 'classnames'
 import { FlexRow } from '../flex-row/flex-row'
 import skeleton from 'src/assets/img/skeleton-img.png'
+import { VidCardItem } from 'src/types/vids'
 
 type FunCardProps = {
   className?: string
-} & FunCardItem
+} & VidCardItem
 
 export const FunCard: FC<FunCardProps> = ({
+  desc,
+  groups_count,
   id,
-  photo,
+  is_etnosport,
+  is_group,
+  is_single,
+  mainphoto,
+  rule,
   title,
-  type,
-  teams,
-  participants,
+  users_count,
   className,
 }) => {
   return (
@@ -25,8 +28,8 @@ export const FunCard: FC<FunCardProps> = ({
       <figure className={cn(styles.funItem, className)}>
         <div className={styles.funCardImg}>
           {
-            photo && photo.length > 0 ?
-            <img src={photo[0]?.original} alt={title} width={415} height={256} loading='lazy' />
+            mainphoto && mainphoto.length > 0 ?
+            <img src={mainphoto[0]?.original} alt={title} width={415} height={256} loading='lazy' />
             :
             <img className={styles.skeletonImg} src={skeleton} alt="" />
           }
@@ -34,19 +37,15 @@ export const FunCard: FC<FunCardProps> = ({
         <figcaption className={cn(styles.funContent)}>
           <h2 className={styles.title}>{title}</h2>
           <FlexRow className={styles.funContentRow}>
-            <span className={styles.funType}>{type}</span>
-            {teams && (
+            <span className={styles.funType}>{is_single ? 'Одиночный вид' : 'Групповой вид'}</span>
+            {is_group && (
               <>
                 <div className={styles.dot}></div>
-                <span className={styles.funTeams}>{`Всего ватаг: ${teams}`}</span>
+                <span className={styles.funTeams}>{`Всего ватаг: ${groups_count}`}</span>
               </>
             )}
-            {participants && (
-              <>
-                <div className={styles.dot}></div>
-                <span className={styles.funParticipants}>{`Всего участников: ${participants}`}</span>
-              </>
-            )}
+            <div className={styles.dot}></div>
+            <span className={styles.funParticipants}>{`Всего участников: ${users_count}`}</span>
           </FlexRow>
         </figcaption>
       </figure>

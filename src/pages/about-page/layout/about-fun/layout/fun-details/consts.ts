@@ -31,3 +31,35 @@ export const FunInfoNavItems: NavigationItem[] = [
     link: 'fun-events',
   },
 ]
+
+export const FunDifInfoNavItems: NavigationItem[] = [
+  {
+    title: 'Информация',
+    link: '',
+    exact: true,
+  },
+  {
+    title: 'Правила',
+    link: 'fun-rules',
+  },
+  {
+    title: 'Группы',
+    link: 'fun-groups',
+  },
+  {
+    title: 'Организаторы',
+    link: 'fun-orgs',
+  },
+  {
+    title: 'Новости',
+    link: 'fun-news',
+  },
+  {
+    title: 'Видеолента',
+    link: 'fun-videos',
+  },
+  {
+    title: 'События',
+    link: 'fun-events',
+  },
+]

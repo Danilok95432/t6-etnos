@@ -37,21 +37,3 @@ type ShortTraditionElement = {
 	title: string
 	desc: string
 }
-
-export type EtnosportCardItem = {
-	id: string
-	photo: ImageItemWithText[]
-	title: string
-	type: string
-	teams: string
-	participants: string
-}
-
-export type FunCardItem = {
-	id: string
-	photo: ImageItemWithText[]
-	title: string
-	type: string
-	teams: string
-	participants: string
-}

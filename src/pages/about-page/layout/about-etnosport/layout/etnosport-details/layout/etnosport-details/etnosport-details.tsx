@@ -6,11 +6,11 @@ import { RefObject, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SwiperRef } from 'swiper/react'
 import { ImageItemWithText } from 'src/types/photos'
-import { useGetTraditionByIdQuery } from 'src/store/cultures/cultures.api'
+import { useGetVidInfoByIdQuery } from 'src/store/vids/vids.api'
 
 export const EtnosportDetails = () => {
   const { id = '' } = useParams()
-    const { data: etnoData } = useGetTraditionByIdQuery(id ?? '')
+  const { data: etnoData } = useGetVidInfoByIdQuery(id ?? '')
 
   const breakPoint = useBreakPoint()
   const swiperRef: RefObject<SwiperRef> = useRef<SwiperRef>(null)
@@ -19,11 +19,11 @@ export const EtnosportDetails = () => {
   useEffect(() => {
     if (etnoData) {
       const images: ImageItemWithText[] = []
-      if (etnoData.mainphoto) {
-        images.push(etnoData.mainphoto[0])
+      if (etnoData?.vids.mainphoto) {
+        images.push(etnoData?.vids.mainphoto[0])
       }
-      if (etnoData.photos && Array.isArray(etnoData.photos)) {
-        images.push(...etnoData.photos)
+      if (etnoData?.vids.photos && Array.isArray(etnoData?.vids.photos)) {
+        images.push(...etnoData?.vids.photos)
       }
       setAllPagePhoto(images)
     }
@@ -34,7 +34,7 @@ export const EtnosportDetails = () => {
       <div className={styles.etnoGallery}>
         <GalleryImg
           className={styles.etnoPhotos}
-          images={etnoData?.photos}
+          images={etnoData?.vids?.photos}
           limit={12}
           limitController
           variant='slider'
@@ -42,7 +42,7 @@ export const EtnosportDetails = () => {
         />
       </div>
       <div className={styles.descsWrapper}>
-        <p>{etnoData?.desc}</p>
+        <p>{etnoData?.vids?.desc}</p>
       </div>
     </div>
   )

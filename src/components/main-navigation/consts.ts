@@ -21,6 +21,14 @@ export const MenuItems: NavigationItem[] = [
 		title: 'Новости',
 		link: 'news',
 	},
+	{
+		title: 'Этноспорт',
+		link: 'about/about-etnosport',
+	},
+	{
+		title: 'Исконные забавы',
+		link: 'about/about-fun',
+	},
 	//{
 	//	title: 'Видеолента',
 	//	link: 'videos',

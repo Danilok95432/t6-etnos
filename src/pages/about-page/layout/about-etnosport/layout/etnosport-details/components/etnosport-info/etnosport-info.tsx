@@ -11,25 +11,25 @@ import { useEffect, useState } from 'react'
 import { type ImageItemWithText } from 'src/types/photos'
 import { GalleryImg } from 'src/components/image-gallery/image-gallery'
 import { useActions } from 'src/hooks/actions/actions'
-import { useGetTraditionByIdQuery } from 'src/store/cultures/cultures.api'
+import { useGetVidInfoByIdQuery } from 'src/store/vids/vids.api'
 
 export const EtnosportInfo = () => {
 	const { id = '' } = useParams()
-	const { data: etnoData } = useGetTraditionByIdQuery(id ?? '')
+	const { data: etnoData } = useGetVidInfoByIdQuery(id ?? '')
 	const { openModal } = useActions()
 
 	const breakPoint = useBreakPoint()
 
-	useAdditionalCrumbs(etnoData?.title)
+	useAdditionalCrumbs(etnoData?.vids?.title)
 	const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
 	useEffect(() => {
 		if (etnoData) {
 			const images: ImageItemWithText[] = []
-			if (etnoData.mainphoto) {
-				images.push(etnoData.mainphoto[0])
+			if (etnoData?.vids.mainphoto) {
+				images.push(etnoData?.vids.mainphoto[0])
 			}
-			if (etnoData.photos && Array.isArray(etnoData.photos)) {
-				images.push(...etnoData.photos)
+			if (etnoData?.vids.photos && Array.isArray(etnoData?.vids.photos)) {
+				images.push(...etnoData?.vids.photos)
 			}
 			setAllPagePhoto(images)
 		}
@@ -39,15 +39,20 @@ export const EtnosportInfo = () => {
 		<div className={styles.etnoInfoWrapper}>
 			<div className={styles.mainInfo}>
 				<div className={styles.infoBlock}>
-					<h4 className={styles.title}>{etnoData?.title}</h4>
+					<h4 className={styles.title}>{etnoData?.vids?.title}</h4>
 					<FlexRow className={styles.topLineEtno}>
-            <span className={styles.etnoType}>{'Одиночный вид'}</span>
+            <span className={styles.etnoType}>{etnoData?.vids.is_single ? 'Одиночный вид' : 'Групповой вид'}</span>
+						{etnoData?.vids.is_group && (
+              <>
+                <div className={styles.dot}></div>
+                <span className={styles.funTeams}>{`Всего ватаг: ${etnoData?.vids.groups_count}`}</span>
+              </>
+            )}
             <div className={styles.dot}></div>
-            <span className={styles.etnoParticipants}>{`Всего участников: ${892}`}</span>
+            <span className={styles.etnoParticipants}>{`Всего участников: ${etnoData?.vids.users_count}`}</span>
           </FlexRow>
           <div className={styles.descsWrapper}>
-            <p>{etnoData?.topDesc}</p>
-            <p>{etnoData?.bottomDesc}</p>
+            <p>{etnoData?.vids.desc}</p>
           </div>
         </div>
 				<div className={styles.avatarWrapper}>

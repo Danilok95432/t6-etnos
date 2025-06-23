@@ -58,6 +58,8 @@ import { FunOrgs } from 'src/pages/about-page/layout/about-fun/layout/fun-detail
 import { FunNews } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-news/fun-news'
 import { FunVideos } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-videos/fun-videos'
 import { FunEvents } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-events/fun-events'
+import { EtnosportGroups } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-groups/etnosport-groups'
+import { FunGroups } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-groups/fun-groups'
 
 export const MainRoutes = () => {
 	return (
@@ -74,6 +76,7 @@ export const MainRoutes = () => {
 							<Route index element={<EtnosportDetails />} />
 							<Route path={AppRoute.EtnosportRules} element={<EtnosportRules />} />
 							<Route path={AppRoute.EtnosportParticipants} element={<EtnosportParticipants />} />
+							<Route path={AppRoute.EtnosportGroups} element={<EtnosportGroups />} />
 							<Route path={AppRoute.EtnosportOrgs} element={<EtnosportOrgs />} />
 							<Route path={AppRoute.EtnosportNews} element={<EtnosportNews />} />
 							<Route path={AppRoute.EtnosportVideos} element={<EtnosportVideos />} />
@@ -86,6 +89,7 @@ export const MainRoutes = () => {
 							<Route index element={<FunDetails />} />
 							<Route path={AppRoute.FunRules} element={<FunRules />} />
 							<Route path={AppRoute.FunParticipants} element={<FunParticipants />} />
+							<Route path={AppRoute.FunGroups} element={<FunGroups />} />
 							<Route path={AppRoute.FunOrgs} element={<FunOrgs />} />
 							<Route path={AppRoute.FunNews} element={<FunNews />} />
 							<Route path={AppRoute.FunVideos} element={<FunVideos />} />
