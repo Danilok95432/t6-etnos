@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import styles from './index.module.scss'
-import { EtnosportSubEventItem } from 'src/types/etnosport'
 import skeleton from 'src/assets/img/skeleton-img.png'
 import { MainButton } from 'src/UI/MainButton/MainButton'
 import { formatSingleDate } from 'src/helpers/utils'
+import { EtnosportSubEventItem } from 'src/types/vids'
 
 type SubEventCardProps = {
   className?: string

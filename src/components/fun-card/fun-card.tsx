@@ -5,6 +5,7 @@ import cn from 'classnames'
 import { FlexRow } from '../flex-row/flex-row'
 import skeleton from 'src/assets/img/skeleton-img.png'
 import { VidCardItem } from 'src/types/vids'
+import { AppRoute } from 'src/routes/main-routes/consts'
 
 type FunCardProps = {
   className?: string
@@ -24,7 +25,7 @@ export const FunCard: FC<FunCardProps> = ({
   className,
 }) => {
   return (
-    <Link to={`${id}`} aria-label='Переход на страницу события' title={title}>
+    <Link to={`/${AppRoute.About}/${AppRoute.AboutFun}/${id}`} aria-label='Переход на страницу события' title={title}>
       <figure className={cn(styles.funItem, className)}>
         <div className={styles.funCardImg}>
           {

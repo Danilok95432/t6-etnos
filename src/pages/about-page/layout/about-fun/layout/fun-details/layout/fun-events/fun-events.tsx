@@ -5,12 +5,11 @@ import { MobileList } from 'src/components/mobile-list/mobile-list'
 import { EventCard } from 'src/components/event-card/event-card'
 import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 import { SwitcherView } from 'src/components/switcherView/switcherView'
-import { EtnosportSubEventItem } from 'src/types/etnosport'
 import { formatSingleDate } from 'src/helpers/utils'
 import { MainButton } from 'src/UI/MainButton/MainButton'
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { SubEventCard } from 'src/components/subEvent-card/subEvent-card'
-import { FunSubEventItem } from 'src/types/fun'
+import { FunSubEventItem } from 'src/types/vids'
 
 export const FunEvents = () => {
   const [activeMonth, setActiveMonth] = useState('0')
