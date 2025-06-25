@@ -8,4 +8,5 @@ export type VideoItem = {
 	mainphoto: ImageItemWithText[]
 	date: Date
 	similarVideos: VideoItem[]
+	short: string
 }

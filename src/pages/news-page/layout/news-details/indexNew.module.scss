@@ -62,10 +62,15 @@
 		}
 
 		.newsItemDate {
-			color: #de0008;
+			color: #E30613;
 			display: block;
-			margin-bottom: 30px;
-			font-size: fluid(22, 18);
+			margin-bottom: 15px;
+			font-size: 17px;
+		}
+
+		.allNewsBtn {
+			max-width: 125px;
+			margin-top: 10px;
 		}
 
 		.newsItemMainImg {

@@ -34,6 +34,19 @@ export const mainFormatMonthDate = (
   return `${monthName}`
 }
 
+export const formatDateTimeSimple = (dateString: Date): string => {
+	try {
+		const date = new Date(dateString)
+		if (isNaN(date.getTime())) {
+			throw new Error('Invalid date string')
+		}
+		return format(date, 'd MMMM yyyy, HH:mm', { locale: ru })
+	} catch (error) {
+		console.error('Error formatting date:', error)
+		return 'Некорректная дата'
+	}
+}
+
 export const formatDateToRussian = (dateString: Date): string => {
   const date = new Date(dateString)
 

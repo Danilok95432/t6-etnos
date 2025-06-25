@@ -12,12 +12,14 @@ type AsideVideosProps = {
 	orient?: 'horizontal' | 'vertical'
 	title?: string
 	currentVideoId?: string
+	previewCount?: number
 }
 export const AsideVideos: FC<AsideVideosProps> = ({
 	videosList,
 	title,
 	orient = 'vertical',
 	currentVideoId = 0,
+	previewCount,
 }) => {
 	const cx = cnBind.bind(styles)
 
@@ -29,6 +31,7 @@ export const AsideVideos: FC<AsideVideosProps> = ({
 				<div className={styles.videosList}>
 					{[...videosList]
 						.filter((el) => el.id !== currentVideoId)
+						.slice(0, previewCount)
 						.map((videoEl) => (
 							<Link to={`/${AppRoute.Videos}/${videoEl.id}`} key={videoEl.id}>
 								<div className={styles.videoCardAside}>

@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 // import { type CardNewsItem } from 'src/types/news'
 
 import { useGetNewsByIdQuery, useGetNewsMonthsQuery } from 'src/store/news/news.api'
 import { useAdditionalCrumbs } from 'src/hooks/additional-crumbs/additional-crumbs'
-import { mainFormatDate } from 'src/helpers/utils'
+import { formatDateTimeSimple } from 'src/helpers/utils'
 
 import { Container } from 'src/UI/Container/Container'
 import { PageContent } from 'src/components/page-content/page-content'
@@ -14,6 +14,8 @@ import styles from './indexNew.module.scss'
 import { GalleryImg } from 'src/components/image-gallery/image-gallery'
 import { type ImageItemWithText } from 'src/types/photos'
 import { AsideNews } from 'src/components/aside-news/aside-news'
+import { MainButton } from 'src/UI/MainButton/MainButton'
+import { AppRoute } from 'src/routes/main-routes/consts'
 
 export const NewsDetailsNew = () => {
 	const { id } = useParams()
@@ -27,6 +29,8 @@ export const NewsDetailsNew = () => {
 		category: '',
 	})
 	const [allNewsPagePhoto, setAllNewsPagePhoto] = useState<ImageItemWithText[]>([])
+	const [previewCount, setPreviewCount] = useState<number>(1)
+	const contentRef = useRef<HTMLDivElement>(null)
 	useAdditionalCrumbs(newsItemData?.title)
 
 	// const [newsArray, setNewsArray] = useState<CardNewsItem[]>([])
@@ -49,8 +53,25 @@ export const NewsDetailsNew = () => {
 			setAllNewsPagePhoto(images)
 		}
 	}, [newsItemData])
-	if (!newsItemData) return null
+	useEffect(() => {
+		const calculatePreviewCount = () => {
+			if (contentRef.current) {
+				const contentHeight = contentRef.current.offsetHeight
+				const cardHeight = 252
+				const count = Math.floor((contentHeight - 50) / cardHeight)
+				setPreviewCount(Math.max(1, count))
+			}
+		}
 
+		calculatePreviewCount()
+		window.addEventListener('resize', calculatePreviewCount)
+
+		return () => {
+			window.removeEventListener('resize', calculatePreviewCount)
+		}
+	}, [newsItemData])
+
+	if (!newsItemData) return null
 	return (
 		<>
 			<Helmet>
@@ -59,22 +80,21 @@ export const NewsDetailsNew = () => {
 			<div className={styles.newsItemPage}>
 				<PageContent className={styles.newsListPage} $minHeight='0'>
 					<Container className={styles.newsContainer}>
-						<div className={styles.newsItemPageContent}>
+						<div className={styles.newsItemPageContent} ref={contentRef}>
 							<div className={styles.newsItemInfoContent}>
+								<span className={styles.newsItemDate}>
+									{formatDateTimeSimple(newsItemData?.date)}
+								</span>
 								<h2>{newsItemData.title}</h2>
 								<div className={newsItemData?.short ? styles.newsShortDescs : ''}>
 									{newsItemData?.short && (
 										<div dangerouslySetInnerHTML={{ __html: newsItemData.short }} />
 									)}
 								</div>
-								<span className={styles.newsItemDate}>{mainFormatDate(newsItemData?.date)}</span>
 								<div className={styles.newsItemMainImg}>
 									<GalleryImg images={allNewsPagePhoto} variant='newsMain' />
 								</div>
 								<div className={styles.newsDescs}>
-									{newsItemData?.short && (
-										<div dangerouslySetInnerHTML={{ __html: newsItemData.short }} />
-									)}
 									{newsItemData?.full && (
 										<div dangerouslySetInnerHTML={{ __html: newsItemData.full }} />
 									)}
@@ -84,9 +104,16 @@ export const NewsDetailsNew = () => {
 									allPageImages={allNewsPagePhoto}
 									variant='newsDetailsSlider'
 								/>
+								<MainButton as='route' to={`/${AppRoute.News}`} className={styles.allNewsBtn}>
+									Все новости
+								</MainButton>
 							</div>
 							<div className={styles.asideNewsDetails}>
-								<AsideNews currentNewsId={id ?? ''} newsList={newsList} previewCount={5} />
+								<AsideNews
+									currentNewsId={id ?? ''}
+									newsList={newsList}
+									previewCount={previewCount}
+								/>
 							</div>
 						</div>
 					</Container>

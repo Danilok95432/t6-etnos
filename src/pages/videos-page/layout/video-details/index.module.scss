@@ -1,11 +1,11 @@
 .videoDetailPage {
-  width: 1025px;
+  width: 1000px;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 66px;
   @media (max-width: 1440px) {
     width: 100%;
-    max-width: 1025px;
+    max-width: 1000px;
   }
   @media (max-width: 1300px) {
     flex-direction: column;
@@ -21,6 +21,9 @@
         font-size: 35px;
         margin-bottom: 17px;
       }
+   }
+   .allVideosBtn {
+    max-width: max-content;
    }
   }
 }
@@ -55,6 +58,7 @@
   padding-bottom: 30px;
   .descVideoText {
     font-size: 17px;
+    white-space: pre-line;
   }
 }
 
