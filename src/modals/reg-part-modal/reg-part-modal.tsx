@@ -6,18 +6,32 @@ import { useActions } from 'src/hooks/actions/actions'
 import styles from './index.module.scss'
 import { LogoModalSVG } from 'src/UI/icons/logoModalSVG'
 import { MainButton } from 'src/UI/MainButton/MainButton'
-import { FC, useEffect, useRef } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { RegInputs, regSchema } from './schema'
 import { useGetEventByIdQuery } from 'src/store/events/events.api'
 import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 import { CustomText } from 'src/components/custom-text/custom-text'
-import { formatDateRange, mainFormatDate } from 'src/helpers/utils'
+import {
+  booleanToNumberString,
+  formatDateRange,
+  formatDateToYYYYMMDD,
+  mainFormatDate,
+  transformToFormData,
+} from 'src/helpers/utils'
 import cn from 'classnames'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { InfoSection } from './components/InfoSection/InfoSection'
 import { RegionSection } from './components/RegionSection/RegionSection'
 import { DatesSection } from './components/DatesSection/DatesSection'
 import { PartSection } from './components/PartSection/PartSection'
+import { useParams } from 'react-router-dom'
+import {
+  useCheckRegistrationCodeMutation,
+  useGetCityByRegionQuery,
+  useGetInfoRegistationQuery,
+  useGetRegionsByValueQuery,
+  useSendRegistrationFormMutation,
+} from 'src/store/auth/auth.api'
 
 type RegEventPartModalProps = {
   id: string
@@ -27,6 +41,12 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
   const { closeModal } = useActions()
   const modalRef = useRef<HTMLDivElement>(null)
   const { data: eventDataInfo } = useGetEventByIdQuery(id ?? '')
+  const { data: selectOptions } = useGetInfoRegistationQuery(id ?? '')
+  const { data: regions } = useGetRegionsByValueQuery(' ')
+  const { data: citys } = useGetCityByRegionQuery('')
+  const [saveRegForm] = useSendRegistrationFormMutation()
+  const [checkPhoneCode] = useCheckRegistrationCodeMutation()
+  const [isCodeAccepted, setIsCodeAccepted] = useState(false)
   const breakPoint = useBreakPoint()
 
   const methods = useForm<RegInputs>({
@@ -35,8 +55,50 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
   })
 
   const onSubmit: SubmitHandler<RegInputs> = async (data) => {
-    console.log(data)
-    closeModal()
+    const region = regions?.regions.filter((reg) => reg.label == data.id_region)[0].value
+    const city = citys?.citys.filter((nas) => nas.label == data.id_city)[0].value
+    const serverData = {
+      id_reg_type: '1',
+      id_event: id,
+      surname: data.surname,
+      firstname: data.firstname,
+      fathname: data.fathname,
+      age: data.age,
+      birthdate: formatDateToYYYYMMDD(data.birthdate),
+      id_region: region,
+      id_city: city,
+      email: data.email,
+      phone: data.phone,
+      use_lager: booleanToNumberString(data.use_lager),
+      lager_count: data.lager_count,
+      data_zaezd: data.data_zaezd,
+      data_viezd: data.data_viezd,
+      use_sportsmen: booleanToNumberString(data.use_sportsmen),
+      use_folk: booleanToNumberString(data.use_folk),
+      use_trader: booleanToNumberString(data.use_trader),
+      use_master: booleanToNumberString(data.use_master),
+      master_name: data.master_name,
+      use_journalist: booleanToNumberString(data.use_journalist),
+      journal_name: data.journal_name,
+      use_car: booleanToNumberString(data.use_car),
+      id_car_type: data.id_car_type,
+      car_number: data.car_number,
+    }
+    const phoneData = {
+      phone: data.phone,
+      code: data.code,
+    }
+    try {
+      if (isCodeAccepted) {
+        const regForm = transformToFormData(serverData)
+        const res = await saveRegForm(regForm)
+        if (res) {
+          closeModal()
+        }
+      }
+    } catch (error) {
+      console.error('Unexpected error:', error)
+    }
   }
 
   useEffect(() => {
@@ -87,14 +149,18 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
           </FlexRow>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.regForm}>
-              <InfoSection />
-              <RegionSection />
-              <PartSection />
-              <DatesSection />
+              <InfoSection setIsCodeAccepted={setIsCodeAccepted} />
+              <RegionSection regions={regions?.regions} citys={citys?.citys} />
+              <PartSection
+                selectOptionsCars={selectOptions?.car_types}
+                selectOptionsLager={selectOptions?.lager_types}
+              />
+              <DatesSection selectOptions={selectOptions?.dates} />
               <FlexRow className={cn(styles.disclaimer, styles._last)}>
                 <div className={styles.grayBox}>
                   <p>
-                    Внимание! Завершение регистрации означает согласие с Правилами пользования сайтом и Правилами регистрации на события.
+                    Внимание! Завершение регистрации означает согласие с Правилами пользования
+                    сайтом и Правилами регистрации на события.
                   </p>
                 </div>
               </FlexRow>

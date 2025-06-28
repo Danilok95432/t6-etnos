@@ -3,8 +3,9 @@ import { type ShortDocument } from 'src/types/document'
 import { type SelOption } from 'src/types/select'
 import { type DateTimeFormatOptions } from 'src/types/date'
 
-import { format } from 'date-fns'
+import { format, isValid } from 'date-fns'
 import { ru } from 'date-fns/locale'
+import { FieldValues } from 'react-hook-form'
 
 const monthNames = [
   'Январь',
@@ -45,6 +46,116 @@ export const formatDateTimeSimple = (dateString: Date): string => {
 		console.error('Error formatting date:', error)
 		return 'Некорректная дата'
 	}
+}
+
+// функция форматирования даты для отправки на сервер в формате YYYY-MM-DD
+export const formatDateToYYYYMMDD = (date: Date | string | null | undefined): string => {
+	if (date === '') return ''
+
+	if (!date) {
+		return 'Invalid Date'
+	}
+
+	let parsedDate: Date
+
+	if (typeof date === 'string') {
+		try {
+			parsedDate = new Date(date)
+			if (isNaN(parsedDate.getTime())) {
+				return 'Invalid Date'
+			}
+		} catch (error) {
+			return 'Invalid Date'
+		}
+	} else if (date instanceof Date) {
+		parsedDate = date
+	} else {
+		return 'Invalid Date'
+	}
+
+	if (!isValid(parsedDate)) {
+		return 'Invalid Date'
+	}
+
+	try {
+		const formattedDate = format(parsedDate, 'yyyy-MM-dd')
+		return formattedDate
+	} catch (error) {
+		console.error('Error formatting date:', error)
+		return 'Invalid Date'
+	}
+}
+
+// функция форматирования флагов для отправки на сервер
+export const booleanToNumberString = (bool: boolean | undefined): string => {
+	return bool ? '1' : '0'
+}
+
+// форматирование данных с формы в виде объекта в формат FormData
+export const transformToFormData = (data: FieldValues) => {
+	const formData = new FormData()
+
+	Object.keys(data).forEach((key) => {
+		const value = data[key]
+		if (value instanceof File || value instanceof Blob) {
+			formData.append(key, value)
+		} else {
+			formData.append(key, String(value))
+		}
+	})
+
+	return formData
+}
+
+export const buildFormDataGuestModal = (data: any): FormData => {
+  const formData = new FormData()
+
+  for (const key in data) {
+    if (key === 'group_list' && data[key]) {
+      // Обработка group_list в формате group_list[0].age, group_list[0].surname и т.д.
+      const groupList = data[key]
+      const length = groupList.age?.length || 0
+
+      for (let i = 0; i < length; i++) {
+        formData.append(`group_list[${i}].age`, groupList.age[i] || '')
+        formData.append(`group_list[${i}].surname`, groupList.surname[i] || '')
+        formData.append(`group_list[${i}].firstname`, groupList.firstname[i] || '')
+        formData.append(`group_list[${i}].fathname`, groupList.fathname[i] || '')
+      }
+    }
+    else if (key === 'cars_list' && data[key]) {
+      // Обработка cars_list в формате cars_list[0].car_type, cars_list[0].car_number
+      const carsList = data[key]
+      const length = carsList.car_type?.length || 0
+
+      for (let i = 0; i < length; i++) {
+        formData.append(`cars_list[${i}].car_type`, carsList.car_type[i] || '')
+        formData.append(`cars_list[${i}].car_number`, carsList.car_number[i] || '')
+      }
+    }
+    else if (Array.isArray(data[key])) {
+      // Обработка обычных массивов
+      data[key].forEach((value: any, i: number) => {
+        formData.append(`${key}[${i}]`, value)
+      })
+    } 
+    else if (typeof data[key] === 'object' && data[key] !== null) {
+      // Сериализация вложенных объектов (если нужно)
+      formData.append(key, JSON.stringify(data[key]))
+    } 
+    else if (data[key] !== undefined && data[key] !== null) {
+      // Обработка простых значений
+      formData.append(key, data[key])
+    }
+  }
+
+  return formData
+}
+
+export const formatTime = (seconds: number): string => {
+  const mins = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`
 }
 
 export const formatDateToRussian = (dateString: Date): string => {

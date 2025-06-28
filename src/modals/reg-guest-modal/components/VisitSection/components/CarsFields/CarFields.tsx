@@ -2,16 +2,22 @@ import { useFormContext, useFieldArray, useWatch } from 'react-hook-form'
 import { FormInput } from 'src/UI/FormInput/FormInput'
 import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import styles from './index.module.scss'
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
+import { SelOption } from 'src/types/select'
 
-export const CarsFields = () => {
+type CarsFieldsProps = {
+  selectOptionsCars?: SelOption[]
+  disabled?: boolean
+}
+
+export const CarsFields:FC<CarsFieldsProps> = ({selectOptionsCars = [{ label: 'Не выбрано', value: '0' }], disabled }) => {
   const { control } = useFormContext()
   const { fields, append, remove } = useFieldArray({
-    name: 'cars',
+    name: 'cars_list',
     control,
   })
 
-  const count_ts = useWatch({ control, name: 'count_ts' })
+  const count_ts = useWatch({ control, name: 'cars_count' })
 
   useEffect(() => {
     const targetCount = parseInt(count_ts || '1', 10)
@@ -40,10 +46,11 @@ export const CarsFields = () => {
         <div key={field.id} className={styles.carsWrapper}>
           <ControlledSelect
             className={styles.selectForm}
-            name={`cars.${index}.type`}
-            selectOptions={[{ label: 'Машина', value: '0' }]}
+            name={`cars_list[${index}].car_type`}
+            selectOptions={selectOptionsCars}
+            disabled={disabled}
           />
-          <FormInput name={`cars.${index}.password`} label='Госномер' />
+          <FormInput name={`cars_list[${index}].car_number`} label='Госномер' disabled={disabled} />
         </div>
       ))}
     </>

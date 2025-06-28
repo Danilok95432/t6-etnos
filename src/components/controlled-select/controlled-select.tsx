@@ -16,6 +16,7 @@ type ControlledSelectProps = {
 	className?: string
 	margin?: string
 	dynamicError?: FieldError | undefined
+	disabled?: boolean
 }
 export const ControlledSelect: FC<ControlledSelectProps> = ({
 	selectOptions,
@@ -24,6 +25,7 @@ export const ControlledSelect: FC<ControlledSelectProps> = ({
 	className,
 	margin,
 	dynamicError,
+	disabled,
 	...props
 }) => {
 	const {
@@ -48,6 +50,7 @@ export const ControlledSelect: FC<ControlledSelectProps> = ({
 				options={selectOptions}
 				values={[selectOptions[0]]}
 				onChange={(values) => onChange(values[0]?.value)}
+				disabled={disabled}
 			/>
 			{dynamicError && <p className={styles.warningMessage}>{dynamicError.message}</p>}
 			{errors[name] && (

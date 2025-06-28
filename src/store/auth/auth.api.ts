@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { type FieldValues } from 'react-hook-form'
 import { MAIN_PROD_URL } from 'src/helpers/consts'
+import { SelOption } from 'src/types/select'
 
 export const authApi = createApi({
   reducerPath: 'auth/api',
@@ -9,20 +10,69 @@ export const authApi = createApi({
     baseUrl: MAIN_PROD_URL,
   }),
   endpoints: (build) => ({
-    getRegistrationCode: build.mutation<{status: string, errortext?: string}, string>({
+    getRegistrationCode: build.mutation<{ status: string; errortext?: string }, string>({
       query: (phone) => ({
         url: '/registration/getcode',
         method: 'GET',
         params: {
           phone,
-        }
+        },
       }),
     }),
-    checkRegistrationCode: build.mutation<{status: string}, FieldValues>({
+    checkRegistrationCode: build.mutation<{ status: string; errortext: string }, FieldValues>({
       query: (formData) => ({
         url: '/registration/checkcode',
         method: 'POST',
         body: formData,
+      }),
+    }),
+    sendRegistrationForm: build.mutation<void, FieldValues>({
+      query: (formData) => ({
+        url: '/registration/register',
+        method: 'POST',
+        body: formData,
+      }),
+    }),
+    sendRegistrationGuestForm: build.mutation<void, FieldValues>({
+      query: (formData) => ({
+        url: '/registration/guest_register',
+        method: 'POST',
+        body: formData,
+      }),
+    }),
+    getRegionsByValue: build.query<{ regions: SelOption[] }, string>({
+      query: (value) => ({
+        url: '/registration/getregions',
+        method: 'GET',
+        params: {
+          value,
+        },
+      }),
+    }),
+    getCityByRegion: build.query<{ citys: SelOption[] }, string>({
+      query: (region) => ({
+        url: '/registration/getcitys',
+        method: 'GET',
+        params: {
+          region,
+        },
+      }),
+    }),
+    getInfoRegistation: build.query<
+      {
+        car_types: SelOption[]
+        lager_types: SelOption[]
+        dates: SelOption[]
+        guest_group_types?: SelOption[]
+      },
+      string
+    >({
+      query: (id_event) => ({
+        url: '/registration/getinfo',
+        method: 'GET',
+        params: {
+          id_event,
+        },
       }),
     }),
     loginUser: build.mutation<void, FieldValues>({
@@ -43,6 +93,11 @@ export const authApi = createApi({
 export const {
   useLoginUserMutation,
   useGetRegistrationCodeMutation,
+  useGetRegionsByValueQuery,
+  useGetCityByRegionQuery,
+  useGetInfoRegistationQuery,
+  useSendRegistrationGuestFormMutation,
+  useSendRegistrationFormMutation,
   useLogoutUserMutation,
   useCheckRegistrationCodeMutation,
 } = authApi

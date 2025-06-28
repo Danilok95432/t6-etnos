@@ -1,11 +1,37 @@
+import { GuestCarsList, GuestGroupList } from 'src/types/registration'
 import * as yup from 'yup'
 
 export type RegGuestInputs = {
-  phone?: string
-  password: string
+  surname: string
+  firstname: string
+  fathname?: string
+  age: string
+  id_region: string
+  id_city: string
+  phone: string
+  code?: string
+  email: string
+  use_group?: boolean
+  group_name?: string
+  id_group_type?: string
+  group_count?: string
+  group_list?: GuestGroupList[]
+  use_car?: boolean
+  cars_count?: string
+  cars_list?: GuestCarsList[]
+  use_lager?: boolean
+  id_lager_type?: string
+  lager_count?: string
+  data_zaezd?: string
+  data_viezd?: string
 }
 
 export const regGuestSchema = yup.object().shape({
-  password: yup.string().required('Введите пароль'),
-  // verificationCode: yup.string().required('Введите проверочный код'),
+  surname: yup.string().required('Введите фамилию'),
+  firstname: yup.string().required('Введите имя'),
+  id_region: yup.string().required('Введите регион'),
+  age: yup.string().required('Введите возраст'),
+  id_city: yup.string().required('Введите название населенного пункта'),
+  email: yup.string().required('Введите электронную почту').email('Введите верную почту'),
+  phone: yup.string().required('Введите номер телефона').min(10, 'Недостаточно цифр в номере'),
 })

@@ -4,14 +4,18 @@ import { ControlledSelect } from 'src/components/controlled-select/controlled-se
 import styles from './index.module.scss'
 import { useEffect } from 'react'
 
-export const GuestFields = () => {
-  const { control } = useFormContext()
+type GuestFieldsProps = {
+  disabled?: boolean
+}
+
+export const GuestFields = ({ disabled = false }) => {
+  const { control, setValue } = useFormContext()
   const { fields, append, remove } = useFieldArray({
-    name: 'guests',
+    name: 'group_list',
     control,
   })
 
-  const count_ts = useWatch({ control, name: 'count_guests' })
+  const count_ts = useWatch({ control, name: 'group_count' })
 
   useEffect(() => {
     const targetCount = parseInt(count_ts || '1', 10)
@@ -20,28 +24,50 @@ export const GuestFields = () => {
     if (targetCount === currentCount) return
     
     if (targetCount > currentCount) {
-      const itemsToAdd = Array(targetCount - currentCount).fill({ type: '0', password: '' })
-      append(itemsToAdd, { shouldFocus: false })
+      const fieldNames = ['age', 'surname', 'firstname', 'fathname']
+      fieldNames.forEach(field => {
+        const currentValues = control._formValues.guest_list?.[field] || []
+        const newValues = [...currentValues, ...Array(targetCount - currentCount).fill('')]
+        setValue(`guest_list.${field}`, newValues)
+      })
     } else {
-      const indexesToRemove = Array.from(
-        { length: currentCount - targetCount },
-        (_, i) => currentCount - 1 - i
-      )
-      remove(indexesToRemove)
+      // Удаляем лишние элементы из каждого массива
+      const fieldNames = ['age', 'surname', 'firstname', 'fathname']
+      fieldNames.forEach(field => {
+        const currentValues = control._formValues.guest_list?.[field] || []
+        const newValues = currentValues.slice(0, targetCount)
+        setValue(`group_list.${field}`, newValues)
+      })
     }
-  }, [count_ts])
+  }, [count_ts, control, setValue])
 
   const displayCount = Math.max(parseInt(count_ts || '1', 10), 1)
-  const displayFields = fields.slice(0, displayCount)
 
   return (
     <>
-      {displayFields.map((field, index) => (
-        <div key={field.id} className={styles.guestsWrapper}>
-          <FormInput name={`guests.${index}.age`} label='Возраст' className={styles.shortInput} />
-          <FormInput name={`guests.${index}.secondName`} label='Фамилия' />
-          <FormInput name={`guests.${index}.firtsName`} label='Имя' />
-          <FormInput name={`guests.${index}.patronymic`} label='Отчество' />
+      {Array.from({ length: displayCount }).map((_, index) => (
+        <div key={`guest-${index}`} className={styles.guestsWrapper}>
+          <FormInput 
+            name={`group_list[${index}].age`} 
+            label='Возраст' 
+            className={styles.shortInput}
+            disabled={disabled} 
+          />
+          <FormInput 
+            name={`group_list[${index}].surname`} 
+            label='Фамилия' 
+            disabled={disabled} 
+          />
+          <FormInput 
+            name={`group_list[${index}].firstname`} 
+            label='Имя' 
+            disabled={disabled} 
+          />
+          <FormInput 
+            name={`group_list[${index}].fathname`} 
+            label='Отчество' 
+            disabled={disabled} 
+          />
         </div>
       ))}
     </>

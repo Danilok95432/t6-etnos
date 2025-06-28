@@ -2,16 +2,37 @@ import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlle
 import styles from '../../index.module.scss'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { FormInput } from 'src/UI/FormInput/FormInput'
-import { CarsFields } from '../CarsFields/CarsFields'
 import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
+import { FC } from 'react'
+import { SelOption } from 'src/types/select'
+import { useFormContext, useWatch } from 'react-hook-form'
 
-export const PartSection = () => {
+type PartSectionProps = {
+  selectOptionsCars?: SelOption[]
+  selectOptionsLager?: SelOption[]
+}
+
+export const PartSection: FC<PartSectionProps> = ({
+  selectOptionsCars = [{ label: 'Не выбрано', value: '0' }],
+  selectOptionsLager = [{ label: 'Не выбрано', value: '0' }],
+}) => {
+  const { control } = useFormContext()
+  
+  const useMaster = useWatch({ control, name: 'use_master' })
+  const useJournalist = useWatch({ control, name: 'use_journalist' })
+  const useCar = useWatch({ control, name: 'use_car' })
+  const useLager = useWatch({ control, name: 'use_lager' })
+
+  const masterDisabled = !useMaster
+  const journalistDisabled = !useJournalist
+  const carsDisabled = !useCar
+  const lagerDisabled = !useLager
   return (
     <div className={styles.formSection}>
       <span className={styles.title}>Участие</span>
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
-          <ControlledCheckbox name='sportsmen' type='checkbox' />
+          <ControlledCheckbox name='use_sportsmen' type='checkbox' />
           <span>Я — спортсмен</span>
         </div>
         <div className={styles.footerBox}>
@@ -24,7 +45,7 @@ export const PartSection = () => {
       </div>
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
-          <ControlledCheckbox name='folklor' type='checkbox' />
+          <ControlledCheckbox name='use_folk' type='checkbox' />
           <span>Я — участник фольклорной программы</span>
         </div>
         <div className={styles.footerBox}>
@@ -37,7 +58,7 @@ export const PartSection = () => {
       </div>
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
-          <ControlledCheckbox name='torg' type='checkbox' />
+          <ControlledCheckbox name='use_trader' type='checkbox' />
           <span>Я торгую на ярмарке.</span>
         </div>
         <div className={styles.footerBox}>
@@ -49,29 +70,30 @@ export const PartSection = () => {
       </div>
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
-          <ControlledCheckbox name='master' type='checkbox' />
+          <ControlledCheckbox name='use_master' type='checkbox' />
           <span>Я — мастер народных промыслов и ремесел</span>
         </div>
         <div className={styles.footerBox}>
-          <FormInput name='namePromis' label='Название промысла' className={styles.noMargin} />
+          <FormInput name='master_name' label='Название промысла' className={styles.noMargin} disabled={masterDisabled} />
         </div>
       </div>
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
-          <ControlledCheckbox name='jurnal' type='checkbox' />
+          <ControlledCheckbox name='use_journalist' type='checkbox' />
           <span>Я — журналист</span>
         </div>
         <div className={styles.footerBox}>
           <FormInput
-            name='nameIzd'
+            name='journal_name'
             label='Название издания, студии или канала'
             className={styles.noMargin}
+            disabled={journalistDisabled}
           />
         </div>
       </div>
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
-          <ControlledCheckbox name='car' type='checkbox' />
+          <ControlledCheckbox name='use_car' type='checkbox' />
           <span>Еду на машине, нужна парковка</span>
         </div>
         <div className={styles.footerBox}>
@@ -79,30 +101,33 @@ export const PartSection = () => {
             <div className={styles.carsList}>
               <ControlledSelect
                 className={styles.selectForm}
-                name={`type`}
-                selectOptions={[{ label: 'Машина', value: '0' }]}
+                name={`id_car_type`}
+                selectOptions={selectOptionsCars}
+                disabled={carsDisabled}
               />
-              <FormInput name={`number`} label='Госномер' />
+              <FormInput name={`car_number`} label='Госномер' disabled={carsDisabled} />
             </div>
           </FlexRow>
         </div>
       </div>
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
-          <ControlledCheckbox name='place' type='checkbox' />
+          <ControlledCheckbox name='use_lager' type='checkbox' />
           <span>Нужно место в палаточном лагере</span>
         </div>
         <div className={styles.footerBox}>
           <FlexRow className={styles.groupInputs}>
             <ControlledSelect
               className={styles.selectForm}
-              name='camp'
-              selectOptions={[{ label: 'Лагерь участников', value: '0' }]}
+              name='id_lager_type'
+              selectOptions={selectOptionsLager}
+              disabled={lagerDisabled}
             />
             <FormInput
-              name='palatk'
+              name='lager_count'
               label='Всего палаток (1 шатер равен 3 палаткам)'
               className={styles.noMargin}
+              disabled={lagerDisabled}
             />
           </FlexRow>
         </div>
