@@ -14,6 +14,7 @@ type AsideNewsProps = {
 	currentNewsId?: string
 	newsList?: CardNewsItem[]
 }
+
 export const AsideNews: FC<AsideNewsProps> = ({
 	currentNewsId = '',
 	newsList,
@@ -31,15 +32,23 @@ export const AsideNews: FC<AsideNewsProps> = ({
 			window.removeEventListener('resize', handleResize)
 		}
 	}, [])
+
 	const swiperRef: RefObject<SwiperRef> = useRef<SwiperRef>(null)
+
 	if (!newsList) return null
+
+	// Сортируем новости по дате (от новых к старым)
+	const sortedNews = [...newsList].sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+	)
+
 	return (
 		<aside className={styles.asideNews}>
 			<p className={styles.asideNewsTitle}>Другие новости:</p>
 			{isSmallScreen ? (
 				<div className='slider-with-btns'>
 					<Swiper {...newsSliderOptions} ref={swiperRef}>
-						{newsList.map((newsEl, idx) => (
+						{sortedNews.map((newsEl, idx) => (
 							<SwiperSlide className={styles.newsSlide} key={idx}>
 								<Link
 									to={`/${AppRoute.News}/${newsEl.id}`}
@@ -71,10 +80,9 @@ export const AsideNews: FC<AsideNewsProps> = ({
 				</div>
 			) : (
 				<div className={styles.newsList}>
-					{[...newsList]
+					{sortedNews
 						.filter((el) => el.id !== currentNewsId)
 						.slice(0, previewCount)
-						.reverse()
 						.map((newsEl) => (
 							<Link
 								to={`/${AppRoute.News}/${newsEl.id}`}
