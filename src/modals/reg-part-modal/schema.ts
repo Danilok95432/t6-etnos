@@ -10,7 +10,7 @@ export type RegInputs = {
   id_city: string
   email: string
   phone: string
-  code?: string
+  code: string
   id_reg_type?: string
   id_event?: string
   use_lager?: boolean
@@ -32,7 +32,7 @@ export type RegInputs = {
 export const regSchema = yup.object().shape({
   surname: yup.string().required('Введите фамилию'),
   firstname: yup.string().required('Введите имя'),
-  
+  code: yup.string().required('Введите верный код'),
   id_region: yup.string().required('Введите регион'),
   id_city: yup.string().required('Введите название населенного пункта'),
   email: yup.string().required('Введите электронную почту').email('Введите верную почту'),

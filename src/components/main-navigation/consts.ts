@@ -7,7 +7,7 @@ export const MenuItems: NavigationItem[] = [
 	},
 	{
 		title: 'События',
-		link: 'events',
+		link: 'cicles',
 	},
 	// {
 	// 	title: 'Карта кластера',

@@ -149,7 +149,7 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
           </FlexRow>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.regForm}>
-              <InfoSection setIsCodeAccepted={setIsCodeAccepted} />
+              <InfoSection setIsCodeAccepted={setIsCodeAccepted} isCodeAccepted={isCodeAccepted}/>
               <RegionSection regions={regions?.regions} citys={citys?.citys} />
               <PartSection
                 selectOptionsCars={selectOptions?.car_types}
@@ -164,7 +164,7 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
                   </p>
                 </div>
               </FlexRow>
-              <MainButton type='submit'>Завершить регистрацию</MainButton>
+              <MainButton type='submit' disabled={!isCodeAccepted}>Завершить регистрацию</MainButton>
             </form>
           </FormProvider>
         </div>

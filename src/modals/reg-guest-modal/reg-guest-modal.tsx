@@ -65,6 +65,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     formData.append('age', data.age)
     formData.append('id_region', region ?? '')
     formData.append('id_city', city ?? '')
+    formData.append('phone', data.phone)
     formData.append('email', data.email)
     formData.append('use_group', booleanToNumberString(data.use_group))
     if (data.use_group) {
@@ -94,10 +95,6 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     formData.append('data_zaezd', data.data_zaezd ?? '')
     formData.append('data_viezd', data.data_viezd ?? '')
 
-    const phoneData = {
-      phone: data.phone,
-      code: data.code,
-    }
     try {
       if (isCodeAccepted) {
         const res = await sendRegForm(formData)
@@ -121,6 +118,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [closeModal])
+  console.log(isCodeAccepted)
 
   return (
     <div className={styles.regModal} ref={modalRef}>
@@ -158,7 +156,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
           </FlexRow>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.regForm}>
-              <InfoSection setIsCodeAccepted={setIsCodeAccepted} />
+              <InfoSection setIsCodeAccepted={setIsCodeAccepted} isCodeAccepted={isCodeAccepted} />
               <RegionSection regions={regions?.regions} citys={citys?.citys} />
               <VisitSection
                 selectOptionsGroup={selectOptions?.guest_group_types}
@@ -174,7 +172,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
                   </p>
                 </div>
               </FlexRow>
-              <MainButton type='submit'>Завершить регистрацию</MainButton>
+              <MainButton type='submit' disabled={!isCodeAccepted}>Завершить регистрацию</MainButton>
             </form>
           </FormProvider>
         </div>

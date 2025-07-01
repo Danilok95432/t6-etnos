@@ -27,6 +27,7 @@ interface CustomProps {
   setSearchValue?: (value: string) => void
   disabled?: boolean
   accept?: boolean
+  isCodeAccepted?: boolean
   setIsCodeAccepted?: (arg0: boolean) => void
 }
 
@@ -38,6 +39,7 @@ export const FormInput: React.FC<TextInputProps> = ({
   isPassword = false,
   isPhone = false,
   isCode = false,
+  isCodeAccepted,
   setIsCodeAccepted,
   isPhoneWithCode = false,
   className,
@@ -70,6 +72,7 @@ export const FormInput: React.FC<TextInputProps> = ({
   const handleSendCode = async (phone: string) => {
     const res = await getCode(phone)
     setIsSended(true)
+    setIsCodeAccepted?.(false)
     setCountdown(120)
 
     const timer = setInterval(() => {
@@ -177,7 +180,7 @@ export const FormInput: React.FC<TextInputProps> = ({
           const [checkPhoneCode] = useCheckRegistrationCodeMutation()
 
           const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-            const rawValue = e.target.value.replace(/\D/g, '').slice(0, 5) // только цифры, максимум 5
+            const rawValue = e.target.value.replace(/\D/g, '').slice(0, 5)
             field.onChange(rawValue)
 
             if (rawValue.length === 5) {
@@ -188,7 +191,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                   setIsCodeAccepted?.(true)
                 } else {
                   setStatus('error')
-                  setIsCodeAccepted?.(true)
+                  setIsCodeAccepted?.(false)
                 }
               } catch (err) {
                 setStatus('error')
@@ -204,7 +207,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 [styles.focused]: isFocused,
                 [styles.error]: status === 'error',
                 [styles.accept]: status === 'ok',
-                [styles.disabled]: disabled,
+                [styles.disabled]: disabled || isCodeAccepted,
               })}
             >
               <input
@@ -214,7 +217,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 maxLength={5}
                 className={styles.input}
                 value={field.value || ''}
-                disabled={disabled}
+                disabled={disabled || isCodeAccepted}
                 onChange={handleChange}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}

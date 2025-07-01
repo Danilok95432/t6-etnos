@@ -51,7 +51,7 @@ export const ParticipantArticles = () => {
           {
             articles.map((article) => {
               return(
-                <li className={styles.articleElem}>
+                <li className={styles.articleElem} key={article.id}>
                   <p>{article.category + ': ' + article.title}</p>
                   <div className={styles.additionalInfo}>
                     <span>{article.type}</span>

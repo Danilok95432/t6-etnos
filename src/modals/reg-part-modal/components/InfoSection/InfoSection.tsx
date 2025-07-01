@@ -5,10 +5,11 @@ import { FormInput } from 'src/UI/FormInput/FormInput'
 import { FC } from 'react'
 
 type InfoSectionProps = {
+  isCodeAccepted?: boolean
   setIsCodeAccepted: (arg0: boolean) => void
 }
 
-export const InfoSection:FC<InfoSectionProps> = ({ setIsCodeAccepted }) => {
+export const InfoSection:FC<InfoSectionProps> = ({ isCodeAccepted, setIsCodeAccepted }) => {
   return (
     <div className={styles.formSection}>
       <span className={styles.title}>Основные данные</span>
@@ -27,7 +28,7 @@ export const InfoSection:FC<InfoSectionProps> = ({ setIsCodeAccepted }) => {
           <span>На этот номер поступит СМС со ссылкой на билет</span>
         </div>
         <div className={styles.inputwithLabel}>
-          <FormInput name='code' label='Проверочный код' isCode setIsCodeAccepted={setIsCodeAccepted} className={styles.noMargin} />
+          <FormInput name='code' label='Проверочный код' isCode isCodeAccepted={isCodeAccepted} setIsCodeAccepted={setIsCodeAccepted} className={styles.noMargin} />
           <span>Введите поступивший код для проверки номера телефона</span>
         </div>
       </FlexRow>

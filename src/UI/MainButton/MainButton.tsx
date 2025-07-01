@@ -29,6 +29,7 @@ export const MainButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps | 
 	const containerClassName = classNames(
 		styles.mainBtnContainer,
 		styles[`mainBtnContainer__${$variant}`],
+		{[styles.disabled]: disabled},
 		className,
 	)
 

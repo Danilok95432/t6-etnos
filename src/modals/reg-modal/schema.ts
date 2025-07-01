@@ -9,7 +9,7 @@ export type RegNewInputs = {
   id_city: string
   email: string
   phone: string
-  code?: string
+  code: string
 }
 
 export const regNewSchema = yup.object().shape({
@@ -19,4 +19,5 @@ export const regNewSchema = yup.object().shape({
   id_city: yup.string().required('Введите название населенного пункта'),
   email: yup.string().required('Введите электронную почту').email('Введите верную почту'),
   phone: yup.string().required('Введите номер телефона').min(10, 'Недостаточно цифр в номере'),
+  code: yup.string().required('Введите верный код'),
 })

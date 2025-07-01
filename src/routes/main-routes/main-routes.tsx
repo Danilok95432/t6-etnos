@@ -60,6 +60,13 @@ import { FunVideos } from 'src/pages/about-page/layout/about-fun/layout/fun-deta
 import { FunEvents } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-events/fun-events'
 import { EtnosportGroups } from 'src/pages/about-page/layout/about-etnosport/layout/etnosport-details/layout/etnosport-groups/etnosport-groups'
 import { FunGroups } from 'src/pages/about-page/layout/about-fun/layout/fun-details/layout/fun-groups/fun-groups'
+import { CiclesLayout } from 'src/pages/cicles-page/cicles-layout'
+import { CiclesListPage } from 'src/pages/cicles-page/layout/cicles-list-page/cicles-list-page'
+import { CicleDetailsLayout } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-details-layout'
+import { CicleDetails } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-details/cicle-details'
+import { CicleInfo } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-info/cicle-info'
+import { CicleParticipants } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-participants/cicle-participants'
+import { CicleTeams } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-teams/cicle-teams'
 
 export const MainRoutes = () => {
 	return (
@@ -120,6 +127,16 @@ export const MainRoutes = () => {
 						<Route path={AppRoute.EventParticipants} element={<EventParticipants />} />
 						<Route path={AppRoute.EventMaps} element={<EventMaps />} />
 						<Route path={AppRoute.EventTeams} element={<EventTeams />} />
+					</Route>
+				</Route>
+
+				<Route path={AppRoute.Cicles} element={<CiclesLayout />}>
+					<Route index element={<CiclesListPage />} />
+					<Route path=':id' element={<CicleDetailsLayout />}>
+						<Route index element={<CicleDetails />} />
+						<Route path={AppRoute.CiclesInfo} element={<CicleInfo />} />
+						<Route path={AppRoute.CicleParticipants} element={<CicleParticipants />} />
+						<Route path={AppRoute.CicleTeams} element={<CicleTeams />} />
 					</Route>
 				</Route>
 

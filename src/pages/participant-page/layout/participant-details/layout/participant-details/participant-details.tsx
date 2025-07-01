@@ -99,7 +99,7 @@ export const ParticipantDetails: FC = () => {
           {
             links.map((link) => {
               return(
-                <li className={styles.linkElem}>
+                <li className={styles.linkElem} key={link.id}>
                   <p>{link.title}</p>
                   <span>{link.date + ', ' + link.info}</span>
                 </li>

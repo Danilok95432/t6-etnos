@@ -90,7 +90,7 @@ export const RegModal = () => {
           <h2>Регистрация участника</h2>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.regForm}>
-              <InfoSection setIsCodeAccepted={setIsCodeAccepted} />
+              <InfoSection setIsCodeAccepted={setIsCodeAccepted} isCodeAccepted={isCodeAccepted} />
               <RegionSection regions={regions?.regions} citys={citys?.citys} />
               <FlexRow className={cn(styles.disclaimer, styles._last)}>
                 <div className={styles.grayBox}>
@@ -100,7 +100,7 @@ export const RegModal = () => {
                   </p>
                 </div>
               </FlexRow>
-              <MainButton type='submit'>Завершить регистрацию</MainButton>
+              <MainButton type='submit' disabled={!isCodeAccepted}>Завершить регистрацию</MainButton>
             </form>
           </FormProvider>
         </div>
