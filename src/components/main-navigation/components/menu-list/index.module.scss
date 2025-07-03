@@ -8,16 +8,15 @@
 	column-gap: fluid(65, 25);
 	flex-grow: 1;
 
-	@include mobile {
+	@media (max-width: 1250px) {
 		@include visually-hidden;
 	}
 }
 
 .menuItem {
 	position: relative;
-
 	a {
-		font-size: fluid(25, 18);
+		font-size: 20px;
 		color: var(--color-white);
 
 		&::before {
@@ -27,7 +26,7 @@
 			position: absolute;
 			rotate: 45deg;
 			background-color: var(--color-white);
-			top: 12px;
+			top: 9px;
 			left: -20px;
 			opacity: 0;
 			transition: all var(--transition-duration) ease;

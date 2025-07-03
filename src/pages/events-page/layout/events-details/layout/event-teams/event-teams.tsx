@@ -11,6 +11,7 @@ import { CustomTable } from 'src/components/custom-table/custom-table'
 import { MobileList } from 'src/components/mobile-list/mobile-list'
 import { TeamItem } from 'src/types/teams'
 import { formatSingleDate, parseTimeFromDate } from 'src/helpers/utils'
+import { useNavigate } from 'react-router-dom'
 
 export const EventTeams: FC = () => {
   const eventDataTeams = [
@@ -85,6 +86,7 @@ export const EventTeams: FC = () => {
   ]
 
   const breakpoint = useBreakPoint()
+  const navigate = useNavigate()
 
   const [searchName, setSearchName] = useState<string>('')
   const [searchRegion, setSearchRegion] = useState<string>('')
@@ -100,6 +102,10 @@ export const EventTeams: FC = () => {
     setSearchType: setSearchType,
     view: view,
     setView: setView,
+  }
+
+  const rowClickHandler = (id: string) => {
+    navigate(`/teams/${id}`)
   }
 
   const tableTitles = [
@@ -143,6 +149,7 @@ export const EventTeams: FC = () => {
           rowData={formatEventsTableData(eventDataTeams)}
           colTitles={tableTitles}
           initialVisibleRows={1}
+          rowClickHandler={rowClickHandler}
         />
       ) : (
         <MobileList

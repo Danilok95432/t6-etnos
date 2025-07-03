@@ -11,10 +11,12 @@ import { MobileList } from 'src/components/mobile-list/mobile-list'
 import { TeamItem } from 'src/types/teams'
 import { formatSingleDate, parseTimeFromDate } from 'src/helpers/utils'
 import { FilterPanel } from './components/FilterPanel/FilterPanel'
+import { useNavigate } from 'react-router-dom'
 
 export const FunGroups: FC = () => {
 
   const breakpoint = useBreakPoint()
+  const navigate = useNavigate()
 
   const [searchName, setSearchName] = useState<string>('')
   const [searchRegion, setSearchRegion] = useState<string>('')
@@ -30,6 +32,10 @@ export const FunGroups: FC = () => {
     setSearchType: setSearchType,
     view: view,
     setView: setView,
+  }
+
+  const rowClickHandler = (id: string) => {
+    navigate(`/teams/${id}`)
   }
 
   const tableTitles = [
@@ -73,6 +79,7 @@ export const FunGroups: FC = () => {
           rowData={formatEventsTableData([])}
           colTitles={tableTitles}
           initialVisibleRows={1}
+          rowClickHandler={rowClickHandler}
         />
       ) : (
         <MobileList

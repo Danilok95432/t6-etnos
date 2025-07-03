@@ -26,7 +26,7 @@ export const authApi = createApi({
         body: formData,
       }),
     }),
-    sendRegistrationForm: build.mutation<void, FieldValues>({
+    sendRegistrationForm: build.mutation<{ status: string; errortext: string }, FieldValues>({
       query: (formData) => ({
         url: '/registration/register',
         method: 'POST',

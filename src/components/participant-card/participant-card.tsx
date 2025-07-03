@@ -19,6 +19,7 @@ export const ParticipantCard: FC<ParticipantCardProps> = ({
   user_roles,
   photo,
   firstname,
+  events,
   surname,
   fathname,
   region_name,
@@ -50,6 +51,14 @@ export const ParticipantCard: FC<ParticipantCardProps> = ({
 							<p>Группы</p>
 							<p>{group_name}</p>
 						</div>
+            {
+              events && (
+                <div className={styles.events}>
+                  <p>События</p>
+                  <p>{events}</p>
+                </div>
+              )
+            }
 						<div className={styles.types}>
 							<p>Тип участия</p>
 							<p>{user_roles?.map(role => role.title).join(', ')}</p>

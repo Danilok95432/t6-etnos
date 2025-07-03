@@ -19,6 +19,21 @@ export type ParticipantItem = {
   }[]
   birthdate: string
   createdate: string
+  events?: string
+}
+
+export type HeroItem = {
+  id: string
+  photo: ImageItemWithText[]
+  fathname: string
+  firstname: string
+  surname: string
+  region_name: string
+  age: string
+  nickname: string
+  reward: string
+  rewardIcon: string 
+  createdate: string
 }
 
 export type ParticipantGroup = {

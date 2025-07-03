@@ -9,14 +9,18 @@ export const MenuItems: NavigationItem[] = [
 		title: 'События',
 		link: 'cicles',
 	},
-	// {
-	// 	title: 'Карта кластера',
-	// 	link: 'cluster-map',
-	// },
-	//{
-	//	title: 'Объекты',
-	//	link: 'objects-list',
-	//},
+	{
+		title: 'Места',
+		link: 'places',
+	},
+	{
+		title: 'Герои',
+		link: 'heroes',
+	},
+	{
+		title: 'Организаторы',
+		link: 'orgs',
+	},
 	{
 		title: 'Новости',
 		link: 'news',
@@ -29,12 +33,4 @@ export const MenuItems: NavigationItem[] = [
 		title: 'Исконные забавы',
 		link: 'about/about-fun',
 	},
-	//{
-	//	title: 'Видеолента',
-	//	link: 'videos',
-	//},
-	// {
-	// 	title: 'Библиотека',
-	// 	link: 'library',
-	// },
 ]

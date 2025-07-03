@@ -1,0 +1,12 @@
+.heroInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 20px;
+  }
+}

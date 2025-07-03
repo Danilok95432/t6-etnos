@@ -2,14 +2,38 @@ import { ControlledDateInput } from 'src/components/controlled-date-input/contro
 import styles from '../../index.module.scss'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { FormInput } from 'src/UI/FormInput/FormInput'
-import { FC } from 'react'
+import { FC, useEffect, useRef } from 'react'
 
 type InfoSectionProps = {
+  errorForm?: string
+  setErrorForm?: (value: string) => void
   isCodeAccepted?: boolean
   setIsCodeAccepted: (arg0: boolean) => void
 }
 
-export const InfoSection:FC<InfoSectionProps> = ({ isCodeAccepted, setIsCodeAccepted }) => {
+export const InfoSection: FC<InfoSectionProps> = ({
+  isCodeAccepted,
+  setIsCodeAccepted,
+  errorForm,
+  setErrorForm,
+}) => {
+  const phoneInputRef = useRef<HTMLInputElement>(null)
+  const codeInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (errorForm) {
+      const targetRef = isCodeAccepted ? phoneInputRef : codeInputRef
+      
+      if (targetRef.current) {
+        targetRef.current.focus()
+        targetRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      }
+    }
+  }, [errorForm, isCodeAccepted])
+
   return (
     <div className={styles.formSection}>
       <span className={styles.title}>Основные данные</span>
@@ -18,17 +42,38 @@ export const InfoSection:FC<InfoSectionProps> = ({ isCodeAccepted, setIsCodeAcce
         <FormInput name='firstname' label='Имя' />
       </FlexRow>
       <FlexRow className={styles.groupInputs}>
-        <FormInput name='fathname' label='Отчество' />
-        <ControlledDateInput name='birthdate' dateFormat='dd.MM.YYYY' placeholder='Дата рождения' className={styles.adminDateInput} />
+        <FormInput name='fathname' label='Отчество' className={styles.inputWrapperContainer} />
+        <ControlledDateInput
+          name='birthdate'
+          dateFormat='dd.MM.yyyy'
+          placeholder='Дата рождения'
+          className={styles.adminDateInput}
+        />
       </FlexRow>
       <FormInput name='email' label='Электронная почта' />
       <FlexRow className={styles.groupInputsStart}>
-        <div className={styles.inputwithLabel}>
-          <FormInput name='phone' label='Номер телефона' isPhoneWithCode={true} className={styles.noMargin} />
+        <div className={styles.inputwithLabel} ref={phoneInputRef}>
+          <FormInput
+            name='phone'
+            label='Номер телефона'
+            isPhoneWithCode={true}
+            className={styles.noMargin}
+          />
+          {errorForm && <p className={styles.warningMessage}>{errorForm}</p>}
           <span>На этот номер поступит СМС со ссылкой на билет</span>
         </div>
-        <div className={styles.inputwithLabel}>
-          <FormInput name='code' isCode setIsCodeAccepted={setIsCodeAccepted} isCodeAccepted={isCodeAccepted} label='Проверочный код' className={styles.noMargin} />
+        <div className={styles.inputwithLabel} ref={codeInputRef}>
+          <FormInput
+            name='code'
+            label='Проверочный код'
+            isCode
+            isCodeAccepted={isCodeAccepted}
+            errorForm={errorForm}
+            setErrorForm={setErrorForm}
+            setIsCodeAccepted={setIsCodeAccepted}
+            className={styles.noMargin}
+          />
+          {!isCodeAccepted && errorForm && <p className={styles.warningMessage}>Неверный код</p>}
           <span>Введите поступивший код для проверки номера телефона</span>
         </div>
       </FlexRow>

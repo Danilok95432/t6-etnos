@@ -1,4 +1,4 @@
-import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
+import { FormProvider, type SubmitHandler, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import cn from 'classnames'
 
@@ -31,6 +31,7 @@ import {
   useGetRegionsByValueQuery,
   useSendRegistrationGuestFormMutation,
 } from 'src/store/auth/auth.api'
+import { toast } from 'react-toastify'
 
 type RegEventGuestModalProps = {
   id: string
@@ -42,16 +43,27 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
   const { data: eventDataInfo } = useGetEventByIdQuery(id ?? '')
   const { data: selectOptions } = useGetInfoRegistationQuery(id ?? '')
   const { data: regions } = useGetRegionsByValueQuery(' ')
-  const { data: citys } = useGetCityByRegionQuery('')
   const [isCodeAccepted, setIsCodeAccepted] = useState(false)
   const [sendRegForm] = useSendRegistrationGuestFormMutation()
   const [checkPhoneCode] = useCheckRegistrationCodeMutation()
+  const [errorForm, setErrorForm] = useState<string>('')
   const breakPoint = useBreakPoint()
 
   const methods = useForm<RegGuestInputs>({
     mode: 'onBlur',
     resolver: yupResolver(regGuestSchema),
   })
+
+  const regionValue = useWatch({
+    control: methods.control,
+    name: 'id_region',
+  })
+
+  const { data: citys } = useGetCityByRegionQuery(
+    regions && regions?.regions?.length > 0 && regionValue
+      ? regions.regions.find((reg) => reg.label === regionValue)?.value || ' '
+      : ' ',
+  )
 
   const onSubmit: SubmitHandler<RegGuestInputs> = async (data) => {
     const region = regions?.regions.filter((reg) => reg.label == data.id_region)[0].value
@@ -97,9 +109,25 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
 
     try {
       if (isCodeAccepted) {
-        const res = await sendRegForm(formData)
-        if (res) {
+        const res = (await sendRegForm(formData)) as unknown as {
+          data: { status: string; errortext: string }
+        }
+        if (res.data.status === 'ok') {
+          toast.success('Регистрация прошла успешно!', {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
           closeModal()
+        } else {
+          toast.error('Произошла ошибка при регистрации', {
+            position: 'bottom-right',
+          })
+          setErrorForm(res.data.errortext)
         }
       }
     } catch (error) {
@@ -118,7 +146,6 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [closeModal])
-  console.log(isCodeAccepted)
 
   return (
     <div className={styles.regModal} ref={modalRef}>
@@ -156,7 +183,12 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
           </FlexRow>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.regForm}>
-              <InfoSection setIsCodeAccepted={setIsCodeAccepted} isCodeAccepted={isCodeAccepted} />
+              <InfoSection
+                setIsCodeAccepted={setIsCodeAccepted}
+                isCodeAccepted={isCodeAccepted}
+                errorForm={errorForm}
+                setErrorForm={setErrorForm}
+              />
               <RegionSection regions={regions?.regions} citys={citys?.citys} />
               <VisitSection
                 selectOptionsGroup={selectOptions?.guest_group_types}
@@ -172,7 +204,9 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
                   </p>
                 </div>
               </FlexRow>
-              <MainButton type='submit' disabled={!isCodeAccepted}>Завершить регистрацию</MainButton>
+              <MainButton type='submit' disabled={!isCodeAccepted}>
+                Завершить регистрацию
+              </MainButton>
             </form>
           </FormProvider>
         </div>

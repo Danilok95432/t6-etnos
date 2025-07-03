@@ -5,23 +5,29 @@ import { useGetCityByRegionQuery, useGetRegionsByValueQuery } from 'src/store/au
 import { FormInput } from 'src/UI/FormInput/FormInput'
 import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import { SelOption } from 'src/types/select'
+import { useFormContext, useWatch } from 'react-hook-form'
 
 type RegionSectionProps = {
-  regions?: SelOption[],
+  regions?: SelOption[]
   citys?: SelOption[]
 }
 
-export const RegionSection:FC<RegionSectionProps> = ({ regions = [{label: '', value: ''}], citys = [{label: '', value: ''}] }) => {
+export const RegionSection: FC<RegionSectionProps> = ({
+  regions = [{ label: '', value: '' }],
+  citys = [{ label: '', value: '' }],
+}) => {
+  const { control } = useFormContext()
+  const region = useWatch({ control, name: 'id_region' })
   return (
     <div className={styles.formSection}>
       <span className={styles.title}>Регион и населенный пункт</span>
       <div className={styles.inputwithLabel}>
-        <FormInput 
-          name='id_region' 
-          label='Регион РФ' 
+        <FormInput
+          name='id_region'
+          label='Регион РФ'
           className={styles.noMargin}
           is_select
-          selectOptions={regions ?? [{label: 'Не выбрано', value: '0'}]}
+          selectOptions={regions ?? [{ label: 'Не выбрано', value: '0' }]}
         />
         <span>
           Начните ввод названия региона и выберите из предложенных вариантов. Если Вы не из России,
@@ -29,12 +35,13 @@ export const RegionSection:FC<RegionSectionProps> = ({ regions = [{label: '', va
         </span>
       </div>
       <div className={styles.inputwithLabel}>
-        <FormInput 
-          name='id_city' 
-          label='Населенный пункт' 
+        <FormInput
+          name='id_city'
+          label='Населенный пункт'
           className={styles.noMargin}
           is_select
-          selectOptions={citys ?? [{label: 'Не выбрано', value: '0'}]}
+          selectOptions={citys ?? [{ label: 'Не выбрано', value: '0' }]}
+          disabled={!region}
         />
         <span>
           После выбора региона начните ввод названия Вашего населенного пункта и выберите из

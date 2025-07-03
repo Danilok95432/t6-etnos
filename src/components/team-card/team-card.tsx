@@ -17,12 +17,13 @@ export const TeamCard: FC<TeamCardProps> = ({
 	logo,
 	name,
   region,
+	events,
   registration,
   participants,
 	className,
 }) => {
 	return (
-		<Link className={styles.teamItem} to={`/${AppRoute.News}/${id}`} aria-label={id} title={id}>
+		<Link className={styles.teamItem} to={`/${AppRoute.Teams}/${id}`} aria-label={id} title={id}>
       <figure>
         <figcaption className={styles.teamItemContent}>
           <FlexRow className={styles.headTeamCard}>
@@ -39,6 +40,14 @@ export const TeamCard: FC<TeamCardProps> = ({
 							<p>Участников</p>
 							<a href='#'>{participants.length + ' участников'}</a>
 						</div>
+						{
+              events && (
+                <div className={styles.events}>
+                  <p>События</p>
+                  <p>{events}</p>
+                </div>
+              )
+            }
 						<div className={styles.types}>
 							<p>Роль группы</p>
 							<a href='#'>{type}</a>

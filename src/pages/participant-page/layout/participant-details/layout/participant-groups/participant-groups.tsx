@@ -4,6 +4,7 @@ import styles from './index.module.scss'
 import { FilterPanel } from "./components/FilterPanel/FilterPanel"
 import { CustomTable } from "src/components/custom-table/custom-table"
 import { ParticipantGroup } from "src/types/participants"
+import { useNavigate } from "react-router-dom"
 
 export const ParticipantGroups = () => {
   const groups = [
@@ -46,6 +47,7 @@ export const ParticipantGroups = () => {
   ]
 
   const breakpoint = useBreakPoint()
+  const navigate = useNavigate()
 
   const [searchName, setSearchName] = useState<string>('')
   const [searchType, setSearchType] = useState<string>('0')
@@ -55,6 +57,10 @@ export const ParticipantGroups = () => {
     setSearchName: setSearchName,
     type: searchType,
     setSearchType: setSearchType,
+  }
+
+  const rowClickHandler = (id: string) => {
+    navigate(`/teams/${id}`)
   }
 
   const tableTitles = [
@@ -93,6 +99,7 @@ export const ParticipantGroups = () => {
         className={styles.groupsTable}
         rowData={formatEventsTableData(groups)}
         colTitles={tableTitles}
+        rowClickHandler={rowClickHandler}
       />
     </div>
   )

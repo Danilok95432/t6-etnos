@@ -22,7 +22,7 @@ export const ParticipantGallery = () => {
       <div className={styles.headGallery}>
         <FilterPanel options={options} />
       </div>
-      <p className={styles.numberOfFilter}>Всего групп по выбранным фильтрам: 15</p>
+      <p className={styles.numberOfFilter}>Всего по выбранным фильтрам: 15</p>
     </div>
   )
 }

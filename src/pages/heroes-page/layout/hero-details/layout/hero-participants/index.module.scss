@@ -1,0 +1,45 @@
+.participantsSection {
+  h4 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .numberOfFilter {
+    margin: 10px 0 20px 0;
+    font-size: 18px;
+  }
+  .participantsTable {
+    grid-template-columns:
+      minmax(50px, 50px)
+      minmax(82px, 82px)
+      minmax(227px, 227px)
+      minmax(186px, 186px)
+      minmax(142px, 142px)
+      minmax(93px, 93px)
+      minmax(128px, 128px)
+      minmax(128px, 128px)
+      minmax(139px, 139px)
+      minmax(131px, 1fr);
+    .ageCell {
+      margin-left: 20px;
+    }
+    .idCell {
+      width: 100%;
+      margin: 0;
+      text-align: center;
+    }
+  }
+
+  .participantsTab {
+    display: grid;
+    grid-template: auto / repeat(auto-fit, minmax(423px, 423px));
+    gap: 25px;
+    margin: 0 0 30px 0;
+    @media (max-width: 768px) {
+      grid-template: auto / repeat(auto-fit, minmax(300px, 423px));
+    }
+  }
+
+  .showMoreBtnTab {
+    margin: 0;
+  }
+}

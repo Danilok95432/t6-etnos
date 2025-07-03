@@ -32,6 +32,7 @@ import {
   useGetRegionsByValueQuery,
   useSendRegistrationFormMutation,
 } from 'src/store/auth/auth.api'
+import { toast } from 'react-toastify'
 
 type RegEventPartModalProps = {
   id: string
@@ -42,17 +43,28 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const { data: eventDataInfo } = useGetEventByIdQuery(id ?? '')
   const { data: selectOptions } = useGetInfoRegistationQuery(id ?? '')
-  const { data: regions } = useGetRegionsByValueQuery(' ')
-  const { data: citys } = useGetCityByRegionQuery('')
+  const { data: regions } = useGetRegionsByValueQuery('')
   const [saveRegForm] = useSendRegistrationFormMutation()
   const [checkPhoneCode] = useCheckRegistrationCodeMutation()
   const [isCodeAccepted, setIsCodeAccepted] = useState(false)
+  const [errorForm, setErrorForm] = useState<string>('')
   const breakPoint = useBreakPoint()
 
   const methods = useForm<RegInputs>({
     mode: 'onBlur',
     resolver: yupResolver(regSchema),
   })
+
+  const regionValue = useWatch({
+    control: methods.control,
+    name: 'id_region',
+  })
+
+  const { data: citys } = useGetCityByRegionQuery(
+    regions && regions?.regions?.length > 0 && regionValue
+      ? regions.regions.find((reg) => reg.label === regionValue)?.value || ' '
+      : ' '
+  )
 
   const onSubmit: SubmitHandler<RegInputs> = async (data) => {
     const region = regions?.regions.filter((reg) => reg.label == data.id_region)[0].value
@@ -91,9 +103,25 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
     try {
       if (isCodeAccepted) {
         const regForm = transformToFormData(serverData)
-        const res = await saveRegForm(regForm)
-        if (res) {
+        const res = (await saveRegForm(regForm)) as unknown as {
+          data: { status: string; errortext: string }
+        }
+        if (res.data.status === 'ok') {
+          toast.success('Регистрация прошла успешно!', {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
           closeModal()
+        } else {
+          toast.error('Произошла ошибка при регистрации', {
+            position: 'bottom-right',
+          })
+          setErrorForm(res.data.errortext)
         }
       }
     } catch (error) {
@@ -149,7 +177,12 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
           </FlexRow>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.regForm}>
-              <InfoSection setIsCodeAccepted={setIsCodeAccepted} isCodeAccepted={isCodeAccepted}/>
+              <InfoSection
+                setIsCodeAccepted={setIsCodeAccepted}
+                isCodeAccepted={isCodeAccepted}
+                errorForm={errorForm}
+                setErrorForm={setErrorForm}
+              />
               <RegionSection regions={regions?.regions} citys={citys?.citys} />
               <PartSection
                 selectOptionsCars={selectOptions?.car_types}
@@ -164,7 +197,9 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
                   </p>
                 </div>
               </FlexRow>
-              <MainButton type='submit' disabled={!isCodeAccepted}>Завершить регистрацию</MainButton>
+              <MainButton type='submit' disabled={!isCodeAccepted}>
+                Завершить регистрацию
+              </MainButton>
             </form>
           </FormProvider>
         </div>

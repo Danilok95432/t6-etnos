@@ -67,6 +67,19 @@ import { CicleDetails } from 'src/pages/cicles-page/layout/cicle-details/layout/
 import { CicleInfo } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-info/cicle-info'
 import { CicleParticipants } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-participants/cicle-participants'
 import { CicleTeams } from 'src/pages/cicles-page/layout/cicle-details/layout/cicle-teams/cicle-teams'
+import { HeroesDetailsLayout } from 'src/pages/heroes-page/layout/hero-details/layout/heroes-details-layout'
+import { HeroGroups } from 'src/pages/heroes-page/layout/hero-details/layout/hero-groups/hero-groups'
+import { HeroHeroes } from 'src/pages/heroes-page/layout/hero-details/layout/hero-heroes/hero-heroes'
+import { HeroParticipants } from 'src/pages/heroes-page/layout/hero-details/layout/hero-participants/hero-participants'
+import { TeamLayout } from 'src/pages/team-page/team-layout'
+import { TeamDetailsLayout } from 'src/pages/team-page/layout/team-details/layout/team-details-layout'
+import { TeamDetails } from 'src/pages/team-page/layout/team-details/layout/team-details/team-details'
+import { TeamNews } from 'src/pages/team-page/layout/team-details/layout/team-news/team-news'
+import { TeamEvents } from 'src/pages/team-page/layout/team-details/layout/team-events/team-events'
+import { TeamGallery } from 'src/pages/team-page/layout/team-details/layout/team-gallery/team-gallery'
+import { TeamParticipants } from 'src/pages/team-page/layout/team-details/layout/team-participants/team-participants'
+import { TeamGroups } from 'src/pages/team-page/layout/team-details/layout/team-groups/team-groups'
+import { TeamVids } from 'src/pages/team-page/layout/team-details/layout/team-vids/team-vids'
 
 export const MainRoutes = () => {
 	return (
@@ -140,6 +153,12 @@ export const MainRoutes = () => {
 					</Route>
 				</Route>
 
+				<Route path={AppRoute.Heroes} element={<HeroesDetailsLayout />}>
+					<Route index element={<HeroHeroes />} />
+					<Route path={AppRoute.HeroParticipants} element={<HeroParticipants />} />
+					<Route path={AppRoute.HeroGroups} element={<HeroGroups />} />
+				</Route>
+
 				<Route path={AppRoute.Participants} element={<ParticipantLayout />}>
 					<Route path=':id' element={<ParticipantDetailsLayout />}>
 						<Route index element={<ParticipantDetails />} />
@@ -149,6 +168,18 @@ export const MainRoutes = () => {
 						<Route path={AppRoute.ParticipantEnjoy} element={<ParticipantEnjoy />} />
 						<Route path={AppRoute.ParticipantGallery} element={<ParticipantGallery />} />
 						<Route path={AppRoute.ParticipantArticles} element={<ParticipantArticles />} />
+					</Route>
+				</Route>
+
+				<Route path={AppRoute.Teams} element={<TeamLayout />}>
+					<Route path=':id' element={<TeamDetailsLayout />}>
+						<Route index element={<TeamDetails />} />
+						<Route path={AppRoute.TeamNews} element={<TeamNews />} />
+						<Route path={AppRoute.TeamEvents} element={<TeamEvents />} />
+						<Route path={AppRoute.TeamParticipants} element={<TeamParticipants />} />
+						<Route path={AppRoute.TeamGroups} element={<TeamGroups />} />
+						<Route path={AppRoute.TeamVids} element={<TeamVids />} />
+						<Route path={AppRoute.TeamGallery} element={<TeamGallery />} />
 					</Route>
 				</Route>
 			</Route>

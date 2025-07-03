@@ -1,0 +1,65 @@
+import cn from 'classnames'
+
+import { MainInput } from 'src/UI/MainInput/MainInput'
+
+import styles from './index.module.scss'
+import { FC } from 'react'
+import { MainButton } from 'src/UI/MainButton/MainButton'
+import { MainSelect } from 'src/UI/MainSelect/MainSelect'
+import { FiltersIconSVG } from 'src/UI/icons/filtersIconSVG'
+
+type FilterPanelProps = {
+  options: {
+    name?: string
+    rank?: string
+    type?: string
+    setSearchName: (arg0: string) => void
+    setSearchRank: (arg0: string) => void
+    setSearchType: (arg0: string) => void
+  }
+}
+
+export const FilterPanel:FC<FilterPanelProps> = ({options}) => {
+  return (
+    <div className={styles.filterPanel}>
+      <div className={styles.filters}>
+        <div className={styles.searchWrapper}>
+          <MainInput
+            className={cn(styles.searchInput, { [styles._activeSearch]: options.name })}
+            name='search'
+            placeholder='поиск по названию группы...'
+            value={options.name}
+            onChange={(e) => options.setSearchName(e.target.value)}
+            required
+          />
+        </div>
+        <div className={cn(styles.searchWrapper, styles.hiddenMobile)}>
+          <MainSelect
+            wrapperClassName={cn(styles.searchSelect)}
+            name='rank'
+            items={[{label: 'порядок показа', value: '0'}]}
+            value={options.type}
+            onChange={(e) => options.setSearchRank(e.target.value)}
+            required
+          />
+        </div>
+        <div className={cn(styles.searchWrapper, styles.hiddenMobile)}>
+          <MainSelect
+            wrapperClassName={cn(styles.searchSelect)}
+            name='type'
+            items={[{label: 'фото и видео', value: '0'}]}
+            value={options.type}
+            onChange={(e) => options.setSearchType(e.target.value)}
+            required
+          />
+        </div>
+        <MainButton className={styles.hiddenMobile}>
+          Найти
+        </MainButton>
+        <MainButton className={styles.mobileFilters}>
+          <FiltersIconSVG />
+        </MainButton>
+      </div>
+    </div>
+  )
+}

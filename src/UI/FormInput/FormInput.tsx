@@ -1,4 +1,4 @@
-import React, { useState, useRef, InputHTMLAttributes, useEffect } from 'react'
+import React, { useState, useRef, InputHTMLAttributes, useEffect, RefObject } from 'react'
 import InputMask from 'react-input-mask'
 import cn from 'classnames'
 import styles from './index.module.scss'
@@ -23,12 +23,15 @@ interface CustomProps {
   is_select?: boolean
   isCode?: boolean
   selectOptions?: SelOption[]
+  errorForm?: string
   searchValue?: string
   setSearchValue?: (value: string) => void
+  setErrorForm?: (value: string) => void
   disabled?: boolean
   accept?: boolean
   isCodeAccepted?: boolean
   setIsCodeAccepted?: (arg0: boolean) => void
+  setRegionValue?: (arg0: string) => void
 }
 
 type TextInputProps = InputHTMLAttributes<HTMLInputElement> & CustomProps
@@ -41,8 +44,11 @@ export const FormInput: React.FC<TextInputProps> = ({
   isCode = false,
   isCodeAccepted,
   setIsCodeAccepted,
+  setErrorForm,
   isPhoneWithCode = false,
+  setRegionValue,
   className,
+  errorForm,
   onFocus,
   maskChar = '_',
   name,
@@ -73,6 +79,7 @@ export const FormInput: React.FC<TextInputProps> = ({
     const res = await getCode(phone)
     setIsSended(true)
     setIsCodeAccepted?.(false)
+    setErrorForm?.('')
     setCountdown(120)
 
     const timer = setInterval(() => {
@@ -131,6 +138,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                   disabled={disabled}
                   onChange={(e) => {
                     field.onChange(e.target.value)
+                    setRegionValue?.(e.target.value)
                     setShowOptions(true)
                     setForceShowAllOptions(false)
                   }}
@@ -207,7 +215,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 [styles.focused]: isFocused,
                 [styles.error]: status === 'error',
                 [styles.accept]: status === 'ok',
-                [styles.disabled]: disabled || isCodeAccepted,
+                [styles.disabled]: (disabled || isCodeAccepted) && errorForm === '',
               })}
             >
               <input
@@ -217,7 +225,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 maxLength={5}
                 className={styles.input}
                 value={field.value || ''}
-                disabled={disabled || isCodeAccepted}
+                disabled={(disabled || isCodeAccepted) && errorForm === ''}
                 onChange={handleChange}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
@@ -269,11 +277,14 @@ export const FormInput: React.FC<TextInputProps> = ({
                 </InputMask>
                 {isPhoneWithCode && (
                   <MainButton
-                    className={styles.sendCodeBtn}
+                    className={cn(
+                      styles.sendCodeBtn,
+                      { [styles.resend]: countdown > 0 }
+                    )}
                     onClick={() => handleSendCode(fieldValue)}
                     disabled={!fieldValue || fieldValue.includes('_') || isSended || countdown > 0}
                   >
-                    {'Отправить код'}
+                    {countdown > 0 ? `Повторная отправка: ${countdown}` : 'Отправить код'}
                   </MainButton>
                 )}
               </>
