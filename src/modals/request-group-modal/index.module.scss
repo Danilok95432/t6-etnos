@@ -44,6 +44,21 @@ div.reqModal {
     }
   }
 
+  .controlsWrapper {
+    display: flex;
+    flex-direction: column;
+    .sendBtn:first-child {
+      margin-bottom: 10px;
+    }
+    button {
+      font-size: 22px;
+      font-weight: 400;
+    }
+    .closeBtn {
+      font-size: 18px;
+    }
+  }
+
   .disclaimer {
     gap: 10px;
     padding-bottom: 10px;
