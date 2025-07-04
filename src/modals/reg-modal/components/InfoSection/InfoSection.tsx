@@ -3,6 +3,7 @@ import styles from '../../index.module.scss'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { FormInput } from 'src/UI/FormInput/FormInput'
 import { FC, useEffect, useRef } from 'react'
+import cn from 'classnames'
 
 type InfoSectionProps = {
   errorForm?: string
@@ -62,7 +63,7 @@ export const InfoSection: FC<InfoSectionProps> = ({
           {errorForm && <p className={styles.warningMessage}>{errorForm}</p>}
           <span>На этот номер поступит СМС со ссылкой на билет</span>
         </div>
-        <div className={styles.inputwithLabel} ref={codeInputRef}>
+        <div className={cn(styles.inputwithLabel, styles.shortCode)} ref={codeInputRef}>
           <FormInput
             name='code'
             label='Проверочный код'
