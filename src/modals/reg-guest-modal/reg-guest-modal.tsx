@@ -77,6 +77,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     formData.append('age', data.age)
     formData.append('id_region', region ?? '')
     formData.append('id_city', city ?? '')
+    formData.append('cityname', data.cityname ?? '')
     formData.append('phone', data.phone)
     formData.append('email', data.email)
     formData.append('use_group', booleanToNumberString(data.use_group))
@@ -137,10 +138,22 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        closeModal()
-      }
+      const modalEl = modalRef.current
+      const target = event.target as HTMLElement
+
+      if (!modalEl || modalEl.contains(target)) return
+      const { clientX, clientY } = event
+      const windowWidth = window.innerWidth
+      const windowHeight = window.innerHeight
+      const scrollbarSize = 16
+      const isClickOnScrollbar =
+        clientX >= windowWidth - scrollbarSize || clientY >= windowHeight - scrollbarSize
+
+      if (isClickOnScrollbar) return
+
+      closeModal()
     }
+
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)

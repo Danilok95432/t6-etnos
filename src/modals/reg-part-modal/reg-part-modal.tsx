@@ -63,7 +63,7 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
   const { data: citys } = useGetCityByRegionQuery(
     regions && regions?.regions?.length > 0 && regionValue
       ? regions.regions.find((reg) => reg.label === regionValue)?.value || ' '
-      : ' '
+      : ' ',
   )
 
   const onSubmit: SubmitHandler<RegInputs> = async (data) => {
@@ -79,6 +79,7 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
       birthdate: formatDateToYYYYMMDD(data.birthdate),
       id_region: region,
       id_city: city,
+      cityname: data.cityname,
       email: data.email,
       phone: data.phone,
       use_lager: booleanToNumberString(data.use_lager),
@@ -131,10 +132,22 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        closeModal()
-      }
+      const modalEl = modalRef.current
+      const target = event.target as HTMLElement
+
+      if (!modalEl || modalEl.contains(target)) return
+      const { clientX, clientY } = event
+      const windowWidth = window.innerWidth
+      const windowHeight = window.innerHeight
+      const scrollbarSize = 16
+      const isClickOnScrollbar =
+        clientX >= windowWidth - scrollbarSize || clientY >= windowHeight - scrollbarSize
+
+      if (isClickOnScrollbar) return
+
+      closeModal()
     }
+
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)

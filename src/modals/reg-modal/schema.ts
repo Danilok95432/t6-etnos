@@ -7,6 +7,7 @@ export type RegNewInputs = {
   birthdate?: string
   id_region: string
   id_city: string
+  cityname?: string
   email: string
   phone: string
   code: string

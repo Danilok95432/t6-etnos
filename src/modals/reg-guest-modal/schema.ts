@@ -8,6 +8,7 @@ export type RegGuestInputs = {
   age: string
   id_region: string
   id_city: string
+  cityname?: string
   phone: string
   code: string
   email: string

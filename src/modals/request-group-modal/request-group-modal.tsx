@@ -13,10 +13,22 @@ export const RequestGroupModal = () => {
   const [okRequest, setOkRequest] = useState<boolean>(false)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        closeModal()
-      }
+      const modalEl = modalRef.current
+      const target = event.target as HTMLElement
+
+      if (!modalEl || modalEl.contains(target)) return
+      const { clientX, clientY } = event
+      const windowWidth = window.innerWidth
+      const windowHeight = window.innerHeight
+      const scrollbarSize = 16
+      const isClickOnScrollbar =
+        clientX >= windowWidth - scrollbarSize || clientY >= windowHeight - scrollbarSize
+
+      if (isClickOnScrollbar) return
+
+      closeModal()
     }
+
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)

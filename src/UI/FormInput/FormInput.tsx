@@ -10,6 +10,7 @@ import {
 } from 'src/store/auth/auth.api'
 import { SelOption } from 'src/types/select'
 import { formatTime } from 'src/helpers/utils'
+import { toast } from 'react-toastify'
 
 interface CustomProps {
   label: string
@@ -76,22 +77,47 @@ export const FormInput: React.FC<TextInputProps> = ({
   const [countdown, setCountdown] = useState<number>(0)
 
   const handleSendCode = async (phone: string) => {
-    const res = await getCode(phone)
-    setIsSended(true)
-    setIsCodeAccepted?.(false)
-    setErrorForm?.('')
-    setCountdown(120)
+    try {
+      const response = await getCode(phone)
 
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer)
-          setIsSended(false)
-          return 0
-        }
-        return prev - 1
+      if ('error' in response) {
+        toast.error('Не удалось отправить код. Проверьте соединение.', {
+          position: 'bottom-right',
+          autoClose: 5000,
+        })
+        return
+      }
+      const { status, errortext } = response.data
+
+      if (status === 'ok') {
+        setIsSended(true)
+        setIsCodeAccepted?.(false)
+        setErrorForm?.('')
+        setCountdown(120)
+
+        const timer = setInterval(() => {
+          setCountdown((prev) => {
+            if (prev <= 1) {
+              clearInterval(timer)
+              setIsSended(false)
+              return 0
+            }
+            return prev - 1
+          })
+        }, 1000)
+      } else if (status === 'error') {
+        toast.error(errortext || 'Ошибка при отправке кода. Повторите попытку позже', {
+          position: 'bottom-right',
+          autoClose: 5000,
+        })
+      }
+    } catch (error) {
+      toast.error('Неизвестная ошибка', {
+        position: 'bottom-right',
+        autoClose: 5000,
       })
-    }, 1000)
+      console.error('handleSendCode error:', error)
+    }
   }
 
   if (is_select) {
@@ -277,10 +303,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 </InputMask>
                 {isPhoneWithCode && (
                   <MainButton
-                    className={cn(
-                      styles.sendCodeBtn,
-                      { [styles.resend]: countdown > 0 }
-                    )}
+                    className={cn(styles.sendCodeBtn, { [styles.resend]: countdown > 0 })}
                     onClick={() => handleSendCode(fieldValue)}
                     disabled={!fieldValue || fieldValue.includes('_') || isSended || countdown > 0}
                   >
