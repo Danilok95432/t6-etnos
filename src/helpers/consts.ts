@@ -10,6 +10,7 @@ export enum ReducerPath {
 	Videos = 'videos/api',
 	Search = 'search/api',
 	Vids = 'vids/api',
+	Heroes = 'heroes/api',
 }
 
 export const ImagesFormat = ['png', 'jpeg', 'jpg', 'webp', 'gif']

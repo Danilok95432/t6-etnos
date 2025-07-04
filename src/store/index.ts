@@ -16,6 +16,7 @@ import { gamesApi } from './games/games.api'
 import { modalReducer } from 'src/modules/modal/store/modal.slice'
 import { authApi } from './auth/auth.api'
 import { vidsApi } from './vids/vids.api'
+import { heroesApi } from './heroes/heroes.api'
 
 export const store = configureStore({
 	reducer: {
@@ -32,6 +33,7 @@ export const store = configureStore({
 		[gamesApi.reducerPath]: gamesApi.reducer,
 		[authApi.reducerPath]: authApi.reducer,
 		[vidsApi.reducerPath]: vidsApi.reducer,
+		[heroesApi.reducerPath]: heroesApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false }).concat(
@@ -46,6 +48,7 @@ export const store = configureStore({
 			gamesApi.middleware,
 			authApi.middleware,
 			vidsApi.middleware,
+			heroesApi.middleware,
 		),
 })
 

@@ -12,78 +12,12 @@ import { TeamItem } from 'src/types/teams'
 import { formatSingleDate, parseTimeFromDate } from 'src/helpers/utils'
 import { FilterPanel } from './components/filterPanel/filterPanel'
 import { useNavigate } from 'react-router-dom'
+import { useGetHeroesGroupsQuery } from 'src/store/heroes/heroes.api'
+import { Loader } from 'src/components/loader/loader'
+import { HeroesGroupItem } from 'src/types/heroes'
 
 export const HeroGroups: FC = () => {
-  const eventDataTeams = [
-    {
-      id: '1',
-      logo: [
-        {
-          id: '1',
-          author: '',
-          title: '',
-          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
-          thumbnail: '',
-        },
-      ],
-      name: 'Название группы участников 1',
-      region: 'Татарстан, республика (16)',
-      participants: '3',
-      type: 'Фольклористы',
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-    {
-      id: '2',
-      logo: [
-        {
-          id: '1',
-          author: '',
-          title: '',
-          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
-          thumbnail: '',
-        },
-      ],
-      name: 'Название группы участников 1',
-      region: 'Татарстан, республика (16)',
-      participants: '3',
-      type: 'Фольклористы',
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-    {
-      id: '3',
-      logo: [
-        {
-          id: '1',
-          author: '',
-          title: '',
-          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
-          thumbnail: '',
-        },
-      ],
-      name: 'Название группы участников 1',
-      region: 'Татарстан, республика (16)',
-      participants: '3',
-      type: 'Фольклористы',
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-    {
-      id: '4',
-      logo: [
-        {
-          id: '1',
-          author: '',
-          title: '',
-          original: 'https://avatars.mds.yandex.net/i?id=37bc60752fd00c0bb9258260ded299c7_l-7548061-images-thumbs&n=1',
-          thumbnail: '',
-        },
-      ],
-      name: 'Название группы участников 1',
-      region: 'Татарстан, республика (16)',
-      participants: '3',
-      type: 'Фольклористы',
-      registration: '2025-06-01T14:30:00+03:00',
-    },
-  ]
+  const { data: groupsData } = useGetHeroesGroupsQuery(null)
 
   const breakpoint = useBreakPoint()
   const navigate = useNavigate()
@@ -118,26 +52,26 @@ export const HeroGroups: FC = () => {
     'Тип группы',
     'Регистрация',
   ]
-  const formatEventsTableData = (teams: TeamItem[]) => {
+  const formatEventsTableData = (teams: HeroesGroupItem[]) => {
     return teams.map((teamEl) => {
       return {
         rowId: teamEl.id,
         cells: [
           <p key='0' className={styles.idCell}>{teamEl.id}</p>,
-          <img key='1' src={teamEl.logo[0].original} alt='' />,
-          <p key='2'>{teamEl.name}</p>,
-          <p key='3'>{teamEl.region}</p>,
+          <img key='1' src='#' alt='' />,
+          <p key='2'>{teamEl.group_name}</p>,
+          <p key='3'>{teamEl.region_name}</p>,
           <a className={styles.participantsLink} key='4' href='#'>
-            {teamEl.participants + ' участников'}
+            {teamEl.users_count + ' участников'}
           </a>,
           <p>{'3 события'}</p>,
-          <p key='5'>{teamEl.type}</p>,
-          <p key='6'>{formatSingleDate(teamEl.registration ?? new Date())}<br />{parseTimeFromDate(teamEl.registration)}</p>,
+          <p key='5'>{'Тип'}</p>,
+          <p key='6'>{formatSingleDate(teamEl.reg_date ?? new Date())}<br />{parseTimeFromDate(teamEl.reg_date)}</p>,
         ],
       }
     })
   }
-
+  if (!groupsData) return <Loader />
   return (
     <div className={styles.teamsSection}>
       <h4>Группы</h4>
@@ -148,14 +82,14 @@ export const HeroGroups: FC = () => {
       {view === 'list' && breakpoint !== 'S' ? (
         <CustomTable
           className={styles.teamsTable}
-          rowData={formatEventsTableData(eventDataTeams)}
+          rowData={formatEventsTableData(groupsData?.groups)}
           colTitles={tableTitles}
-          initialVisibleRows={1}
+          initialVisibleRows={15}
           rowClickHandler={rowClickHandler}
         />
       ) : (
         <MobileList
-          items={eventDataTeams}
+          items={groupsData?.groups}
           renderItem={TeamCard}
           classListItems={styles.teamsTab}
           defaultVisibleCount={3}
