@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { useGetHeroesGroupsQuery } from 'src/store/heroes/heroes.api'
 import { Loader } from 'src/components/loader/loader'
 import { HeroesGroupItem } from 'src/types/heroes'
+import { HeroGroupCard } from 'src/components/hero-group-card/hero-group-card'
 
 export const HeroGroups: FC = () => {
   const { data: groupsData } = useGetHeroesGroupsQuery(null)
@@ -90,7 +91,7 @@ export const HeroGroups: FC = () => {
       ) : (
         <MobileList
           items={groupsData?.groups}
-          renderItem={TeamCard}
+          renderItem={HeroGroupCard}
           classListItems={styles.teamsTab}
           defaultVisibleCount={3}
           classNameBtn={styles.showMoreBtnTab}
