@@ -28,56 +28,55 @@ import styles from './index.module.scss'
 import { useEffect, useState } from 'react'
 import { type ImageItemWithText } from 'src/types/photos'
 import { GalleryImg } from 'src/components/image-gallery/image-gallery'
-import { MainButton } from 'src/UI/MainButton/MainButton'
 import { useActions } from 'src/hooks/actions/actions'
-import { RegEventPartModal } from 'src/modals/reg-part-modal/reg-part-modal'
-import { RegEventGuestModal } from 'src/modals/reg-guest-modal/reg-guest-modal'
+import { useGetCicleInfoQuery } from 'src/store/cicles/cicles.api'
 
 export const CicleHeadInfo = () => {
-  const { id = '' } = useParams()
-  const { data: eventData } = useGetEventByIdQuery(id ?? '')
+  const { id } = useParams()
+
+	const { data: cicleInfo } = useGetCicleInfoQuery(id ?? '')
   const { openModal } = useActions()
 
   const breakPoint = useBreakPoint()
 
-  useAdditionalCrumbs(eventData?.title)
+  useAdditionalCrumbs(cicleInfo?.cicle_name)
   const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
   useEffect(() => {
-    if (eventData) {
+    if (cicleInfo) {
       const images: ImageItemWithText[] = []
-      if (eventData.mainphoto) {
-        images.push(eventData.mainphoto[0])
+      if (cicleInfo?.mainphoto) {
+        images.push(cicleInfo.mainphoto[0])
       }
-      if (eventData.photos && Array.isArray(eventData.photos)) {
-        images.push(...eventData.photos)
+      if (cicleInfo?.photos && Array.isArray(cicleInfo?.photos)) {
+        images.push(...cicleInfo?.photos)
       }
       setAllPagePhoto(images)
     }
-  }, [eventData])
+  }, [cicleInfo])
 
   return (
     <div className={styles.cicleInfoWrapper}>
       <div className={styles.mainInfo}>
         <div className={styles.infoBlock}>
-          <h2>{eventData?.title}</h2>
+          <h2>{cicleInfo?.cicle_name}</h2>
           <FlexRow className={styles.topLineEvent}>
-            <CustomText $fontSize={'17px'}>{`Проводится с 1648 года`}</CustomText>
+            <CustomText $fontSize={'17px'}>{cicleInfo?.cicle_dates}</CustomText>
             <div className={styles.dot}></div>
             <CustomText $fontSize={'17px'}>{`Фестиваль`}</CustomText>
             <div className={styles.dot}></div>
             <CustomText $fontSize={'17px'}>{`5 событий`}</CustomText>
             <div className={cn(styles.dot, styles._red)}></div>
             <CustomText className={styles.ageRating} $fontSize={'17px'} $color='#DE0008'>
-              {eventData?.ageRating}+
+              {cicleInfo?.age}+
             </CustomText>
           </FlexRow>
           <div className={styles.listInfo}>
             <div className={styles.locationInfo}>
-              {eventData?.location?.address && (
+              {cicleInfo?.place && (
                 <InfoRow
                   title=''
                   label={
-                    <span className={styles.infoBlockText}>{eventData?.location?.address}</span>
+                    <span className={styles.infoBlockText}>{cicleInfo?.place}</span>
                   }
                   icon={<PlaceIconSVG />}
                   $titleWidth='auto'
@@ -87,15 +86,15 @@ export const CicleHeadInfo = () => {
                 />
               )}
 
-              {eventData?.object?.title && (
+              {cicleInfo?.docs && (
                 <InfoRow
                   title=''
                   label={
                     <Link
-                      to={`/${AppRoute.Objects}/${eventData?.object.id}`}
+                      to={`/${AppRoute.Objects}/${cicleInfo?.docs.id}`}
                       className={styles.infoBlockText}
                     >
-                      {eventData?.object.title}
+                      {cicleInfo?.docs.title}
                     </Link>
                   }
                   icon={<ObjectIconSVG />}
@@ -107,12 +106,12 @@ export const CicleHeadInfo = () => {
                 />
               )}
 
-              {eventData?.website && (
+              {cicleInfo?.url && (
                 <InfoRow
                   title=''
                   label={
-                    <a href={eventData?.website} className={styles.infoBlockText}>
-                      {eventData?.website}
+                    <a href={cicleInfo?.url} className={styles.infoBlockText}>
+                      {cicleInfo?.url}
                     </a>
                   }
                   icon={<SiteIconSVG />}
@@ -125,12 +124,12 @@ export const CicleHeadInfo = () => {
               )}
             </div>
             <div className={styles.contactsInfo}>
-              {eventData?.contact_telphone && (
+              {cicleInfo?.phone && (
                 <InfoRow
                   title=''
                   label={
-                    <a href={`tel:${eventData?.contact_telphone}`} className={styles.infoBlockText}>
-                      {eventData?.contact_telphone}
+                    <a href={`tel:${cicleInfo?.phone}`} className={styles.infoBlockText}>
+                      {cicleInfo?.phone}
                     </a>
                   }
                   icon={<PhoneEventIconSVG />}
@@ -142,12 +141,12 @@ export const CicleHeadInfo = () => {
                 />
               )}
 
-              {eventData?.contact_tg && (
+              {cicleInfo?.telegram && (
                 <InfoRow
                   title=''
                   label={
-                    <a href={eventData?.contact_tg} className={styles.infoBlockText}>
-                      {eventData?.contact_tg}
+                    <a href={cicleInfo?.telegram} className={styles.infoBlockText}>
+                      {cicleInfo?.telegram}
                     </a>
                   }
                   icon={<TgEventIconSVG />}
@@ -159,12 +158,12 @@ export const CicleHeadInfo = () => {
                 />
               )}
 
-              {eventData?.contact_email && (
+              {cicleInfo?.email && (
                 <InfoRow
                   title=''
                   label={
-                    <a href={`mailto:${eventData?.contact_email}`} className={styles.infoBlockText}>
-                      {eventData?.contact_email}
+                    <a href={`mailto:${cicleInfo?.email}`} className={styles.infoBlockText}>
+                      {cicleInfo?.email}
                     </a>
                   }
                   icon={<MailEventIconSVG />}
@@ -183,7 +182,7 @@ export const CicleHeadInfo = () => {
         </div>
       </div>
       <CustomText $lineHeight='1.3' $fontSize={`20px`} $margin='20px 0 10px 0' className={styles.infoBlockText}>
-        {eventData?.description}
+        {cicleInfo?.anonstext}
       </CustomText>
     </div>
   )

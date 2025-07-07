@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
 import { PageContent } from 'src/components/page-content/page-content'
@@ -13,9 +13,6 @@ import { CicleInfoNavItems } from './consts'
 import { CicleHeadInfo } from '../components/cicle-head-info/cicle-head-info'
 
 export const CicleDetailsLayout: FC = () => {
-	// const { id } = useParams()
-
-	// const { data: eventInfo } = useGetEventByIdQuery(id ?? '')
 	return (
 		<div className={styles.cicleDetailsWrapper}>
 			<PageContent

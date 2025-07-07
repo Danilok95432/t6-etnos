@@ -6,9 +6,11 @@ import { useGetEventsMonthsQuery } from 'src/store/events/events.api'
 import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 import { EventCard } from 'src/components/event-card/event-card'
 import { MobileList } from 'src/components/mobile-list/mobile-list'
+import { useGetCicleInfoQuery } from 'src/store/cicles/cicles.api'
 
 export const CicleDetails: FC = () => {
   const { id = '' } = useParams()
+  const { data: cicleInfo } = useGetCicleInfoQuery(id ?? '')
   const { data: eventsList } = useGetEventsMonthsQuery({
     date: '',
     category: '',
@@ -18,21 +20,10 @@ export const CicleDetails: FC = () => {
   return (
     <div className={styles.cicleDetailTab}>
       <h2>Главная</h2>
-      <div className={styles.cicleDescs}>
-        <p>
-          Атмановские кулачки — титульные русские игры на которых проходят годовые соревнования по
-          видам русского этноспорта (русская стенка, кила, борьба за-вороток, рюхи, лапта, стрельба
-          из лука по бабкам), состязания гармонистов, плясунов и частушечников, а также работают
-          площадки исконных забав. Ядром праздника как и раньше является кулачный бой
-          стенка-на-стенку.
-          <br />
-          <br />
-          Атмановские кулачки — титульные русские игры на которых проходят годовые соревнования по
-          видам русского этноспорта (русская стенка, кила, борьба за-вороток, рюхи, лапта, стрельба
-          из лука по бабкам), состязания гармонистов, плясунов и частушечников, а также работают
-          площадки исконных забав. Ядром праздника как и раньше является кулачный бой
-          стенка-на-стенку.
-        </p>
+      <div className={cicleInfo?.fulltext ? styles.cicleDescs : ''}>
+        {cicleInfo?.fulltext && (
+          <div dangerouslySetInnerHTML={{ __html: cicleInfo?.fulltext }} />
+        )}
       </div>
       <div className={styles.eventsSection}>
         <h4>События цикла</h4>

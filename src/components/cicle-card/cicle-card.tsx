@@ -17,28 +17,28 @@ type EventItemProps = {
 
 export const CicleCard: FC<EventItemProps> = ({
   id,
-  title,
-  photo,
-  type,
-  since,
-  countEvents,
-  desc,
+  cicle_name,
+  mainphoto,
+  cicle_dates,
+  cicle_type_name,
+  cicle_short,
+  events_count,
   className,
 }) => {
   return (
-    <Link to={`/${AppRoute.Cicles}/${1}`} aria-label='Переход на страницу цикла' title={title}>
+    <Link to={`/${AppRoute.Cicles}/${1}`} aria-label='Переход на страницу цикла' title={cicle_name}>
       <figure className={cn(styles.cicleItem, className)}>
         <div className='cicle-item-img'>
-          <img src={photo[0]?.original} alt={title} width={415} height={256} loading='lazy' />
+          <img src={mainphoto[0]?.original} alt={cicle_name} width={415} height={256} loading='lazy' />
         </div>
         <figcaption className={cn(styles.cicleContent, 'cicle-card-content')}>
-          <h3 className={styles.cicleTitle}>{title}</h3>
-          <p className={styles.cicleDate}>{since}</p>
-          <p className={styles.cicleType}>{type}</p>
+          <h3 className={styles.cicleTitle}>{cicle_name}</h3>
+          <p className={styles.cicleDate}>{cicle_dates}</p>
+          <p className={styles.cicleType}>{cicle_type_name}</p>
           <p className={styles.cicleType}>
-            {`Всего ${countEvents} событий`}
+            {`Всего ${events_count} событий`}
           </p>
-          {desc && <p className={styles.cicleDesc}>{desc}</p>}
+          {cicle_short && <p className={styles.cicleDesc}>{cicle_short}</p>}
         </figcaption>
       </figure>
     </Link>
