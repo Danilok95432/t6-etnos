@@ -34,7 +34,6 @@ export const VisitSection: FC<VisitSectionProps> = ({
     <div className={styles.formSection}>
       <span className={styles.title}>Посещение</span>
 
-      {/* --- use_group блок --- */}
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
           <ControlledCheckbox name='use_group' type='checkbox' />
@@ -48,19 +47,23 @@ export const VisitSection: FC<VisitSectionProps> = ({
                 name='group_name'
                 label='Название группы'
                 disabled={groupDisabled}
+                className={styles.groupGuestInputMain}
               />
-              <ControlledSelect
-                className={styles.selectForm}
-                name='id_group_type'
-                selectOptions={selectOptionsGroup}
-                disabled={groupDisabled}
-              />
-              <FormInput
-                name='group_count'
-                label='Всего'
-                className={styles.shortInput}
-                disabled={groupDisabled}
-              />
+              <FlexRow className={styles.groupGuestsInputsStartInner}>
+                <ControlledSelect
+                  className={styles.selectForm}
+                  name='id_group_type'
+                  selectOptions={selectOptionsGroup}
+                  disabled={groupDisabled}
+                  label='Тип группы'
+                />
+                <FormInput
+                  name='group_count'
+                  label='Всего'
+                  className={styles.shortInput}
+                  disabled={groupDisabled}
+                />
+              </FlexRow>
             </FlexRow>
             <div className={styles.guestsList}>
               <GuestFields disabled={groupDisabled} />
@@ -69,7 +72,6 @@ export const VisitSection: FC<VisitSectionProps> = ({
         </div>
       </div>
 
-      {/* --- use_car блок --- */}
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
           <ControlledCheckbox name='use_car' type='checkbox' />
@@ -90,7 +92,6 @@ export const VisitSection: FC<VisitSectionProps> = ({
         </div>
       </div>
 
-      {/* --- use_lager блок --- */}
       <div className={styles.checkBoxWrapper}>
         <div className={styles.headBox}>
           <ControlledCheckbox name='use_lager' type='checkbox' />
@@ -103,12 +104,14 @@ export const VisitSection: FC<VisitSectionProps> = ({
               name='id_lager_type'
               selectOptions={selectOptionsLager}
               disabled={lagerDisabled}
+              label='Лагерь'
             />
             <FormInput
               name='lager_count'
               label='Всего палаток (1 шатер равен 3 палаткам)'
               className={styles.noMargin}
               disabled={lagerDisabled}
+              isSmallLabel={true}
             />
           </FlexRow>
         </div>

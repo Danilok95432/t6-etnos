@@ -32,6 +32,7 @@ import {
   useSendRegistrationGuestFormMutation,
 } from 'src/store/auth/auth.api'
 import { toast } from 'react-toastify'
+import { LogoModalMobileSVG } from 'src/UI/icons/logoModalMobileSVG'
 
 type RegEventGuestModalProps = {
   id: string
@@ -164,26 +165,18 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     <div className={styles.regModal} ref={modalRef}>
       <div className='modal-content'>
         <div className={styles.modalContent}>
-          <LogoModalSVG />
+          {breakPoint === 'S' ? <LogoModalMobileSVG /> : <LogoModalSVG />}
           <h2>{eventDataInfo?.title}</h2>
           <FlexRow className={styles.eventInfoLine}>
-            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
+            <p className={styles.infoString}>
               {eventDataInfo?.date && eventDataInfo.date.length > 1
                 ? formatDateRange(eventDataInfo?.date as [Date, Date])
                 : mainFormatDate(eventDataInfo?.date[0])}
-            </CustomText>
+            </p>
             <div className={styles.dot}></div>
-            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
-              {eventDataInfo?.location.address.split(',')[0]}
-            </CustomText>
+            <p className={styles.infoString}>{eventDataInfo?.location.address.split(',')[0]}</p>
             <div className={cn(styles.dot, styles._red)}></div>
-            <CustomText
-              className={styles.ageRating}
-              $fontSize={breakPoint === 'S' ? '18px' : '16px'}
-              $color='#DE0008'
-            >
-              {eventDataInfo?.ageRating}+
-            </CustomText>
+            <p className={cn(styles.ageRating, styles.infoString)}>{eventDataInfo?.ageRating}+</p>
           </FlexRow>
           <FlexRow className={styles.disclaimer}>
             <span className={styles.title}>Регистрация гостей</span>
@@ -212,8 +205,9 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
               <FlexRow className={cn(styles.disclaimer, styles._last)}>
                 <div className={styles.grayBox}>
                   <p>
-                    Внимание! Завершение регистрации означает согласие с Правилами пользования
-                    сайтом и Правилами регистрации на события.
+                    Внимание! Завершение регистрации означает согласие с{' '}
+                    <a href='#'>Политикой защиты и обработки персональных данных</a> и 
+                    <a href='#'>Правилами посещения игр</a>.
                   </p>
                 </div>
               </FlexRow>

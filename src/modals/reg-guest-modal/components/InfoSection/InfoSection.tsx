@@ -59,7 +59,7 @@ export const InfoSection: FC<InfoSectionProps> = ({
             className={styles.noMargin}
           />
           {errorForm && <p className={styles.warningMessage}>{errorForm}</p>}
-          <span>На этот номер поступит СМС со ссылкой на билет</span>
+          <span className={styles.phoneSpan}>На этот номер поступит СМС со ссылкой на билет</span>
         </div>
         <div className={styles.inputwithLabel} ref={codeInputRef}>
           <FormInput

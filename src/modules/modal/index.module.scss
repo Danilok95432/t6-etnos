@@ -53,7 +53,9 @@
     .modal-content {
       background-color: #ffffff;
       padding: 30px 30px;
-
+      @media (max-width: 768px) {
+        padding: 25px 15px;
+      }
       h4 {
         font-size: 18px;
         font-weight: 700;

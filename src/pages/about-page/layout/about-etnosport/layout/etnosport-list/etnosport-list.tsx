@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { useGetAllVidsQuery } from 'src/store/vids/vids.api'
 
 export const EtnosportList = () => {
-  const {data: etnoData } = useGetAllVidsQuery(0)
+  const {data: etnoData } = useGetAllVidsQuery(1)
   return(
     <div className={styles.etnosportList}>
       {

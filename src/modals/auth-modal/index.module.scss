@@ -4,6 +4,11 @@ div.authModal {
 	@media (max-width: 590px) {
 		width: 85vw;
 	}
+	.forgetPassword {
+		a {
+			color: #E30613;
+		}
+	}
 }
 
 .modalContent {
@@ -20,6 +25,9 @@ div.authModal {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
+		@media (max-width: 768px) {
+			gap: 15px;
+		}
 	}
 }
 

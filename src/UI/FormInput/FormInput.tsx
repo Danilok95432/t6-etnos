@@ -17,6 +17,7 @@ interface CustomProps {
   error?: string
   isPassword?: boolean
   isPhone?: boolean
+  isSmallLabel?: boolean
   isPhoneWithCode?: boolean
   maskChar?: string
   dynamicError?: FieldError | undefined
@@ -41,6 +42,7 @@ export const FormInput: React.FC<TextInputProps> = ({
   label,
   error,
   isPassword = false,
+  isSmallLabel,
   isPhone = false,
   isCode = false,
   isCodeAccepted,
@@ -329,6 +331,7 @@ export const FormInput: React.FC<TextInputProps> = ({
         <label
           className={cn(styles.label, {
             [styles.raised]: shouldRaiseLabel,
+            [styles.smallLable]: isSmallLabel,
           })}
         >
           {label}

@@ -53,6 +53,9 @@ div.reqModal {
     button {
       font-size: 22px;
       font-weight: 400;
+      @media (max-width: 768px) {
+        font-size: 15px;
+      }
     }
     .closeBtn {
       font-size: 18px;

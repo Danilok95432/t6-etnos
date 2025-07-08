@@ -49,6 +49,7 @@ export const CarsFields:FC<CarsFieldsProps> = ({selectOptionsCars = [{ label: '�
             name={`cars_list[${index}].car_type`}
             selectOptions={selectOptionsCars}
             disabled={disabled}
+            label='Тип ТС'
           />
           <FormInput name={`cars_list[${index}].car_number`} label='Госномер' disabled={disabled} />
         </div>

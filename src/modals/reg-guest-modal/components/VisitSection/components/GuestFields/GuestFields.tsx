@@ -31,7 +31,6 @@ export const GuestFields = ({ disabled = false }) => {
         setValue(`guest_list.${field}`, newValues)
       })
     } else {
-      // Удаляем лишние элементы из каждого массива
       const fieldNames = ['age', 'surname', 'firstname', 'fathname']
       fieldNames.forEach(field => {
         const currentValues = control._formValues.guest_list?.[field] || []
@@ -47,27 +46,31 @@ export const GuestFields = ({ disabled = false }) => {
     <>
       {Array.from({ length: displayCount }).map((_, index) => (
         <div key={`guest-${index}`} className={styles.guestsWrapper}>
-          <FormInput 
-            name={`group_list[${index}].age`} 
-            label='Возраст' 
-            className={styles.shortInput}
-            disabled={disabled} 
-          />
-          <FormInput 
-            name={`group_list[${index}].surname`} 
-            label='Фамилия' 
-            disabled={disabled} 
-          />
-          <FormInput 
-            name={`group_list[${index}].firstname`} 
-            label='Имя' 
-            disabled={disabled} 
-          />
-          <FormInput 
-            name={`group_list[${index}].fathname`} 
-            label='Отчество' 
-            disabled={disabled} 
-          />
+          <div className={styles.firstGroupInfo}>
+            <FormInput 
+              name={`group_list[${index}].age`} 
+              label='Возраст' 
+              className={styles.shortInput}
+              disabled={disabled} 
+            />
+            <FormInput 
+              name={`group_list[${index}].surname`} 
+              label='Фамилия' 
+              disabled={disabled} 
+            />
+          </div>
+          <div className={styles.secondGroupInfo}>
+            <FormInput 
+              name={`group_list[${index}].firstname`} 
+              label='Имя' 
+              disabled={disabled} 
+            />
+            <FormInput 
+              name={`group_list[${index}].fathname`} 
+              label='Отчество' 
+              disabled={disabled} 
+            />
+          </div>
         </div>
       ))}
     </>

@@ -47,8 +47,9 @@ export const InfoSection: FC<InfoSectionProps> = ({
         <ControlledDateInput
           name='birthdate'
           dateFormat='dd.MM.yyyy'
-          placeholder='Дата рождения'
+          placeholder='дд.мм.гггг'
           className={styles.adminDateInput}
+          label='Дата рождения'
         />
       </FlexRow>
       <FormInput name='email' label='Электронная почта' />
@@ -61,7 +62,7 @@ export const InfoSection: FC<InfoSectionProps> = ({
             className={styles.noMargin}
           />
           {errorForm && <p className={styles.warningMessage}>{errorForm}</p>}
-          <span>На этот номер поступит СМС со ссылкой на билет</span>
+          <span className={styles.phoneSpan}>На этот номер поступит СМС со ссылкой на билет</span>
         </div>
         <div className={cn(styles.inputwithLabel, styles.shortCode)} ref={codeInputRef}>
           <FormInput

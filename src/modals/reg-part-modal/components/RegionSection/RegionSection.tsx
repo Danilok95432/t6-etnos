@@ -32,7 +32,7 @@ export const RegionSection:FC<RegionSectionProps> = ({ regions = [{label: '', va
       <div className={styles.inputwithLabel}>
         <FormInput 
           name='id_city' 
-          label='Город' 
+          label='Город или район' 
           className={styles.noMargin}
           is_select
           selectOptions={citys ?? [{label: 'Не выбрано', value: '0'}]}
@@ -51,6 +51,9 @@ export const RegionSection:FC<RegionSectionProps> = ({ regions = [{label: '', va
           className={styles.noMargin}
           disabled={!region}
         />
+        <span>
+          Введите название населенного пункта.
+        </span>
       </div>
     </div>
   )

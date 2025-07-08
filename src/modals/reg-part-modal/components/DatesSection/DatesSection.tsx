@@ -18,11 +18,13 @@ export const DatesSection:FC<DatesSectionProps> = ({ selectOptions = [{label: '�
           className={styles.selectForm}
           name='data_zaezd'
           selectOptions={selectOptions}
+          label='Дата заезда'
         />
         <ControlledSelect
           className={styles.selectForm}
           name='data_viezd'
           selectOptions={selectOptions}
+          label='Дата отъезда'
         />
       </FlexRow>
     </div>

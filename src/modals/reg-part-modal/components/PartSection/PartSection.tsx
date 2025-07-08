@@ -66,6 +66,9 @@ export const PartSection: FC<PartSectionProps> = ({
             Для того, чтобы подтвердить Ваше участие в ярмарке в качестве торговца, с Вами свяжется
             представитель организаторов.
           </p>
+          <div className={styles.footerBoxTrader}>
+            <FormInput name='trader_name' label='Описание товаров' className={styles.noMargin} disabled={masterDisabled} />
+          </div>
         </div>
       </div>
       <div className={styles.checkBoxWrapper}>
@@ -104,6 +107,7 @@ export const PartSection: FC<PartSectionProps> = ({
                 name={`id_car_type`}
                 selectOptions={selectOptionsCars}
                 disabled={carsDisabled}
+                label='Тип ТС'
               />
               <FormInput name={`car_number`} label='Госномер' disabled={carsDisabled} />
             </div>
@@ -122,12 +126,14 @@ export const PartSection: FC<PartSectionProps> = ({
               name='id_lager_type'
               selectOptions={selectOptionsLager}
               disabled={lagerDisabled}
+              label='Лагерь'
             />
             <FormInput
               name='lager_count'
               label='Всего палаток (1 шатер равен 3 палаткам)'
               className={styles.noMargin}
               disabled={lagerDisabled}
+              isSmallLabel={true}
             />
           </FlexRow>
         </div>

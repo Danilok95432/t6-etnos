@@ -10,11 +10,14 @@ import { FormInput } from 'src/UI/FormInput/FormInput'
 import { MainButton } from 'src/UI/MainButton/MainButton'
 import { useEffect, useRef } from 'react'
 import { AuthInputs, authSchema } from './schema'
+import { LogoModalMobileSVG } from 'src/UI/icons/logoModalMobileSVG'
+import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 
 export const AuthModal = () => {
   const { openModal, closeModal } = useActions()
   const navigate = useNavigate()
   const modalRef = useRef<HTMLDivElement>(null)
+  const breakPoint = useBreakPoint()
 
   const methods = useForm<AuthInputs>({
 		mode: 'onBlur',
@@ -54,7 +57,7 @@ export const AuthModal = () => {
     <div className={styles.authModal} ref={modalRef}>
       <div className='modal-content'>
         <div className={styles.modalContent}>
-          <LogoModalSVG />
+          {breakPoint === 'S' ? <LogoModalMobileSVG /> : <LogoModalSVG />}
           <h2>Вход в кабинет</h2>
           <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.authForm}>
@@ -63,7 +66,7 @@ export const AuthModal = () => {
                 <MainButton type='submit'>Войти</MainButton>
               </form>
           </FormProvider>
-          <p>
+          <p className={styles.forgetPassword}>
             Забыли пароль? <a href='#'>Восстановить</a>
           </p>
         </div>

@@ -18,16 +18,19 @@
   }
 
   input {
-    @include opensans-regular;
-    font-size: 14px;
-    padding: 8.5px 10px;
+    font-size: 18px;
+    padding: 10px 10px 0;
     border: 1px solid #C2CAC9;
     border-radius: 3px;
     width: 100%;
     background-color: #fff;
+    font-family: "MADE Likes Slab", serif;
     color: #000000;
     outline: none;
     height: 50px;
+    @media (max-width: 768px) {
+      font-size: 15px;
+    }
 
 
     &::placeholder {
@@ -39,10 +42,18 @@
     position: relative;
 
     p {
-      color: #000000;
-      @include opensans-semi;
+      position: absolute;
+      left: 12px;
+      top: 4px;
+      color: #00000096;
+      font-weight: 400;
+      font-family: "MADE Likes Slab", serif;
       font-size: 14px;
       margin-bottom: 4px;
+      font-size: 12px;
+      transition: all 0.2s ease-out;
+      pointer-events: none;
+      z-index: 1;
     }
 
     span {

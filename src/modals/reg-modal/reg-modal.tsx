@@ -23,6 +23,8 @@ import {
 } from 'src/store/auth/auth.api'
 import { formatDateToYYYYMMDD, transformToFormData } from 'src/helpers/utils'
 import { toast } from 'react-toastify'
+import { LogoModalMobileSVG } from 'src/UI/icons/logoModalMobileSVG'
+import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 
 export const RegModal = () => {
   const { openModal, closeModal } = useActions()
@@ -33,6 +35,7 @@ export const RegModal = () => {
   const [saveRegForm] = useSendRegistrationFormMutation()
   const [checkPhoneCode] = useCheckRegistrationCodeMutation()
   const [errorForm, setErrorForm] = useState<string>('')
+  const breakPoint = useBreakPoint()
 
   const methods = useForm<RegNewInputs>({
     mode: 'onBlur',
@@ -127,7 +130,7 @@ export const RegModal = () => {
     <div className={styles.regModal} ref={modalRef}>
       <div className='modal-content'>
         <div className={styles.modalContent}>
-          <LogoModalSVG />
+          {breakPoint === 'S' ? <LogoModalMobileSVG /> : <LogoModalSVG />}
           <h2>Регистрация участника</h2>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className={styles.regForm}>
@@ -141,8 +144,9 @@ export const RegModal = () => {
               <FlexRow className={cn(styles.disclaimer, styles._last)}>
                 <div className={styles.grayBox}>
                   <p>
-                    Внимание! Завершение регистрации означает согласие с Правилами пользования
-                    сайтом и Правилами регистрации на события.
+                    Внимание! Завершение регистрации означает согласие с{' '}
+                    <a href='#'>Правилами пользования сайтом</a> и{' '}
+                    <a href='#'>Правилами регистрации на события</a>.
                   </p>
                 </div>
               </FlexRow>
