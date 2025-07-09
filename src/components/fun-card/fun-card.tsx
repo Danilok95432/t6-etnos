@@ -6,6 +6,8 @@ import { FlexRow } from '../flex-row/flex-row'
 import skeleton from 'src/assets/img/skeleton-img.png'
 import { VidCardItem } from 'src/types/vids'
 import { AppRoute } from 'src/routes/main-routes/consts'
+import { SingleVidIconSVG } from 'src/UI/icons/singleVidIconSVG'
+import { GroupVidIconSVG } from 'src/UI/icons/groupVidIconSVG'
 
 type FunCardProps = {
   className?: string
@@ -38,7 +40,17 @@ export const FunCard: FC<FunCardProps> = ({
         <figcaption className={cn(styles.funContent)}>
           <h2 className={styles.title}>{title}</h2>
           <FlexRow className={styles.funContentRow}>
-            <span className={styles.funType}>{is_single ? 'Одиночный вид' : 'Групповой вид'}</span>
+            <span className={styles.funType}>{is_single ? (
+              <FlexRow className={styles.vidRow}>
+                <SingleVidIconSVG />
+                <p>Одиночный вид</p>
+              </FlexRow>
+            ) : (
+              <FlexRow className={styles.vidRow}>
+                <GroupVidIconSVG color='#D5D5D5' />
+                <p>Групповой вид</p>
+              </FlexRow>
+            )}</span>
             {is_group && (
               <>
                 <div className={styles.dot}></div>

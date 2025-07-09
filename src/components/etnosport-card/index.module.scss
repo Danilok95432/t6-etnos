@@ -55,20 +55,15 @@ figure.etnoItem {
         border-radius: 50%;
         background: #000000;
       }
-      .etnoType, .etnoTeams, .etnoParticipants {
+      .etnoTeams, .etnoParticipants {
         position: relative;
         padding-left: 20px;
       }
-      .etnoType::before {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        top: 0;
-        left: 0;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url("data:image/svg+xml,%3Csvg width='17' height='16' viewBox='0 0 17 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.50046 6.71205C10.1289 6.71205 11.449 5.32143 11.449 3.60602C11.449 1.89061 10.1289 0.5 8.50046 0.5C6.87202 0.5 5.55191 1.89061 5.55191 3.60602C5.55191 5.32143 6.87202 6.71205 8.50046 6.71205Z' fill='%23D5D5D5'/%3E%3Cpath d='M10.265 8.51145C12.3267 8.51145 14 10.2746 14 12.4459V13.2316C14 14.4837 13.0353 15.5 11.8466 15.5H5.15337C3.96473 15.5 3 14.4837 3 13.2316V12.4459C3 10.2741 4.67376 8.51145 6.73499 8.51145H10.265Z' fill='%23D5D5D5'/%3E%3C/svg%3E%0A");
+      .etnoType {
+        .vidRow {
+          gap: 5px;
+          align-items: center;
+        }
       }
       .etnoTeams::before, .etnoParticipants::before {
         content: '';

@@ -16,16 +16,16 @@ export const SwitcherView: FC<SwitcherViewProps> = ({ view, switchView, classNam
   return (
     <div className={cn(styles.switcher, className)}>
       <button
-        className={cn(styles.switchButton, styles.listView, { [styles.active]: view === 'list' })}
-        onClick={() => switchView('list')}
-      >
-        <ListPropgramSVG color={view === 'list' ? '#000' : '#B0AEB9'} />
-      </button>
-      <button
-        className={cn(styles.switchButton, styles.tabView, { [styles.active]: view === 'tab' })}
+        className={cn(styles.switchButton, styles.listView, { [styles.active]: view === 'tab' })}
         onClick={() => switchView('tab')}
       >
-        <TabProgramSVG color={view === 'tab' ? '#000' : '#B0AEB9'} />
+        <ListPropgramSVG color={view === 'tab' ? '#000' : '#B0AEB9'} />
+      </button>
+      <button
+        className={cn(styles.switchButton, styles.tabView, { [styles.active]: view === 'list' })}
+        onClick={() => switchView('list')}
+      >
+        <TabProgramSVG color={view === 'list' ? '#000' : '#B0AEB9'} />
       </button>
     </div>
   )

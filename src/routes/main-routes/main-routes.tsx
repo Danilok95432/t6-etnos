@@ -80,6 +80,8 @@ import { TeamGallery } from 'src/pages/team-page/layout/team-details/layout/team
 import { TeamParticipants } from 'src/pages/team-page/layout/team-details/layout/team-participants/team-participants'
 import { TeamGroups } from 'src/pages/team-page/layout/team-details/layout/team-groups/team-groups'
 import { TeamVids } from 'src/pages/team-page/layout/team-details/layout/team-vids/team-vids'
+import { EventProgramLayout } from 'src/pages/events-page/layout/events-details/layout/event-program-page/event-program-layout'
+import { EventProgram } from 'src/pages/events-page/layout/events-details/layout/event-program-page/components/event-program'
 
 export const MainRoutes = () => {
 	return (
@@ -140,6 +142,9 @@ export const MainRoutes = () => {
 						<Route path={AppRoute.EventParticipants} element={<EventParticipants />} />
 						<Route path={AppRoute.EventMaps} element={<EventMaps />} />
 						<Route path={AppRoute.EventTeams} element={<EventTeams />} />
+						<Route path={AppRoute.EventProgram} element={<EventProgramLayout />} >
+							<Route path=':id' element={<EventProgram />} />
+						</Route>
 					</Route>
 				</Route>
 

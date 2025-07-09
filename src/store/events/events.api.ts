@@ -1,5 +1,5 @@
 import { type CardEventItem, type EventItem } from 'src/types/events'
-import { type ProgramDay } from 'src/types/program'
+import { SubEventResponse, type ProgramDay } from 'src/types/program'
 import type { FiltrationInfo } from 'src/types/global'
 import { type CardNewsItem } from 'src/types/news'
 import { type VideoItem } from 'src/types/videos'
@@ -59,6 +59,11 @@ export const eventsApi = createApi({
 				},
 			}),
 		}),
+		getSubEventProgramById: build.query<SubEventResponse, string>({
+			query: (subEventId) => ({
+				url: `sub_events/${subEventId}`,
+			}),
+		}),
 		getEventParticipantsById: build.query<ParticipantResponse, string>({
 			query: (eventId) => ({
 				url: `reg_users`,
@@ -78,4 +83,5 @@ export const {
 	useGetEventVideosByIdQuery,
 	useGetEventProgramByIdQuery,
 	useGetEventParticipantsByIdQuery,
+	useGetSubEventProgramByIdQuery,
 } = eventsApi

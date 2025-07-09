@@ -1,5 +1,7 @@
 .eventInfoWrapper {
-	margin-bottom: 40px;
+	margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 5px solid #F2F5F8;
 	h2 {
 		margin-bottom: 15px;
 	}
@@ -7,7 +9,10 @@
 		gap: 9px;
 		align-items: center;
 		margin-bottom: 15px;
-		max-width: 500px;
+    .vidRow {
+      gap: 5px;
+      align-items: center;
+    }
 	}
 	.linkRules {
 		align-items: center;
@@ -46,9 +51,9 @@
 	}
 }
 .avatarWrapper {
-	width: 600px;
-	min-width: 600px;
-	height: 400px;
+	width: 422px;
+	min-width: 422px;
+	height: 281px;
 	border-radius: 5px;
 	img {
 		border-radius: 5px;
@@ -68,6 +73,11 @@
 		height: 200px;
 		min-width: 0;
 	}
+}
+
+.programDescInfo {
+  font-size: 20px;
+  padding-top: 20px;
 }
 
 .infoBlock {
@@ -93,7 +103,7 @@
 				margin-top: 5px;
 			}
 			p {
-				max-width: 368px;
+				max-width: 450px;
 			}
 		}
 		.locationInfo, .contactsInfo {
@@ -103,7 +113,7 @@
 		}
 	}
 	.infoBlockText {
-		font-size: 20px;
+		font-size: 17px;
 		-webkit-line-clamp: 4;
 		line-clamp: 4;
 		overflow: hidden;

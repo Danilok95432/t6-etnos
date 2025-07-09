@@ -12,9 +12,10 @@ import styles from './index.module.scss'
 
 type BreadCrumbsProps = {
 	crumbsLinksMap: NavigationItem[]
+	innerElementCrumbs?: boolean
 }
 
-export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap }) => {
+export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap, innerElementCrumbs = false }) => {
 	const { pathname } = useLocation()
 
 	const [pathNames, setPathNames] = useState<string[]>([''])
@@ -30,7 +31,11 @@ export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap }) => {
 	}
 
 	useEffect(() => {
-		const filteredPathnames = pathname.split('/').filter((el) => crumbsLinksArr.includes(el))
+		let filteredPathnames: string[]
+		if (innerElementCrumbs) {
+			filteredPathnames = crumbsLinksArr
+		}
+		else filteredPathnames = pathname.split('/').filter((el) => crumbsLinksArr.includes(el))
 		setPathNames(() => {
 			if (additionalCrumbs) {
 				return [...filteredPathnames, additionalCrumbs]
@@ -55,6 +60,15 @@ export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap }) => {
 				}
 
 				if (pathEl === 'about-etnosport' || pathEl === 'about-fun') {
+					return (
+						<li key={pathEl}>
+							<Link to={`${pathEl}`}>{defineLinkTitle(pathEl)}</Link>
+							<span> /</span>
+						</li>
+					)
+				}
+
+				if (pathEl === 'event-program') {
 					return (
 						<li key={pathEl}>
 							<Link to={`${pathEl}`}>{defineLinkTitle(pathEl)}</Link>

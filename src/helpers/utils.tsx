@@ -36,75 +36,75 @@ export const mainFormatMonthDate = (
 }
 
 export const formatDateTimeSimple = (dateString: Date): string => {
-	try {
-		const date = new Date(dateString)
-		if (isNaN(date.getTime())) {
-			throw new Error('Invalid date string')
-		}
-		return format(date, 'd MMMM yyyy, HH:mm', { locale: ru })
-	} catch (error) {
-		console.error('Error formatting date:', error)
-		return 'Некорректная дата'
-	}
+  try {
+    const date = new Date(dateString)
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date string')
+    }
+    return format(date, 'd MMMM yyyy, HH:mm', { locale: ru })
+  } catch (error) {
+    console.error('Error formatting date:', error)
+    return 'Некорректная дата'
+  }
 }
 
 // функция форматирования даты для отправки на сервер в формате YYYY-MM-DD
 export const formatDateToYYYYMMDD = (date: Date | string | null | undefined): string => {
-	if (date === '') return ''
+  if (date === '') return ''
 
-	if (!date) {
-		return 'Invalid Date'
-	}
+  if (!date) {
+    return 'Invalid Date'
+  }
 
-	let parsedDate: Date
+  let parsedDate: Date
 
-	if (typeof date === 'string') {
-		try {
-			parsedDate = new Date(date)
-			if (isNaN(parsedDate.getTime())) {
-				return 'Invalid Date'
-			}
-		} catch (error) {
-			return 'Invalid Date'
-		}
-	} else if (date instanceof Date) {
-		parsedDate = date
-	} else {
-		return 'Invalid Date'
-	}
+  if (typeof date === 'string') {
+    try {
+      parsedDate = new Date(date)
+      if (isNaN(parsedDate.getTime())) {
+        return 'Invalid Date'
+      }
+    } catch (error) {
+      return 'Invalid Date'
+    }
+  } else if (date instanceof Date) {
+    parsedDate = date
+  } else {
+    return 'Invalid Date'
+  }
 
-	if (!isValid(parsedDate)) {
-		return 'Invalid Date'
-	}
+  if (!isValid(parsedDate)) {
+    return 'Invalid Date'
+  }
 
-	try {
-		const formattedDate = format(parsedDate, 'yyyy-MM-dd')
-		return formattedDate
-	} catch (error) {
-		console.error('Error formatting date:', error)
-		return 'Invalid Date'
-	}
+  try {
+    const formattedDate = format(parsedDate, 'yyyy-MM-dd')
+    return formattedDate
+  } catch (error) {
+    console.error('Error formatting date:', error)
+    return 'Invalid Date'
+  }
 }
 
 // функция форматирования флагов для отправки на сервер
 export const booleanToNumberString = (bool: boolean | undefined): string => {
-	return bool ? '1' : '0'
+  return bool ? '1' : '0'
 }
 
 // форматирование данных с формы в виде объекта в формат FormData
 export const transformToFormData = (data: FieldValues) => {
-	const formData = new FormData()
+  const formData = new FormData()
 
-	Object.keys(data).forEach((key) => {
-		const value = data[key]
-		if (value instanceof File || value instanceof Blob) {
-			formData.append(key, value)
-		} else {
-			formData.append(key, String(value))
-		}
-	})
+  Object.keys(data).forEach((key) => {
+    const value = data[key]
+    if (value instanceof File || value instanceof Blob) {
+      formData.append(key, value)
+    } else {
+      formData.append(key, String(value))
+    }
+  })
 
-	return formData
+  return formData
 }
 
 export const buildFormDataGuestModal = (data: any): FormData => {
@@ -122,8 +122,7 @@ export const buildFormDataGuestModal = (data: any): FormData => {
         formData.append(`group_list[${i}].firstname`, groupList.firstname[i] || '')
         formData.append(`group_list[${i}].fathname`, groupList.fathname[i] || '')
       }
-    }
-    else if (key === 'cars_list' && data[key]) {
+    } else if (key === 'cars_list' && data[key]) {
       // Обработка cars_list в формате cars_list[0].car_type, cars_list[0].car_number
       const carsList = data[key]
       const length = carsList.car_type?.length || 0
@@ -132,18 +131,15 @@ export const buildFormDataGuestModal = (data: any): FormData => {
         formData.append(`cars_list[${i}].car_type`, carsList.car_type[i] || '')
         formData.append(`cars_list[${i}].car_number`, carsList.car_number[i] || '')
       }
-    }
-    else if (Array.isArray(data[key])) {
+    } else if (Array.isArray(data[key])) {
       // Обработка обычных массивов
       data[key].forEach((value: any, i: number) => {
         formData.append(`${key}[${i}]`, value)
       })
-    } 
-    else if (typeof data[key] === 'object' && data[key] !== null) {
+    } else if (typeof data[key] === 'object' && data[key] !== null) {
       // Сериализация вложенных объектов (если нужно)
       formData.append(key, JSON.stringify(data[key]))
-    } 
-    else if (data[key] !== undefined && data[key] !== null) {
+    } else if (data[key] !== undefined && data[key] !== null) {
       // Обработка простых значений
       formData.append(key, data[key])
     }
@@ -300,7 +296,7 @@ export const mainFormatDate = (
 }
 
 export const parseTimeFromDate = (date: Date | string | undefined): string | null => {
-  if (!date) return null
+  if (!date) return '12:00'
   const time =
     typeof date === 'string'
       ? date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1]
@@ -378,7 +374,24 @@ export const formatDateRange = (
   return `${format(startDate, `d ${isShortMonth ? 'LLL' : 'MMMM'} yyyy`, { locale: ru }).replace('.', '')} ${separator} ${format(endDate, `d ${isShortMonth ? 'LLL' : 'MMMM'} yyyy`, { locale: ru }).replace('.', '')}`
 }
 
-// Получение дня недели
+export const formatTimeRange = (
+  timeArray: [string | null | undefined, string | null | undefined],
+): string => {
+  const [startTime, endTime] = timeArray
+  const isValidTime = (time: string | null | undefined): time is string =>
+    time !== null && time !== undefined
+
+  const format = (time: string | null | undefined) =>
+    isValidTime(time) ? time.split(':').slice(0, 2).join(':') : undefined
+
+  const formattedStart = format(startTime)
+  const formattedEnd = format(endTime)
+
+  if (formattedStart && formattedEnd) {
+    return `${formattedStart} - ${formattedEnd}`
+  }
+  return formattedStart || formattedEnd || ''
+}
 
 export const getDayOfWeek = (date: Date) => {
   return format(date, 'EEEE', { locale: ru })

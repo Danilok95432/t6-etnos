@@ -1,6 +1,6 @@
-import { type FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
 import { PageContent } from 'src/components/page-content/page-content'
@@ -13,9 +13,13 @@ import styles from './index.module.scss'
 import { Container } from 'src/UI/Container/Container'
 
 export const EventDetailsLayout: FC = () => {
-	// const { id } = useParams()
+	const location = useLocation()
+	const [isProgramPage, setIsProgramPage] = useState<boolean>(false)
 
-	// const { data: eventInfo } = useGetEventByIdQuery(id ?? '')
+	useEffect(() => {
+		setIsProgramPage(location.pathname.includes('/event-program'))
+	}, [location.pathname])
+
 	return (
 		<div className={styles.eventDetailsWrapper}>
 			<PageContent
@@ -27,8 +31,8 @@ export const EventDetailsLayout: FC = () => {
 					<title>Информация о событии</title>
 				</Helmet>
 				<Container>
-					<EventInfo />
-					<TabNav className={styles.eventTabs} navItems={EventInfoNavItems} />
+					{!isProgramPage && <EventInfo />}
+					{!isProgramPage && <TabNav className={styles.eventTabs} navItems={EventInfoNavItems} />}
 					<Outlet />
 				</Container>
 			</PageContent>
