@@ -33,8 +33,6 @@ export const SingleRequstsTable: FC<SingleRequstsTableProps> = ({ view = 'list' 
     'Имя, фамилия, прозвище',
     'Регион',
     'Возраст',
-    'Группа',
-    'Тип участия',
     'Регистрация',
   ]
   const formatEventsTableData = (participants: ParticipantItem[]) => {
@@ -47,11 +45,7 @@ export const SingleRequstsTable: FC<SingleRequstsTableProps> = ({ view = 'list' 
         <p key='2'>{`${participantEl.surname} ${participantEl.firstname} ${participantEl.fathname}`}</p>,
         <p key='3'>{participantEl.region_name}</p>,
         <p className={styles.ageCell} key='4'>{participantEl.age}</p>,
-        <p key='5'>{participantEl.group_name}</p>,
-        <p key='6'>
-          {participantEl.user_roles?.map(role => role.title).join(', ') || 'Не указано'}
-        </p>,
-        <p key='7'>
+        <p key='4'>
           {formatSingleDate(participantEl.createdate ?? new Date())}
           <br />
           {parseTimeFromDate(participantEl.createdate)}

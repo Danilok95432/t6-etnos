@@ -28,7 +28,7 @@ export const EventProgramDetails = () => {
       <div className={styles.headTeams}>
         <FilterPanel options={options} isSingle={isSingle} />
       </div>
-      <p className={styles.numberOfFilter}>Всего групп по выбранным фильтрам: 15</p>
+      <p className={styles.numberOfFilter}>{isSingle ? 'Всего участников по выбранным фильтрам: 15' : 'Всего групп по выбранным фильтрам: 15'}</p>
       {
         isSingle ?
         <SingleRequstsTable view={view} />

@@ -102,7 +102,7 @@ export const GroupRequstsTable: FC<GroupRequstsTableProps> = ({ view = 'list' })
     'Регион',
     'Участников',
     'Тип группы',
-    'Регистрация',
+    'Заявка',
   ]
   const formatEventsTableData = (teams: TeamItem[]) => {
     return teams.map((teamEl) => {
