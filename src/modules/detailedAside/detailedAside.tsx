@@ -31,18 +31,44 @@ export const DetailedAside: FC<DetailedAsideProps> = ({
 }) => {
 	return (
 		<div className={cn(styles.detailedAside, className)}>
-			{/* brandImg && (
-				<div className={styles.asideEl}>
-					<h6>Бренд событий</h6>
-					<div className={styles.asideImg}>
-						<img src={brandImg} alt='Бренд' />
+			<div className={styles.facesEvent}>
+				{/* brandImg && (
+					<div className={styles.asideEl}>
+						<h6>Бренд событий</h6>
+						<div className={styles.asideImg}>
+							<img src={brandImg} alt='Бренд' />
+						</div>
 					</div>
-				</div>
-			) */}
-			{!!organizers?.length && (
-				<div className={styles.asideEl}>
-					<h6>Генеральный партнер</h6>
-					<div className={styles.asideImg}>
+				) */}
+				{!!organizers?.length && (
+					<div className={styles.asideEl}>
+						<h6>Генеральный партнер</h6>
+						<div className={styles.asideImg}>
+							<ul className={styles.asideSimpleLinks}>
+								{organizers.map((organizersEl) => (
+									<SimpleLink
+										title={organizersEl.title}
+										link={organizersEl.link}
+										key={organizersEl.title}
+									/>
+								))}
+							</ul>
+						</div>
+					</div>
+				)}
+				{!!partners?.length && (
+					<div className={styles.asideEl}>
+						<h6>Партнеры</h6>
+						<ul className={styles.asideSimpleLinks}>
+							{partners.map((partnerEl) => (
+								<SimpleLink title={partnerEl.title} link={partnerEl.itemlink} key={partnerEl.title} />
+							))}
+						</ul>
+					</div>
+				)}
+				{!!organizers?.length && (
+					<div className={styles.asideEl}>
+						<h6>Организаторы программы</h6>
 						<ul className={styles.asideSimpleLinks}>
 							{organizers.map((organizersEl) => (
 								<SimpleLink
@@ -53,32 +79,8 @@ export const DetailedAside: FC<DetailedAsideProps> = ({
 							))}
 						</ul>
 					</div>
-				</div>
-			)}
-			{!!partners?.length && (
-				<div className={styles.asideEl}>
-					<h6>Партнеры</h6>
-					<ul className={styles.asideSimpleLinks}>
-						{partners.map((partnerEl) => (
-							<SimpleLink title={partnerEl.title} link={partnerEl.itemlink} key={partnerEl.title} />
-						))}
-					</ul>
-				</div>
-			)}
-			{!!organizers?.length && (
-				<div className={styles.asideEl}>
-					<h6>Организаторы программы</h6>
-					<ul className={styles.asideSimpleLinks}>
-						{organizers.map((organizersEl) => (
-							<SimpleLink
-								title={organizersEl.title}
-								link={organizersEl.link}
-								key={organizersEl.title}
-							/>
-						))}
-					</ul>
-				</div>
-			)}
+				)}
+			</div>
 			<AsideDocuments documents={documents} />
 			<LinksList
 				className={styles.detailedAsideLinks}
