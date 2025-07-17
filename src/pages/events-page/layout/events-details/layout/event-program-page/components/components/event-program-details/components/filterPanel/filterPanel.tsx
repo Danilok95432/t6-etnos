@@ -21,10 +21,10 @@ type FilterPanelProps = {
     setSearchType: (arg0: string) => void
     setView: (arg0: string) => void
   }
-  isSingle?: boolean
+  isSingle?: number
 }
 
-export const FilterPanel:FC<FilterPanelProps> = ({ options, isSingle = false }) => {
+export const FilterPanel:FC<FilterPanelProps> = ({ options, isSingle = 0 }) => {
   return (
     <div className={styles.filterPanel}>
       <div className={styles.filters}>
@@ -32,7 +32,7 @@ export const FilterPanel:FC<FilterPanelProps> = ({ options, isSingle = false }) 
           <MainInput
             className={cn(styles.searchInput, { [styles._activeSearch]: options.name })}
             name='search'
-            placeholder={isSingle ? 'поиск по имени участника...' : 'поиск по названию группы...'}
+            placeholder={isSingle === 0 ? 'поиск по имени участника...' : 'поиск по названию группы...'}
             value={options.name}
             onChange={(e) => options.setSearchName(e.target.value)}
             required

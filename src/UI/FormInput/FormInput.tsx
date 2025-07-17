@@ -11,6 +11,7 @@ import {
 import { SelOption } from 'src/types/select'
 import { formatTime } from 'src/helpers/utils'
 import { toast } from 'react-toastify'
+import { ErrorMessage } from '@hookform/error-message'
 
 interface CustomProps {
   label: string
@@ -23,6 +24,7 @@ interface CustomProps {
   dynamicError?: FieldError | undefined
   name: string
   is_select?: boolean
+  is_city_select?: boolean
   isCode?: boolean
   selectOptions?: SelOption[]
   errorForm?: string
@@ -30,10 +32,13 @@ interface CustomProps {
   setSearchValue?: (value: string) => void
   setErrorForm?: (value: string) => void
   disabled?: boolean
+  disabledList?: boolean
   accept?: boolean
   isCodeAccepted?: boolean
   setIsCodeAccepted?: (arg0: boolean) => void
   setRegionValue?: (arg0: string) => void
+  lockSearch?: boolean,
+  setLockSearch?: (arg0: boolean) => void
 }
 
 type TextInputProps = InputHTMLAttributes<HTMLInputElement> & CustomProps
@@ -46,6 +51,7 @@ export const FormInput: React.FC<TextInputProps> = ({
   isPhone = false,
   isCode = false,
   isCodeAccepted,
+  disabledList,
   setIsCodeAccepted,
   setErrorForm,
   isPhoneWithCode = false,
@@ -56,6 +62,9 @@ export const FormInput: React.FC<TextInputProps> = ({
   maskChar = '_',
   name,
   is_select,
+  is_city_select,
+  lockSearch,
+  setLockSearch,
   selectOptions,
   searchValue = '',
   disabled,
@@ -63,7 +72,7 @@ export const FormInput: React.FC<TextInputProps> = ({
   setSearchValue,
   ...restProps
 }) => {
-  const { register, control, watch } = useFormContext()
+  const { register, control, watch, formState: { errors }, } = useFormContext()
   const inputRef = useRef<HTMLInputElement>(null)
   const [isFocused, setIsFocused] = useState(false)
   const [isSended, setIsSended] = useState(false)
@@ -169,6 +178,9 @@ export const FormInput: React.FC<TextInputProps> = ({
                     setRegionValue?.(e.target.value)
                     setShowOptions(true)
                     setForceShowAllOptions(false)
+                    if (is_city_select && lockSearch && setLockSearch) {
+                      setLockSearch?.(false)
+                    } 
                   }}
                   onFocus={() => {
                     setIsFocused(true)
@@ -183,7 +195,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 >
                   {label}
                 </label>
-                {showOptions && filteredOptions && filteredOptions.length > 0 && (
+                {showOptions && !disabledList && filteredOptions && filteredOptions.length > 0 && (
                   <ul className={styles.selectOptions}>
                     {filteredOptions.map((option) => (
                       <li
@@ -193,6 +205,9 @@ export const FormInput: React.FC<TextInputProps> = ({
                           field.onChange(option.label)
                           setShowOptions(false)
                           setForceShowAllOptions(false)
+                          if (is_city_select && setLockSearch) {
+                            setLockSearch?.(true)
+                          }
                         }}
                       >
                         {option.label}

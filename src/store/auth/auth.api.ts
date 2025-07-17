@@ -49,12 +49,13 @@ export const authApi = createApi({
         },
       }),
     }),
-    getCityByRegion: build.query<{ citys: SelOption[] }, string>({
-      query: (region) => ({
+    getCityByRegion: build.query<{ citys: SelOption[] }, {region: string, city: string}>({
+      query: ({region, city}) => ({
         url: '/registration/getcitys',
         method: 'GET',
         params: {
           region,
+          city,
         },
       }),
     }),

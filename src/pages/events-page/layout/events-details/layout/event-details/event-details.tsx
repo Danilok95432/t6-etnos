@@ -216,7 +216,7 @@ export const EventDetails: FC = () => {
         <section>
           <div className={styles.programTab}>
             <FlexRow className={styles.headProgram}>
-              <h4>Программа</h4>
+              <h4>Подсобытия</h4>
               <SwitcherView view={view} switchView={setView} className={styles.hiddenDesktop} />
             </FlexRow>
             <Program programDays={programDays ?? []} parentView={view} />

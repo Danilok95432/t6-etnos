@@ -42,15 +42,29 @@ export const RegModal = () => {
     resolver: yupResolver(regNewSchema),
   })
 
+  const [lockSearch, setLockSearch] = useState<boolean>(false)
+
   const regionValue = useWatch({
     control: methods.control,
     name: 'id_region',
   })
 
+  const cityValue =
+    useWatch({
+      control: methods.control,
+      name: 'id_city',
+    }) || ''
+
+  const regionId = regions?.regions?.find((reg) => reg.label === regionValue)?.value
+
   const { data: citys } = useGetCityByRegionQuery(
-    regions && regions?.regions?.length > 0 && regionValue
-      ? regions.regions.find((reg) => reg.label === regionValue)?.value || ' '
-      : ' ',
+    {
+      region: regionId || '',
+      city: cityValue,
+    },
+    {
+      skip: !regionId || cityValue.length <= 2 || lockSearch,
+    },
   )
 
   const onSubmit: SubmitHandler<RegNewInputs> = async (data) => {
@@ -64,17 +78,15 @@ export const RegModal = () => {
       birthdate: formatDateToYYYYMMDD(data.birthdate),
       id_region: region,
       id_city: city,
-      cityname: data.cityname,
       email: data.email,
       phone: data.phone,
-    }
-    const phoneData = {
-      phone: data.phone,
-      code: data.code,
     }
     try {
       if (isCodeAccepted) {
         const regForm = transformToFormData(serverData)
+        if (serverData.id_city === '' || serverData.id_city === undefined) {
+          regForm.append('city_name', data.id_city)
+        }
         const res = (await saveRegForm(regForm)) as unknown as {
           data: { status: string; errortext: string }
         }
@@ -140,13 +152,18 @@ export const RegModal = () => {
                 errorForm={errorForm}
                 setErrorForm={setErrorForm}
               />
-              <RegionSection regions={regions?.regions} citys={citys?.citys} />
+              <RegionSection
+                regions={regions?.regions}
+                citys={citys?.citys}
+                setLockSearch={setLockSearch}
+                lockSearch={lockSearch}
+              />
               <FlexRow className={cn(styles.disclaimer, styles._last)}>
                 <div className={styles.grayBox}>
                   <p>
                     Внимание! Завершение регистрации означает согласие с{' '}
-                    <a href='#'>Правилами пользования сайтом</a> и{' '}
-                    <a href='#'>Правилами регистрации на события</a>.
+                    <a href='#'>Политикой защиты и обработки персональных данных</a> и{' '}
+                    <a href='#'>Правилами посещения игр</a>.
                   </p>
                 </div>
               </FlexRow>

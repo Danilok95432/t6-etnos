@@ -89,6 +89,11 @@ div.regModal {
         @media (max-width: 768px) {
           margin-bottom: 0;
         }
+        .warningMessage {
+          color: #E30613;
+          font-weight: 500;
+          font-size: 15px;
+        }
         .noMargin {
           margin-bottom: 0;
         }

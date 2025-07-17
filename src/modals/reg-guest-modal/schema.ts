@@ -8,7 +8,7 @@ export type RegGuestInputs = {
   age: string
   id_region: string
   id_city: string
-  cityname?: string
+  city_name?: string
   phone: string
   code: string
   email: string
@@ -30,7 +30,12 @@ export type RegGuestInputs = {
 export const regGuestSchema = yup.object().shape({
   surname: yup.string().required('Введите фамилию'),
   firstname: yup.string().required('Введите имя'),
-  id_region: yup.string().required('Введите регион'),
+  id_region: yup
+    .string()
+    .required('Введите регион')
+    .test('contains-comma', 'Выберите регион из списка', (value) => {
+      return value == 'Иностранец' || value.includes(',')
+    }),
   age: yup.string().required('Введите возраст'),
   code: yup.string().required('Введите верный код'),
   id_city: yup.string().required('Введите название населенного пункта'),

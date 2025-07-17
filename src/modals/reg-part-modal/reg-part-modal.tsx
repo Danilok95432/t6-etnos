@@ -56,20 +56,34 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
     resolver: yupResolver(regSchema),
   })
 
+  const [lockSearch, setLockSearch] = useState<boolean>(false)
+
   const regionValue = useWatch({
     control: methods.control,
     name: 'id_region',
   })
 
+  const cityValue =
+    useWatch({
+      control: methods.control,
+      name: 'id_city',
+    }) || ''
+
+  const regionId = regions?.regions?.find((reg) => reg.label === regionValue)?.value
+
   const { data: citys } = useGetCityByRegionQuery(
-    regions && regions?.regions?.length > 0 && regionValue
-      ? regions.regions.find((reg) => reg.label === regionValue)?.value || ' '
-      : ' ',
+    {
+      region: regionId || '',
+      city: cityValue,
+    },
+    {
+      skip: !regionId || cityValue.length <= 2 || lockSearch,
+    },
   )
 
   const onSubmit: SubmitHandler<RegInputs> = async (data) => {
-    const region = regions?.regions.filter((reg) => reg.label == data.id_region)[0].value
-    const city = citys?.citys.filter((nas) => nas.label == data.id_city)[0].value
+    const region = regions?.regions?.filter((reg) => reg.label == data.id_region)[0].value
+    const city = citys?.citys?.filter((nas) => nas.label == data.id_city)[0].value
     const serverData = {
       id_reg_type: '1',
       id_event: id,
@@ -80,7 +94,6 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
       birthdate: formatDateToYYYYMMDD(data.birthdate),
       id_region: region,
       id_city: city,
-      cityname: data.cityname,
       email: data.email,
       phone: data.phone,
       use_lager: booleanToNumberString(data.use_lager),
@@ -98,13 +111,12 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
       id_car_type: data.id_car_type,
       car_number: data.car_number,
     }
-    const phoneData = {
-      phone: data.phone,
-      code: data.code,
-    }
     try {
       if (isCodeAccepted) {
         const regForm = transformToFormData(serverData)
+        if (serverData.id_city === '' || serverData.id_city === undefined) {
+          regForm.append('city_name', data.id_city)
+        }
         const res = (await saveRegForm(regForm)) as unknown as {
           data: { status: string; errortext: string }
         }
@@ -168,15 +180,9 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
                 : mainFormatDate(eventDataInfo?.date[0])}
             </p>
             <div className={styles.dot}></div>
-            <p className={styles.infoString}>
-              {eventDataInfo?.location.address.split(',')[0]}
-            </p>
+            <p className={styles.infoString}>{eventDataInfo?.location.address.split(',')[0]}</p>
             <div className={cn(styles.dot, styles._red)}></div>
-            <p
-              className={cn(styles.ageRating, styles.infoString)}
-            >
-              {eventDataInfo?.ageRating}+
-            </p>
+            <p className={cn(styles.ageRating, styles.infoString)}>{eventDataInfo?.ageRating}+</p>
           </FlexRow>
           <FlexRow className={styles.disclaimer}>
             <span className={styles.title}>Регистрация участника</span>
@@ -195,7 +201,12 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
                 errorForm={errorForm}
                 setErrorForm={setErrorForm}
               />
-              <RegionSection regions={regions?.regions} citys={citys?.citys} />
+              <RegionSection
+                regions={regions?.regions}
+                citys={citys?.citys}
+                setLockSearch={setLockSearch}
+                lockSearch={lockSearch}
+              />
               <PartSection
                 selectOptionsCars={selectOptions?.car_types}
                 selectOptionsLager={selectOptions?.lager_types}
@@ -204,8 +215,9 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
               <FlexRow className={cn(styles.disclaimer, styles._last)}>
                 <div className={styles.grayBox}>
                   <p>
-                    Внимание! Завершение регистрации означает согласие с <a href='#'>Правилами пользования
-                    сайтом</a> и <a href='#'>Правилами регистрации на события</a>.
+                    Внимание! Завершение регистрации означает согласие с{' '}
+                    <a href='#'>Политикой защиты и обработки персональных данных</a> и{' '}
+                    <a href='#'>Правилами посещения игр</a>.
                   </p>
                 </div>
               </FlexRow>

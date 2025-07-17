@@ -143,7 +143,7 @@ export const MainRoutes = () => {
 						<Route path={AppRoute.EventMaps} element={<EventMaps />} />
 						<Route path={AppRoute.EventTeams} element={<EventTeams />} />
 						<Route path={AppRoute.EventProgram} element={<EventProgramLayout />} >
-							<Route path=':id' element={<EventProgram />} />
+							<Route path=':subId' element={<EventProgram />} />
 						</Route>
 					</Route>
 				</Route>

@@ -55,20 +55,34 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     resolver: yupResolver(regGuestSchema),
   })
 
+  const [lockSearch, setLockSearch] = useState<boolean>(false)
+
   const regionValue = useWatch({
     control: methods.control,
     name: 'id_region',
   })
 
+  const cityValue =
+    useWatch({
+      control: methods.control,
+      name: 'id_city',
+    }) || ''
+
+  const regionId = regions?.regions?.find((reg) => reg.label === regionValue)?.value
+
   const { data: citys } = useGetCityByRegionQuery(
-    regions && regions?.regions?.length > 0 && regionValue
-      ? regions.regions.find((reg) => reg.label === regionValue)?.value || ' '
-      : ' ',
+    {
+      region: regionId || '',
+      city: cityValue,
+    },
+    {
+      skip: !regionId || cityValue.length <= 2 || lockSearch,
+    },
   )
 
   const onSubmit: SubmitHandler<RegGuestInputs> = async (data) => {
     const region = regions?.regions.filter((reg) => reg.label == data.id_region)[0].value
-    const city = citys?.citys.filter((nas) => nas.label == data.id_city)[0].value
+    const city = citys?.citys?.filter((nas) => nas.label == data.id_city)[0].value
     const formData = new FormData()
     formData.append('id_reg_type', '1')
     formData.append('id_event', id)
@@ -78,7 +92,6 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     formData.append('age', data.age)
     formData.append('id_region', region ?? '')
     formData.append('id_city', city ?? '')
-    formData.append('cityname', data.cityname ?? '')
     formData.append('phone', data.phone)
     formData.append('email', data.email)
     formData.append('use_group', booleanToNumberString(data.use_group))
@@ -108,6 +121,9 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     }
     formData.append('data_zaezd', data.data_zaezd ?? '')
     formData.append('data_viezd', data.data_viezd ?? '')
+    if (city === '' || city === undefined) {
+      formData.append('city_name', data.id_city)
+    }
 
     try {
       if (isCodeAccepted) {
@@ -195,7 +211,12 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
                 errorForm={errorForm}
                 setErrorForm={setErrorForm}
               />
-              <RegionSection regions={regions?.regions} citys={citys?.citys} />
+              <RegionSection
+                regions={regions?.regions}
+                citys={citys?.citys}
+                setLockSearch={setLockSearch}
+                lockSearch={lockSearch}
+              />
               <VisitSection
                 selectOptionsGroup={selectOptions?.guest_group_types}
                 selectOptionsLager={selectOptions?.lager_types}
@@ -206,7 +227,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
                 <div className={styles.grayBox}>
                   <p>
                     Внимание! Завершение регистрации означает согласие с{' '}
-                    <a href='#'>Политикой защиты и обработки персональных данных</a> и 
+                    <a href='#'>Политикой защиты и обработки персональных данных</a> и{' '}
                     <a href='#'>Правилами посещения игр</a>.
                   </p>
                 </div>

@@ -18,6 +18,8 @@ export type SubEventResponse = {
 	itemdate: string
 	begin_time: string
 	use_end_time: boolean
+	is_group: number
+	is_etnosport: boolean
 	end_time: string
 	place: string
 	vid: string

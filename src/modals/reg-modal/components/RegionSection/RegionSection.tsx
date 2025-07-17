@@ -1,23 +1,26 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import styles from '../../index.module.scss'
-import { FlexRow } from 'src/components/flex-row/flex-row'
-import { useGetCityByRegionQuery, useGetRegionsByValueQuery } from 'src/store/auth/auth.api'
 import { FormInput } from 'src/UI/FormInput/FormInput'
-import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import { SelOption } from 'src/types/select'
 import { useFormContext, useWatch } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 type RegionSectionProps = {
   regions?: SelOption[]
   citys?: SelOption[]
+  lockSearch?: boolean
+  setLockSearch?: (arg0: boolean) => void
 }
 
 export const RegionSection: FC<RegionSectionProps> = ({
   regions = [{ label: '', value: '' }],
   citys = [{ label: '', value: '' }],
+  lockSearch,
+  setLockSearch,
 }) => {
-  const { control } = useFormContext()
+  const { control, formState: { errors } } = useFormContext()
   const region = useWatch({ control, name: 'id_region' })
+  const cityList = useWatch({ control, name: 'id_city' })
   return (
     <div className={styles.formSection}>
       <span className={styles.title}>Регион и населенный пункт</span>
@@ -29,6 +32,11 @@ export const RegionSection: FC<RegionSectionProps> = ({
           is_select
           selectOptions={regions ?? [{ label: 'Не выбрано', value: '0' }]}
         />
+        {errors['id_region'] && (
+          <p className={styles.warningMessage}>
+            <ErrorMessage errors={errors} name={'id_region'} />
+          </p>
+        )}
         <span>
           Начните ввод названия региона и выберите из предложенных вариантов. Если Вы не из России,
           наберите «ино» и выберите вариант «Иностранец».
@@ -37,27 +45,25 @@ export const RegionSection: FC<RegionSectionProps> = ({
       <div className={styles.inputwithLabel}>
         <FormInput
           name='id_city'
-          label='Город или район'
+          label='Населенный пункт'
           className={styles.noMargin}
           is_select
+          is_city_select
+          lockSearch={lockSearch}
+          setLockSearch={setLockSearch}
           selectOptions={citys ?? [{ label: 'Не выбрано', value: '0' }]}
           disabled={!region}
+          disabledList={(cityList?.length ?? 0) < 2}
         />
+        {errors['id_city'] && (
+          <p className={styles.warningMessage}>
+            <ErrorMessage errors={errors} name={'id_city'} />
+          </p>
+        )}
         <span>
-          После выбора региона начните ввод названия Вашего населенного пункта и выберите из
-          предложенных вариантов. Если в пункте «Регион РФ» Вы выбрали вариант «Иностранец», в этом
-          поле нужно ввести название государства, из которого Вы прибыли.
-        </span>
-      </div>
-      <div className={styles.inputwithLabel}>
-        <FormInput 
-          name='cityname' 
-          label='Населенный пункт' 
-          className={styles.noMargin}
-          disabled={!region}
-        />
-        <span>
-          Введите название населенного пункта.
+          После выбора региона начните ввод названия Вашего города (села, поселка, хутора, станицы)
+          и выберите верный из предложенных вариантов. Если ранее Вы выбрали вариант «Иностранец», в
+          этом поле нужно ввести название государства.
         </span>
       </div>
     </div>

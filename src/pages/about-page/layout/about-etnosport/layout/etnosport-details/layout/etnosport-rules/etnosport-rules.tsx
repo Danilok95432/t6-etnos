@@ -8,9 +8,6 @@ export const EtnosportRules = () => {
   return(
     <div className={styles.etnosportRulesPage}>
       <h3>Правила</h3>
-      <p>
-        Правила игры в {etnoData?.vids.title}:
-      </p>
       <p>{etnoData?.vids.rule}</p>
     </div>
   )

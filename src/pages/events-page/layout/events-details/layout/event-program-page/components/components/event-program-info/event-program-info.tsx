@@ -2,7 +2,14 @@ import { Link, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
 import { useGetEventByIdQuery, useGetSubEventProgramByIdQuery } from 'src/store/events/events.api'
-import { formatDateRange, formatDateRangeNumeric, formatSingleDate, formatTimeRange, mainFormatDate, parseTimeFromDate } from 'src/helpers/utils'
+import {
+  formatDateRange,
+  formatDateRangeNumeric,
+  formatSingleDate,
+  formatTimeRange,
+  mainFormatDate,
+  parseTimeFromDate,
+} from 'src/helpers/utils'
 import { useBreakPoint } from 'src/hooks/useBreakPoint/useBreakPoint'
 import { useAdditionalCrumbs } from 'src/hooks/additional-crumbs/additional-crumbs'
 
@@ -26,191 +33,211 @@ import { MainButton } from 'src/UI/MainButton/MainButton'
 import { useActions } from 'src/hooks/actions/actions'
 import { RequestGroupModal } from 'src/modals/request-group-modal/request-group-modal'
 import { GroupVidIconSVG } from 'src/UI/icons/groupVidIconSVG'
+import { RequestSubEventModal } from 'src/modals/request-subevent-modal/request-subevent-modal'
+import { LinkArrowSVG } from 'src/UI/icons/linkArrowSVG'
+import { SingleVidIconSVG } from 'src/UI/icons/singleVidIconSVG'
 
 export const EventProgramInfo = () => {
-	const { id = '' } = useParams()
-	const { data: subEventData } = useGetSubEventProgramByIdQuery(id)
-	const { data: eventData } = useGetEventByIdQuery('1')
-	const { openModal } = useActions()
+  const { id = '' } = useParams()
+  const { subId = '' } = useParams()
+  const { data: subEventData } = useGetSubEventProgramByIdQuery(subId)
+  const { data: eventData } = useGetEventByIdQuery(id)
+  const { openModal } = useActions()
 
-	const breakPoint = useBreakPoint()
+  const breakPoint = useBreakPoint()
 
-	useAdditionalCrumbs(subEventData?.title)
-	const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
-	useEffect(() => {
-		if (eventData) {
-			const images: ImageItemWithText[] = []
-			if (eventData.mainphoto) {
-				images.push(eventData.mainphoto[0])
-			}
-			if (eventData.photos && Array.isArray(eventData.photos)) {
-				images.push(...eventData.photos)
-			}
-			setAllPagePhoto(images)
-		}
-	}, [eventData])
+  useAdditionalCrumbs(subEventData?.title)
+  const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
+  useEffect(() => {
+    if (eventData) {
+      const images: ImageItemWithText[] = []
+      if (eventData.mainphoto) {
+        images.push(eventData.mainphoto[0])
+      }
+      if (eventData.photos && Array.isArray(eventData.photos)) {
+        images.push(...eventData.photos)
+      }
+      setAllPagePhoto(images)
+    }
+  }, [eventData])
 
-	return (
-		<div className={styles.eventInfoWrapper}>
-			<div className={styles.mainInfo}>
-				<div className={styles.infoBlock}>
-					<h2>{subEventData?.title}</h2>
-					<FlexRow className={styles.topLineEvent}>
-						<CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
-							{`${formatSingleDate(subEventData?.itemdate ?? new Date())}, ${formatTimeRange([subEventData?.begin_time, subEventData?.end_time])}`}
-						</CustomText>
-						<div className={styles.dot}></div>
-						<CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
-							{`Этноспорт`}
-						</CustomText>
-						<div className={styles.dot}></div>
-						<FlexRow className={styles.vidRow}>
-              <GroupVidIconSVG />
-              <p>Групповой вид</p>
+  return (
+    <div className={styles.eventInfoWrapper}>
+      <Link to={`/${AppRoute.Events}/${id}`} className={styles.linkBack}>
+        <LinkArrowSVG />
+        {`Основное событие: ${eventData?.title}`}
+      </Link>
+      <div className={styles.mainInfo}>
+        <div className={styles.infoBlock}>
+          <h2>{subEventData?.title}</h2>
+          <FlexRow className={styles.topLineEvent}>
+            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
+              {`${formatSingleDate(subEventData?.itemdate ?? new Date())}, ${formatTimeRange([subEventData?.begin_time, subEventData?.end_time])}`}
+            </CustomText>
+            <div className={styles.dot}></div>
+            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>{subEventData?.is_etnosport ? 'Этноспорт' : 'Исконная забава'}</CustomText>
+            <div className={styles.dot}></div>
+            <FlexRow className={styles.vidRow}>
+              {subEventData?.is_group ? (
+                <>
+                  <GroupVidIconSVG />
+                  <p>Групповой вид</p>
+                </>
+              ) : (
+                <>
+                  <SingleVidIconSVG />
+                  <p>Одиночный вид</p>
+                </>
+              )}
             </FlexRow>
-						<div className={cn(styles.dot, styles._red)}></div>
-						<CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
-							{'Вид этноспорта «Кила»'}
-						</CustomText>
-						<div className={cn(styles.dot, styles._red)}></div>
-						<CustomText
-							className={styles.ageRating}
-							$fontSize={breakPoint === 'S' ? '18px' : '16px'}
-							$color='#DE0008'
-						>
-							{eventData?.ageRating}+
-						</CustomText>
-					</FlexRow>
-					<FlexRow className={styles.linkRules}>
-						<a href='#'>Правила вида</a>
-						<a href='#'>Регламент проведения</a>
-						<a href='#'>Требования к участникам</a>
-					</FlexRow>
-					<FlexRow className={styles.regButtons}>
-						<MainButton onClick={() => openModal(<RequestGroupModal />)}>
-							Подать заявку
-						</MainButton>
-					</FlexRow>
-					<div className={styles.listInfo}>
-						<div className={styles.locationInfo}>
-							{subEventData?.address && (
-								<InfoRow
-									title=''
-									label={
-										<span className={styles.infoBlockText}>{subEventData?.address}</span>
-									}
-									icon={<PlaceIconSVG />}
-									$titleWidth='auto'
-									$gap='10px'
-									$margin='0'
-									$alignItems='center'
-									wrapperClassname={styles.infoRowEvent}
-								/>
-							)}
+            <div className={cn(styles.dot, styles._red)}></div>
+            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
+              {`${subEventData?.vid}`}
+            </CustomText>
+            <div className={cn(styles.dot, styles._red)}></div>
+            <CustomText
+              className={styles.ageRating}
+              $fontSize={breakPoint === 'S' ? '18px' : '16px'}
+              $color='#DE0008'
+            >
+              {eventData?.ageRating}+
+            </CustomText>
+          </FlexRow>
+          <FlexRow className={styles.linkRules}>
+            <a href='#'>Правила вида</a>
+            <a href='#'>Регламент проведения</a>
+            <a href='#'>Требования к участникам</a>
+          </FlexRow>
+          <FlexRow className={styles.regButtons}>
+            <MainButton
+              onClick={() =>
+                openModal(<RequestSubEventModal id_subEvent={subEventData?.id ?? ''} />)
+              }
+            >
+              Подать заявку
+            </MainButton>
+          </FlexRow>
+          <div className={styles.listInfo}>
+            <div className={styles.locationInfo}>
+              {subEventData?.address && (
+                <InfoRow
+                  title=''
+                  label={<span className={styles.infoBlockText}>{subEventData?.address}</span>}
+                  icon={<PlaceIconSVG />}
+                  $titleWidth='auto'
+                  $gap='10px'
+                  $margin='0'
+                  $alignItems='center'
+                  wrapperClassname={styles.infoRowEvent}
+                />
+              )}
 
-							{subEventData?.organizator && (
-								<InfoRow
-									title=''
-									label={
-										<Link
-											to={`/${AppRoute.Objects}/${eventData?.object.id}`}
-											className={styles.infoBlockText}
-										>
-											{subEventData?.organizator}
-										</Link>
-									}
-									icon={<ObjectIconSVG />}
-									$titleWidth='auto'
-									$gap='10px'
-									$margin='0'
-									$alignItems='center'
-									titleClassname={styles.infoBlockText}
-									wrapperClassname={styles.infoRowEvent}
-								/>
-							)}
+              {subEventData?.organizator && (
+                <InfoRow
+                  title=''
+                  label={
+                    <Link
+                      to={`/${AppRoute.Objects}/${eventData?.object.id}`}
+                      className={styles.infoBlockText}
+                    >
+                      {subEventData?.organizator}
+                    </Link>
+                  }
+                  icon={<ObjectIconSVG />}
+                  $titleWidth='auto'
+                  $gap='10px'
+                  $margin='0'
+                  $alignItems='center'
+                  titleClassname={styles.infoBlockText}
+                  wrapperClassname={styles.infoRowEvent}
+                />
+              )}
 
-							{subEventData?.url && (
-								<InfoRow
-									title=''
-									label={
-										<a href={eventData?.website} className={styles.infoBlockText}>
-											{subEventData?.url}
-										</a>
-									}
-									icon={<SiteIconSVG />}
-									$titleWidth='auto'
-									$gap='10px'
-									$margin='0'
-									$alignItems='center'
-									titleClassname={styles.infoBlockText}
-									wrapperClassname={styles.infoRowEvent}
-								/>
-							)}
-						</div>
-						<div className={styles.contactsInfo}>
-							{subEventData?.phone && (
-								<InfoRow
-									title=''
-									label={
-										<a href={`tel:${subEventData?.phone}`} className={styles.infoBlockText}>
-											{subEventData?.phone}
-										</a>
-									}
-									icon={<PhoneEventIconSVG />}
-									$titleWidth='auto'
-									$gap='10px'
-									$margin='0'
-									$alignItems='center'
-									titleClassname={styles.infoBlockText}
-									wrapperClassname={styles.infoRowEvent}
-								/>
-							)}
+              {subEventData?.url && (
+                <InfoRow
+                  title=''
+                  label={
+                    <a href={eventData?.website} className={styles.infoBlockText}>
+                      {subEventData?.url}
+                    </a>
+                  }
+                  icon={<SiteIconSVG />}
+                  $titleWidth='auto'
+                  $gap='10px'
+                  $margin='0'
+                  $alignItems='center'
+                  titleClassname={styles.infoBlockText}
+                  wrapperClassname={styles.infoRowEvent}
+                />
+              )}
+            </div>
+            <div className={styles.contactsInfo}>
+              {subEventData?.phone && (
+                <InfoRow
+                  title=''
+                  label={
+                    <a href={`tel:${subEventData?.phone}`} className={styles.infoBlockText}>
+                      {subEventData?.phone}
+                    </a>
+                  }
+                  icon={<PhoneEventIconSVG />}
+                  $titleWidth='auto'
+                  $gap='10px'
+                  $margin='0'
+                  $alignItems='center'
+                  titleClassname={styles.infoBlockText}
+                  wrapperClassname={styles.infoRowEvent}
+                />
+              )}
 
-							{subEventData?.telegram && (
-								<InfoRow
-									title=''
-									label={
-										<a href={subEventData?.telegram} className={styles.infoBlockText}>
-											{subEventData?.telegram}
-										</a>
-									}
-									icon={<TgEventIconSVG />}
-									$titleWidth='auto'
-									$gap='10px'
-									$margin='0'
-									$alignItems='center'
-									titleClassname={styles.infoBlockText}
-									wrapperClassname={styles.infoRowEvent}
-								/>
-							)}
+              {subEventData?.telegram && (
+                <InfoRow
+                  title=''
+                  label={
+                    <a href={subEventData?.telegram} className={styles.infoBlockText}>
+                      {subEventData?.telegram}
+                    </a>
+                  }
+                  icon={<TgEventIconSVG />}
+                  $titleWidth='auto'
+                  $gap='10px'
+                  $margin='0'
+                  $alignItems='center'
+                  titleClassname={styles.infoBlockText}
+                  wrapperClassname={styles.infoRowEvent}
+                />
+              )}
 
-							{subEventData?.email && (
-								<InfoRow
-									title=''
-									label={
-										<a href={`mailto:${subEventData?.email}`} className={styles.infoBlockText}>
-											{subEventData?.email}
-										</a>
-									}
-									icon={<MailEventIconSVG />}
-									$titleWidth='auto'
-									$gap='10px'
-									$margin='0'
-									$alignItems='center'
-									titleClassname={styles.infoBlockText}
-									wrapperClassname={styles.infoRowEvent}
-								/>
-							)}
-						</div>
-					</div>
-				</div>
-				<div className={styles.avatarWrapper}>
-					<GalleryImg images={allPagePhoto} variant='newsMain' />
-				</div>
-			</div>
-      <p className={styles.programDescInfo}>
-        {subEventData?.short}
-      </p>
-		</div>
-	)
+              {subEventData?.email && (
+                <InfoRow
+                  title=''
+                  label={
+                    <a href={`mailto:${subEventData?.email}`} className={styles.infoBlockText}>
+                      {subEventData?.email}
+                    </a>
+                  }
+                  icon={<MailEventIconSVG />}
+                  $titleWidth='auto'
+                  $gap='10px'
+                  $margin='0'
+                  $alignItems='center'
+                  titleClassname={styles.infoBlockText}
+                  wrapperClassname={styles.infoRowEvent}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+        <div className={styles.avatarWrapper}>
+          <GalleryImg images={allPagePhoto} variant='newsMain' />
+        </div>
+      </div>
+      <div className={subEventData?.short ? styles.programDescInfo : ''}>
+        {subEventData?.short && <div dangerouslySetInnerHTML={{ __html: subEventData.short }} />}
+      </div>
+      <div className={subEventData?.rules ? styles.programDescInfo : ''}>
+        {subEventData?.rules && <div dangerouslySetInnerHTML={{ __html: subEventData.rules }} />}
+      </div>
+    </div>
+  )
 }

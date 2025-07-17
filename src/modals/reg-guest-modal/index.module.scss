@@ -139,6 +139,11 @@ div.regModal {
           color: #707070;
           font-size: 15px;
         }
+        .warningMessage {
+          color: #E30613;
+          font-weight: 500;
+          font-size: 15px;
+        }
       }
       .checkBoxWrapper:last-child {
         @media (max-width: 768px) {

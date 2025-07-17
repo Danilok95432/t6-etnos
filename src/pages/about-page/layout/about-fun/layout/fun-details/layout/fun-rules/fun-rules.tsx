@@ -8,9 +8,6 @@ export const FunRules = () => {
   return(
     <div className={styles.funRulesPage}>
       <h3>Правила</h3>
-      <p>
-        Правила игры в {funData?.vids.title}:
-      </p>
       <p>{funData?.vids.rule}</p>
     </div>
   )
