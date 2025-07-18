@@ -147,20 +147,17 @@ export const EventDetails: FC = () => {
           <h4>Организаторы</h4>
           <div className={styles.partnerSlider}>
             <Swiper {...eventSliderOptions} ref={swiperRef}>
-              {eventInfo?.partners?.map((slideItem, idx) => (
+              {eventInfo?.organizerLinks?.map((slideItem, idx) => (
                 <SwiperSlide key={idx} className={styles.partnerSlide}>
-                  <div className={styles.partnerCard} key={slideItem.id_partner}>
-                    <a href={slideItem.itemlink} className={styles.partnersLink}>
-                      {/*
+                  <div className={styles.partnerCard} key={idx}>
+                    <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-												src={slideItem.mainphoto[0]?.thumbnail}
-												alt='partner'
-												width={188}
-												height={105}
-												loading='lazy'
-											/>
-												*/}
-                      <p>{slideItem.title}</p>
+                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          alt='partner'
+                          width={188}
+                          height={105}
+                          loading='lazy'
+                        />
                     </a>
                   </div>
                 </SwiperSlide>
@@ -182,20 +179,81 @@ export const EventDetails: FC = () => {
           <h4>Партнеры</h4>
           <div className={styles.partnerSlider}>
             <Swiper {...eventSliderOptions} ref={swiperRef}>
-              {eventInfo?.partners?.map((slideItem, idx) => (
+              {eventInfo?.partnerLinks?.map((slideItem, idx) => (
                 <SwiperSlide key={idx} className={styles.partnerSlide}>
-                  <div className={styles.partnerCard} key={slideItem.id_partner}>
-                    <a href={slideItem.itemlink} className={styles.partnersLink}>
-                      {/*
+                  <div className={styles.partnerCard} key={idx}>
+                    <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-												src={slideItem.mainphoto[0]?.thumbnail}
-												alt='partner'
-												width={188}
-												height={105}
-												loading='lazy'
-											/>
-												*/}
-                      <p>{slideItem.title}</p>
+                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          alt='partner'
+                          width={188}
+                          height={105}
+                          loading='lazy'
+                        />
+                    </a>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <SliderBtns
+              className={styles.partnersSliderBtns}
+              $topPosition='82%'
+              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '100%'}
+              swiperRef={swiperRef}
+              color='#5C5C5C'
+            />
+          </div>
+        </section>
+      )}
+
+      {eventInfo && (
+        <section>
+          <h4>Организаторы игр</h4>
+          <div className={styles.partnerSlider}>
+            <Swiper {...eventSliderOptions} ref={swiperRef}>
+              {eventInfo?.organizerGameLinks?.map((slideItem, idx) => (
+                <SwiperSlide key={idx} className={styles.partnerSlide}>
+                  <div className={styles.partnerCard} key={idx}>
+                    <a href={slideItem.link} className={styles.partnersLink}>
+												<img
+                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          alt='partner'
+                          width={188}
+                          height={105}
+                          loading='lazy'
+                        />
+                    </a>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <SliderBtns
+              className={styles.partnersSliderBtns}
+              $topPosition='82%'
+              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '100%'}
+              swiperRef={swiperRef}
+              color='#5C5C5C'
+            />
+          </div>
+        </section>
+      )}
+
+      {eventInfo && (
+        <section>
+          <h4>Генеральные партнеры</h4>
+          <div className={styles.partnerSlider}>
+            <Swiper {...eventSliderOptions} ref={swiperRef}>
+              {eventInfo?.partnerGeneralLinks?.map((slideItem, idx) => (
+                <SwiperSlide key={idx} className={styles.partnerSlide}>
+                  <div className={styles.partnerCard} key={idx}>
+                    <a href={slideItem.link} className={styles.partnersLink}>
+												<img
+                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          alt='partner'
+                          width={188}
+                          height={105}
+                          loading='lazy'
+                        />
                     </a>
                   </div>
                 </SwiperSlide>
@@ -301,15 +359,13 @@ export const EventDetails: FC = () => {
                 <SwiperSlide key={idx} className={styles.partnerSlide}>
                   <div className={styles.partnerCard} key={slideItem.id_partner}>
                     <a href={slideItem.itemlink} className={styles.partnersLink}>
-                      {/*
 												<img
-												src={slideItem.mainphoto[0]?.thumbnail}
-												alt='partner'
-												width={188}
-												height={105}
-												loading='lazy'
-											/>
-												*/}
+                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          alt='partner'
+                          width={188}
+                          height={105}
+                          loading='lazy'
+                        />
                       <p>{slideItem.title}</p>
                     </a>
                   </div>

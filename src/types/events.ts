@@ -16,6 +16,13 @@ export type EventPartnerItem = {
 	id_partner: string
 	itemlink: string
 	title: string
+	mainphoto: ImageItemWithText[]
+}
+
+export type organizerLinksType = {
+	link: string
+	title: string
+	mainphoto?: ImageItemWithText[]
 }
 
 export type EventItem = {
@@ -35,8 +42,10 @@ export type EventItem = {
 	program: ProgramDay[]
 	descs: string[]
 	sideDocs: ShortDocument[]
-	organizerLinks: SimpleLinkType[]
-	partnerLinks: SimpleLinkType[]
+	organizerLinks: organizerLinksType[]
+	organizerGameLinks: organizerLinksType[]
+	partnerLinks: organizerLinksType[]
+	partnerGeneralLinks: organizerLinksType[]
 	news: CardNewsItem[]
 	videos: VideoItem[]
 	photos: ImageItem[]
