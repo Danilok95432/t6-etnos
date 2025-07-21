@@ -1,17 +1,15 @@
-import React, { useState, useRef, InputHTMLAttributes, useEffect, RefObject } from 'react'
+import React, { useState, useRef, type InputHTMLAttributes, useEffect } from 'react'
 import InputMask from 'react-input-mask'
 import cn from 'classnames'
 import styles from './index.module.scss'
-import { Controller, FieldError, useFormContext } from 'react-hook-form'
-import { MainButton } from '../MainButton/MainButton'
+import { Controller, type FieldError, useFormContext } from 'react-hook-form'
+import { type SelOption } from 'src/types/select'
+import { toast } from 'react-toastify'
 import {
   useCheckRegistrationCodeMutation,
   useGetRegistrationCodeMutation,
 } from 'src/store/auth/auth.api'
-import { SelOption } from 'src/types/select'
-import { formatTime } from 'src/helpers/utils'
-import { toast } from 'react-toastify'
-import { ErrorMessage } from '@hookform/error-message'
+import { MainButton } from '../MainButton/MainButton'
 
 interface CustomProps {
   label: string
@@ -37,7 +35,7 @@ interface CustomProps {
   isCodeAccepted?: boolean
   setIsCodeAccepted?: (arg0: boolean) => void
   setRegionValue?: (arg0: string) => void
-  lockSearch?: boolean,
+  lockSearch?: boolean
   setLockSearch?: (arg0: boolean) => void
 }
 
@@ -61,7 +59,9 @@ export const FormInput: React.FC<TextInputProps> = ({
   onFocus,
   maskChar = '_',
   name,
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   is_select,
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   is_city_select,
   lockSearch,
   setLockSearch,
@@ -72,14 +72,14 @@ export const FormInput: React.FC<TextInputProps> = ({
   setSearchValue,
   ...restProps
 }) => {
-  const { register, control, watch, formState: { errors }, } = useFormContext()
+  const { register, control, watch } = useFormContext()
   const inputRef = useRef<HTMLInputElement>(null)
   const [isFocused, setIsFocused] = useState(false)
   const [isSended, setIsSended] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
-  const [wasFocusedOnce, setWasFocusedOnce] = useState(false)
   const fieldValue = watch(name)
   const shouldRaiseLabel = isFocused || fieldValue?.length > 0
+  const [accepted, setAccepted] = useState<boolean>(false)
 
   const [getCode] = useGetRegistrationCodeMutation()
 
@@ -117,7 +117,7 @@ export const FormInput: React.FC<TextInputProps> = ({
           })
         }, 1000)
       } else if (status === 'error') {
-        toast.error(errortext || 'Ошибка при отправке кода. Повторите попытку позже', {
+        toast.error(errortext ?? 'Ошибка при отправке кода. Повторите попытку позже', {
           position: 'bottom-right',
           autoClose: 5000,
         })
@@ -157,6 +157,7 @@ export const FormInput: React.FC<TextInputProps> = ({
             const filteredOptions = forceShowAllOptions
               ? selectOptions
               : selectOptions?.filter((opt) =>
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                   opt.label.toLowerCase().includes((field.value || '').toLowerCase()),
                 )
 
@@ -180,7 +181,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                     setForceShowAllOptions(false)
                     if (is_city_select && lockSearch && setLockSearch) {
                       setLockSearch?.(false)
-                    } 
+                    }
                   }}
                   onFocus={() => {
                     setIsFocused(true)
@@ -240,6 +241,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 if ('data' in res && res.data?.status === 'ok') {
                   setStatus('ok')
                   setIsCodeAccepted?.(true)
+                  setAccepted(true)
                 } else {
                   setStatus('error')
                   setIsCodeAccepted?.(false)
@@ -258,7 +260,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 [styles.focused]: isFocused,
                 [styles.error]: status === 'error',
                 [styles.accept]: status === 'ok',
-                [styles.disabled]: (disabled || isCodeAccepted) && errorForm === '',
+                [styles.disabled]: (disabled ?? isCodeAccepted) && errorForm === '',
               })}
             >
               <input
@@ -268,7 +270,7 @@ export const FormInput: React.FC<TextInputProps> = ({
                 maxLength={5}
                 className={styles.input}
                 value={field.value || ''}
-                disabled={(disabled || isCodeAccepted) && errorForm === ''}
+                disabled={(disabled ?? isCodeAccepted) && errorForm === ''}
                 onChange={handleChange}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
@@ -320,11 +322,23 @@ export const FormInput: React.FC<TextInputProps> = ({
                 </InputMask>
                 {isPhoneWithCode && (
                   <MainButton
-                    className={cn(styles.sendCodeBtn, { [styles.resend]: countdown > 0 })}
-                    onClick={() => handleSendCode(fieldValue)}
-                    disabled={!fieldValue || fieldValue.includes('_') || isSended || countdown > 0}
+                    className={cn(styles.sendCodeBtn, {
+                      [styles.resend]: countdown > 0 && !isCodeAccepted,
+                      [styles.codeAccepted]: isCodeAccepted,
+                    })}
+                    onClick={async () => await handleSendCode(fieldValue)}
+                    disabled={
+                      (!fieldValue ||
+                      fieldValue.includes('_') ||
+                      isSended) &&
+                      (countdown > 0 && !isCodeAccepted)
+                    }
                   >
-                    {countdown > 0 ? `Повторная отправка: ${countdown}` : 'Отправить код'}
+                    {isCodeAccepted
+                      ? 'Код верный'
+                      : countdown > 0
+                        ? `Повторная отправка: ${countdown}`
+                        : 'Отправить код'}
                   </MainButton>
                 )}
               </>

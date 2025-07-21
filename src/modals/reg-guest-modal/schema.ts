@@ -11,7 +11,7 @@ export type RegGuestInputs = {
   city_name?: string
   phone: string
   code: string
-  email: string
+  email?: string
   use_group?: boolean
   group_name?: string
   id_group_type?: string
@@ -39,6 +39,15 @@ export const regGuestSchema = yup.object().shape({
   age: yup.string().required('Введите возраст'),
   code: yup.string().required('Введите верный код'),
   id_city: yup.string().required('Введите название населенного пункта'),
-  email: yup.string().required('Введите электронную почту').email('Введите верную почту'),
+  email: yup
+		.string()
+		.nullable()
+		.transform((value) => value || null)
+		.notRequired()
+		.when('$email', {
+			is: (value: string) => !!value,
+			then: (schema) => schema.email('Введите корректный email'),
+			otherwise: (schema) => schema,
+		}),
   phone: yup.string().required('Введите номер телефона').min(10, 'Недостаточно цифр в номере'),
 })

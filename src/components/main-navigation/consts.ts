@@ -7,8 +7,9 @@ export const MenuItems: NavigationItem[] = [
 	},
 	{
 		title: 'События',
-		link: 'cicles',
+		link: 'events',
 	},
+	/*
 	{
 		title: 'Места',
 		link: 'places',
@@ -21,6 +22,7 @@ export const MenuItems: NavigationItem[] = [
 		title: 'Организаторы',
 		link: 'orgs',
 	},
+	*/
 	{
 		title: 'Новости',
 		link: 'news',

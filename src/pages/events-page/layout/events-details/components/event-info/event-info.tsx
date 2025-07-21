@@ -103,9 +103,11 @@ export const EventInfo = () => {
               Регистрация гостей
             </MainButton>
           </FlexRow>
-          <CustomText $lineHeight='1.3' $margin='0 0 10px 0' className={styles.infoBlockText}>
-            {eventData?.description}
-          </CustomText>
+          <div className={eventData?.description ? cn(styles.infoBlockText, styles.descInfo) : ''}>
+            {eventData?.description && (
+              <div dangerouslySetInnerHTML={{ __html: eventData?.description }} />
+            )}
+          </div>
           <div className={styles.listInfo}>
             <div className={styles.locationInfo}>
               {eventData?.location?.address && (

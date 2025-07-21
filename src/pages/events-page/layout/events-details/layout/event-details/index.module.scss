@@ -41,6 +41,10 @@
 
 	.partnerSlider {
 		position: relative;
+		img {
+			width: 100%;
+			object-fit: contain;
+		}
 	}
 	
 	.galleryLengthInfo {

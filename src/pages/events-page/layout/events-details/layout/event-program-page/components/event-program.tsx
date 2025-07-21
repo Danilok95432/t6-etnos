@@ -5,7 +5,7 @@ export const EventProgram = () => {
   return(
     <div>
       <EventProgramInfo />
-      <EventProgramDetails />
+      { /* <EventProgramDetails /> */ }
     </div>
   )
 }

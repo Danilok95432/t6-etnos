@@ -18,10 +18,13 @@ export const RequestSubEventModal:FC<RequestSubEventModalProps> = ({ id_subEvent
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      if (window.innerWidth < 768) return
+
       const modalEl = modalRef.current
       const target = event.target as HTMLElement
 
       if (!modalEl || modalEl.contains(target)) return
+
       const { clientX, clientY } = event
       const windowWidth = window.innerWidth
       const windowHeight = window.innerHeight

@@ -133,12 +133,11 @@ export const EventDetails: FC = () => {
       </div>
       {!!eventInfo?.descs?.length && (
         <section>
-          <RenderedArray
-            className={styles.eventDescs}
-            strArray={eventInfo?.descs}
-            as='div'
-            asStr='p'
-          />
+          <div className={eventInfo?.descs ? styles.eventDescs : ''}>
+            {eventInfo?.descs && (
+              <div dangerouslySetInnerHTML={{ __html: eventInfo?.descs}} />
+            )}
+          </div>
         </section>
       )}
 
@@ -152,7 +151,7 @@ export const EventDetails: FC = () => {
                   <div className={styles.partnerCard} key={idx}>
                     <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          src={slideItem?.mainphotoOL && slideItem.mainphotoOL[0]?.thumbnail}
                           alt='partner'
                           width={188}
                           height={105}
@@ -184,7 +183,7 @@ export const EventDetails: FC = () => {
                   <div className={styles.partnerCard} key={idx}>
                     <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          src={slideItem?.mainphotoPLL && slideItem.mainphotoPLL[0]?.thumbnail}
                           alt='partner'
                           width={188}
                           height={105}
@@ -216,7 +215,7 @@ export const EventDetails: FC = () => {
                   <div className={styles.partnerCard} key={idx}>
                     <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          src={slideItem?.mainphotoOG && slideItem.mainphotoOG[0]?.thumbnail}
                           alt='partner'
                           width={188}
                           height={105}
@@ -248,7 +247,7 @@ export const EventDetails: FC = () => {
                   <div className={styles.partnerCard} key={idx}>
                     <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          src={slideItem?.mainphotoGL && slideItem.mainphotoGL[0]?.thumbnail}
                           alt='partner'
                           width={188}
                           height={105}
@@ -355,18 +354,17 @@ export const EventDetails: FC = () => {
           <h4>Спонсоры</h4>
           <div className={styles.partnerSlider}>
             <Swiper {...eventSliderOptions} ref={swiperRef}>
-              {eventInfo?.partners?.map((slideItem, idx) => (
+              {eventInfo?.partnerLinks?.map((slideItem, idx) => (
                 <SwiperSlide key={idx} className={styles.partnerSlide}>
-                  <div className={styles.partnerCard} key={slideItem.id_partner}>
-                    <a href={slideItem.itemlink} className={styles.partnersLink}>
+                  <div className={styles.partnerCard} key={idx}>
+                    <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
+                          src={slideItem?.mainphotoPLL && slideItem.mainphotoPLL[0]?.thumbnail}
                           alt='partner'
                           width={188}
                           height={105}
                           loading='lazy'
                         />
-                      <p>{slideItem.title}</p>
                     </a>
                   </div>
                 </SwiperSlide>

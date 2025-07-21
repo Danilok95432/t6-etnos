@@ -1,7 +1,6 @@
 import styles from './index.module.scss'
 import { RegEventPartModal } from 'src/modals/reg-part-modal/reg-part-modal'
 import { RegEventGuestModal } from 'src/modals/reg-guest-modal/reg-guest-modal'
-import { AuthModal } from 'src/modals/auth-modal/auth-modal'
 import { Container } from 'src/UI/Container/Container'
 import { FlexRow } from '../flex-row/flex-row'
 import { MainButton } from 'src/UI/MainButton/MainButton'
@@ -12,7 +11,6 @@ import { LogoLendingMobileSVG } from 'src/UI/icons/logoLendingMobileSVG'
 import { LogoLendingSVG } from 'src/UI/icons/logoLendingSVG'
 import { getDaysUntil, getDayWord } from 'src/helpers/utils'
 import { FileLinkSVG } from 'src/UI/icons/fileLinkSVG'
-import { AppRoute } from 'src/routes/main-routes/consts'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
@@ -38,7 +36,7 @@ export const HeaderLending = () => {
     <header className={styles.header}>
       <Container>
         <FlexRow className={styles.headerRow}>
-          <Link to={AppRoute.Home} aria-label='Главная' title='Главная'>
+          <Link to={'https://атманки.рф'} aria-label='Главная' title='Главная'>
             {breakpoint === 'S' ? <LogoLendingMobileSVG /> : <LogoLendingSVG />}
           </Link>
           <div className={styles.infoBlock}>
@@ -66,12 +64,12 @@ export const HeaderLending = () => {
                 >
                   Регистрация участников
                 </MainButton>
-                <button className={styles.enterLK} onClick={() => openModal(<AuthModal />)}>
+                <Link to={'https://lk.этноспорт.рф'} className={styles.enterLK}>
                   <div className={styles.vector}>
                     <PersonIconSvg />
                   </div>
                   <p>Войти в кабинет</p>
-                </button>
+                </Link>
               </FlexRow>
               <FlexRow className={styles.linksRow}>
                 <a href='#' className={styles.linkEl}>
@@ -100,12 +98,12 @@ export const HeaderLending = () => {
                   Регистрация участников
                 </MainButton>
               </FlexRow>
-              <button className={styles.enterLK} onClick={() => openModal(<AuthModal />)}>
+              <Link to={'https://lk.этноспорт.рф'} className={styles.enterLK}>
                 <div className={styles.vector}>
                   <PersonIconSvg />
                 </div>
                 <p>Войти в кабинет</p>
-              </button>
+              </Link>
               <FlexRow className={styles.linksRow}>
                 <a href='#' className={styles.linkEl}>
                   <FileLinkSVG />

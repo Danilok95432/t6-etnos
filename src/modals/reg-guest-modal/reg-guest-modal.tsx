@@ -52,7 +52,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
 
   const methods = useForm<RegGuestInputs>({
     mode: 'onBlur',
-    resolver: yupResolver(regGuestSchema),
+    resolver: yupResolver(regGuestSchema as any),
   })
 
   const [lockSearch, setLockSearch] = useState<boolean>(false)
@@ -93,12 +93,12 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     formData.append('id_region', region ?? '')
     formData.append('id_city', city ?? '')
     formData.append('phone', data.phone)
-    formData.append('email', data.email)
+    formData.append('email', data.email ?? '')
     formData.append('use_group', booleanToNumberString(data.use_group))
     if (data.use_group) {
       formData.append('group_name', data.group_name ?? '')
       formData.append('id_group_type', data.id_group_type ?? '')
-      formData.append('group_count', data.group_count ?? '')
+      formData.append('group_count', data.group_list?.length.toString() ?? '')
       data.group_list?.forEach((group, index) => {
         formData.append(`group_list_age[${index}]`, group.age)
         formData.append(`group_list_surname[${index}]`, group.surname)
@@ -155,10 +155,13 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      if (window.innerWidth < 768) return
+
       const modalEl = modalRef.current
       const target = event.target as HTMLElement
 
       if (!modalEl || modalEl.contains(target)) return
+
       const { clientX, clientY } = event
       const windowWidth = window.innerWidth
       const windowHeight = window.innerHeight

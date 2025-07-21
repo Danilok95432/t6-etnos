@@ -19,10 +19,28 @@ export type EventPartnerItem = {
 	mainphoto: ImageItemWithText[]
 }
 
-export type organizerLinksType = {
+export type OrganizerLinksType = {
 	link: string
 	title: string
-	mainphoto?: ImageItemWithText[]
+	mainphotoOL?: ImageItemWithText[]
+}
+
+export type OrganizerGameLinksType = {
+	link: string
+	title: string
+	mainphotoOG?: ImageItemWithText[]
+}
+
+export type PartnerLinksType = {
+	link: string
+	title: string
+	mainphotoPLL?: ImageItemWithText[]
+}
+
+export type PartnerGeneralLinksType = {
+	link: string
+	title: string
+	mainphotoGL?: ImageItemWithText[]
 }
 
 export type EventItem = {
@@ -42,10 +60,10 @@ export type EventItem = {
 	program: ProgramDay[]
 	descs: string[]
 	sideDocs: ShortDocument[]
-	organizerLinks: organizerLinksType[]
-	organizerGameLinks: organizerLinksType[]
-	partnerLinks: organizerLinksType[]
-	partnerGeneralLinks: organizerLinksType[]
+	organizerLinks: OrganizerLinksType[]
+	organizerGameLinks: OrganizerGameLinksType[]
+	partnerLinks: PartnerLinksType[]
+	partnerGeneralLinks: PartnerGeneralLinksType[]
 	news: CardNewsItem[]
 	videos: VideoItem[]
 	photos: ImageItem[]
