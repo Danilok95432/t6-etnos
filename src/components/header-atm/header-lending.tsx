@@ -45,8 +45,9 @@ export const HeaderLending = () => {
               До игр осталось: <span>{daysDiff}</span> {getDayWord(daysDiff)}
             </p>
             <p className={styles.starts}>
-              Начало регистрации:
-              <br /> 15 июля 2025 года
+              Регистрация гостей открыта, 
+              начало регистрации участников
+              с 1 августа
             </p>
           </div>
           {isSmallScreen ? (
@@ -58,18 +59,22 @@ export const HeaderLending = () => {
                 >
                   Регистрация гостей
                 </MainButton>
-                <MainButton
-                  className={styles.headerBtn}
-                  onClick={() => openModal(<RegEventPartModal id={'1'} />)}
-                >
-                  Регистрация участников
-                </MainButton>
+                {/*
+									<MainButton
+									className={styles.headerBtn}
+									onClick={() => openModal(<RegEventPartModal id={'1'} />)}
+								>
+									Регистрация участников
+								</MainButton>
+									*/}
+                  {/*
                 <Link to={'https://lk.этноспорт.рф'} className={styles.enterLK}>
                   <div className={styles.vector}>
                     <PersonIconSvg />
                   </div>
                   <p>Войти в кабинет</p>
                 </Link>
+                */}
               </FlexRow>
               <FlexRow className={styles.linksRow}>
                 <a href='#' className={styles.linkEl}>
@@ -91,19 +96,23 @@ export const HeaderLending = () => {
                 >
                   Регистрация гостей
                 </MainButton>
-                <MainButton
-                  className={styles.headerBtn}
-                  onClick={() => openModal(<RegEventPartModal id={'1'} />)}
-                >
-                  Регистрация участников
-                </MainButton>
+                {/*
+									<MainButton
+									className={styles.headerBtn}
+									onClick={() => openModal(<RegEventPartModal id={'1'} />)}
+								>
+									Регистрация участников
+								</MainButton>
+									*/}
               </FlexRow>
+              {/*
               <Link to={'https://lk.этноспорт.рф'} className={styles.enterLK}>
                 <div className={styles.vector}>
                   <PersonIconSvg />
                 </div>
                 <p>Войти в кабинет</p>
               </Link>
+              */}
               <FlexRow className={styles.linksRow}>
                 <a href='#' className={styles.linkEl}>
                   <FileLinkSVG />

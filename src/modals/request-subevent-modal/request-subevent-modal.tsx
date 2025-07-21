@@ -80,7 +80,7 @@ export const RequestSubEventModal:FC<RequestSubEventModalProps> = ({ id_subEvent
           </div>
           <div className={styles.controlsWrapper}>
             <MainButton className={styles.sendBtn} onClick={() => closeModal()}>
-              Подать заявку в Личном Кабинете
+              <a href='https://lk.этноспорт.рф'>Подать заявку в Личном Кабинете</a>
             </MainButton>
             <div className={styles.disclaimer}>
               <div className={styles.grayBox}>

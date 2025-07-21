@@ -11,11 +11,15 @@ import { AppRoute } from 'src/routes/main-routes/consts'
 import styles from './index.module.scss'
 
 type BreadCrumbsProps = {
-	crumbsLinksMap: NavigationItem[]
-	innerElementCrumbs?: boolean
+  crumbsLinksMap: NavigationItem[]
+  innerElementCrumbs?: boolean
 }
 
-export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap, innerElementCrumbs = false }) => {
+export const BreadCrumbs: FC<BreadCrumbsProps> = ({
+  crumbsLinksMap,
+  innerElementCrumbs = false,
+}) => {
+  /*
 	const { pathname } = useLocation()
 
 	const [pathNames, setPathNames] = useState<string[]>([''])
@@ -43,9 +47,12 @@ export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap, innerElement
 			return [...filteredPathnames]
 		})
 	}, [pathname, additionalCrumbs])
-
-	return (
-		<ul className={styles.breadCrumbsList}>
+	*/
+  return (
+		<>
+		</>
+    /*
+				<ul className={styles.breadCrumbsList}>
 			<li>
 				<Link to={AppRoute.Home}> Главная </Link> <span>/</span>
 			</li>
@@ -85,5 +92,7 @@ export const BreadCrumbs: FC<BreadCrumbsProps> = ({ crumbsLinksMap, innerElement
 				)
 			})}
 		</ul>
+			*/
 	)
 }
+

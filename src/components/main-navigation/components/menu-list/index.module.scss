@@ -1,54 +1,78 @@
 @use 'src/assets/styles/helpers' as *;
 
-.menuList {
-	max-width: fluid(1300, 1000);
-	text-align: center;
-	display: flex;
-	align-items: center;
-	column-gap: fluid(65, 25);
-	flex-grow: 1;
+.navWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 15px 0;
+  @media (max-width: 1340px) {
+    display: none;
+  }
+  .navEl {
+    font-size: 20px;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+    padding: 7px 15px;
+    text-align: center;
+    &:hover {
+      background: #7a0e2a;
+      border-radius: 50px;
+    }
+  }
+}
 
-	@media (max-width: 1250px) {
-		@include visually-hidden;
-	}
+.menuList {
+  max-width: fluid(1300, 1000);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  column-gap: fluid(65, 25);
+  flex-grow: 1;
+
+  @media (max-width: 1250px) {
+    @include visually-hidden;
+  }
 }
 
 .menuItem {
-	position: relative;
-	a {
-		font-size: 20px;
-		color: var(--color-white);
+  position: relative;
+  a {
+    font-size: 20px;
+    color: var(--color-white);
 
-		&::before {
-			content: '';
-			width: 8px;
-			height: 8px;
-			position: absolute;
-			rotate: 45deg;
-			background-color: var(--color-white);
-			top: 9px;
-			left: -20px;
-			opacity: 0;
-			transition: all var(--transition-duration) ease;
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      position: absolute;
+      rotate: 45deg;
+      background-color: var(--color-white);
+      top: 9px;
+      left: -20px;
+      opacity: 0;
+      transition: all var(--transition-duration) ease;
 
-			@include laptop {
-				top: 11px;
-				left: -18px;
-			}
+      @include laptop {
+        top: 11px;
+        left: -18px;
+      }
 
-			@include laptop-s {
-				top: 9px;
-			}
+      @include laptop-s {
+        top: 9px;
+      }
 
-			@include tablet {
-				left: -16px;
-			}
-		}
+      @include tablet {
+        left: -16px;
+      }
+    }
 
-		@include hover {
-			&::before {
-				opacity: 1;
-			}
-		}
-	}
+    @include hover {
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
 }
+
