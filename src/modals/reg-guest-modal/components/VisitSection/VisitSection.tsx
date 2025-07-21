@@ -57,12 +57,6 @@ export const VisitSection: FC<VisitSectionProps> = ({
                   disabled={groupDisabled}
                   label='Тип группы'
                 />
-                <FormInput
-                  name='group_count'
-                  label='Всего'
-                  className={styles.shortInput}
-                  disabled={groupDisabled}
-                />
               </FlexRow>
             </FlexRow>
             <div className={styles.guestsList}>

@@ -53,6 +53,9 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
   const methods = useForm<RegGuestInputs>({
     mode: 'onBlur',
     resolver: yupResolver(regGuestSchema as any),
+    defaultValues: {
+			group_list: [{ age: '', surname: '', firstname: '', fathname: '' }],
+		},
   })
 
   const [lockSearch, setLockSearch] = useState<boolean>(false)
