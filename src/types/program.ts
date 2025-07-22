@@ -1,3 +1,5 @@
+import { type ImageItemWithText } from "./photos"
+
 export type ProgramListItem = {
 	id: string
 	time: string
@@ -19,7 +21,7 @@ export type SubEventResponse = {
 	begin_time: string
 	use_end_time: boolean
 	is_group: number
-	is_etnosport: boolean
+	is_etnosport: number
 	end_time: string
 	place: string
 	vid: string
@@ -34,4 +36,5 @@ export type SubEventResponse = {
 	rules: string
 	reglament: string
 	trebovania: string
+	mainphoto: ImageItemWithText[]
 }

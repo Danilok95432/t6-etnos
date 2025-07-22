@@ -2,23 +2,27 @@ import { type FC } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Container } from 'src/UI/Container/Container'
-import footerLogo from 'src/assets/img/footer-logo.svg'
+// import footerLogo from 'src/assets/img/footer-logo.svg'
 import { AppRoute } from 'src/routes/main-routes/consts'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 
 import styles from './index.module.scss'
 import { SocialLinks } from '../social-links/social-links'
+import { LogoModalSVG } from 'src/UI/icons/logoModalSVG'
 
 export const Footer: FC = () => {
 	return (
 		<footer className={styles.footer}>
 			<Container>
 				<FlexRow className={styles.footerTop}>
-					<img className={styles.footerLogo} src={footerLogo} alt='Логотип' />
-					<FlexRow className={styles.footerTopLinks}>
+					<LogoModalSVG />
+					{ /* <img className={styles.footerLogo} src={footerLogo} alt='Логотип' /> 
+						<FlexRow className={styles.footerTopLinks}>
 						<Link to={AppRoute.Events}>События</Link>
 						<Link to={AppRoute.Events}>Обратная связь</Link>
 					</FlexRow>
+						*/
+					}
 				</FlexRow>
 			</Container>
 			<div className={styles.footerLine}></div>
@@ -59,15 +63,19 @@ export const Footer: FC = () => {
 				<div className={styles.footerCopyright}>
 					<div className={styles.footerInfo}>
 						<p className={styles.footerExtra}>
-							© Атманов угол, <time dateTime='2024'>2024</time>
+							© Атмановские кулачки, <time dateTime='2025'>2025</time>
 						</p>
-						<p className={styles.footerSmallText}>
+						{
+							/*
+							<p className={styles.footerSmallText}>
 							Cвидетельство о&nbsp;регистрации средства массовой информации Эл &#8470;
 							ФС77&nbsp;&mdash; 37229 от&nbsp;
 							<time dateTime='14.08.2009'>14&nbsp;августа 2009&nbsp;г.</time> Выдано Федеральной
 							службой по&nbsp;надзору в&nbsp;сфере связи, информационных технологий и&nbsp;массовых
 							коммуникаций (Роскомнадзор).
 						</p>
+							*/
+						}
 					</div>
 					<p className={styles.footerDevInfo}>Разработано и построено в НПО ТАУ. Платформа Т-6.</p>
 				</div>

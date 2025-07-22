@@ -45,8 +45,8 @@ export const HeaderLending = () => {
               До игр осталось: <span>{daysDiff}</span> {getDayWord(daysDiff)}
             </p>
             <p className={styles.starts}>
-              Регистрация гостей открыта, 
-              начало регистрации участников
+              Регистрация гостей открыта. 
+              Начало регистрации участников
               с 1 августа
             </p>
           </div>

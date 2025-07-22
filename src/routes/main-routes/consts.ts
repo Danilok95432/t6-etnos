@@ -1,5 +1,6 @@
 export enum AppRoute {
 	Home = '/',
+	Main = '/',
 	Search = 'search',
 	About = 'about',
 	AboutEtnosport = 'about-etnosport',

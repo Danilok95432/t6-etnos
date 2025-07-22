@@ -10,6 +10,10 @@
   padding-block: 30px;
   align-items: center;
 
+  svg {
+    width: fluid(264, 225);
+  }
+
   @include mobile {
     align-items: start !important;
     padding-top: 35px !important;

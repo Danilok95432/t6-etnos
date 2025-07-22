@@ -25,11 +25,15 @@ export const ProgramList: FC<ProgramListProps> = ({ list, viewMode = 'list' }) =
               <Link to={`${AppRoute.EventProgram}/${programEL.id}`}>
                 <span className={styles.programTitle}>{programEL.title}</span>
               </Link>
-              {programEL.use_reg === 1 && (
-                <MainButton as='route' to={'#'} className={styles.requestBtn}>
-                  Подать заявку
-                </MainButton>
-              )}
+              {
+                /*
+                {programEL.use_reg === 1 && (
+                  <MainButton as='route' to={'#'} className={styles.requestBtn}>
+                    Подать заявку
+                  </MainButton>
+                )}
+                */
+              }
             </li>
           ))}
         </ul>
@@ -46,11 +50,15 @@ export const ProgramList: FC<ProgramListProps> = ({ list, viewMode = 'list' }) =
                 </Link>
                 <p className={styles.programTime}>{programEL.time}</p>
                 <p className={styles.programPlace}>{programEL.place}</p>
+                {
+                /*
                 {programEL.use_reg === 1 && (
                   <MainButton as='route' to={'#'} className={styles.requestBtn}>
                     Подать заявку
                   </MainButton>
                 )}
+                */
+              }
               </figcaption>
             </figure>
           ))}

@@ -127,7 +127,11 @@ export const MainRoutes = () => {
 
 				<Route path={AppRoute.News} element={<NewsLayout />}>
 					<Route index element={<News />} />
-					<Route path=':id' element={<NewsDetailsNew />} />
+					<Route path=":id" element={<NewsDetailsNew />} />
+				</Route>
+				<Route path="/" element={<NewsLayout />}>
+					<Route index element={<News />} />
+					<Route path=":id" element={<NewsDetailsNew />} />
 				</Route>
 
 				<Route path={AppRoute.Videos} element={<VideosLayout />}>

@@ -269,6 +269,38 @@ export const EventDetails: FC = () => {
         </section>
       )}
 
+      {eventInfo && (
+        <section>
+          <h4>Финансовые партнеры</h4>
+          <div className={styles.partnerSlider}>
+            <Swiper {...eventSliderOptions} ref={swiperRef}>
+              {eventInfo?.partnerLinks?.map((slideItem, idx) => (
+                <SwiperSlide key={idx} className={styles.partnerSlide}>
+                  <div className={styles.partnerCard} key={idx}>
+                    <a href={slideItem.link} className={styles.partnersLink}>
+												<img
+                          src={slideItem?.mainphotoPLL && slideItem.mainphotoPLL[0]?.thumbnail}
+                          alt='partner'
+                          width={188}
+                          height={105}
+                          loading='lazy'
+                        />
+                    </a>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <SliderBtns
+              className={styles.partnersSliderBtns}
+              $topPosition='82%'
+              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '100%'}
+              swiperRef={swiperRef}
+              color='#5C5C5C'
+            />
+          </div>
+        </section>
+      )}
+
       {programDays && (
         <section>
           <div className={styles.programTab}>
@@ -344,38 +376,6 @@ export const EventDetails: FC = () => {
               $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '97%'}
               swiperRef={swiperRef}
               color={'#5C5C5C'}
-            />
-          </div>
-        </section>
-      )}
-
-      {eventInfo && (
-        <section>
-          <h4>Спонсоры</h4>
-          <div className={styles.partnerSlider}>
-            <Swiper {...eventSliderOptions} ref={swiperRef}>
-              {eventInfo?.partnerLinks?.map((slideItem, idx) => (
-                <SwiperSlide key={idx} className={styles.partnerSlide}>
-                  <div className={styles.partnerCard} key={idx}>
-                    <a href={slideItem.link} className={styles.partnersLink}>
-												<img
-                          src={slideItem?.mainphotoPLL && slideItem.mainphotoPLL[0]?.thumbnail}
-                          alt='partner'
-                          width={188}
-                          height={105}
-                          loading='lazy'
-                        />
-                    </a>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <SliderBtns
-              className={styles.partnersSliderBtns}
-              $topPosition='82%'
-              $btnsSpacing={breakPoint === 'sliderBtnsPoint' ? 'calc(100% + 50px)' : '100%'}
-              swiperRef={swiperRef}
-              color='#5C5C5C'
             />
           </div>
         </section>

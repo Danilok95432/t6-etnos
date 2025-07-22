@@ -36,12 +36,15 @@ import { GroupVidIconSVG } from 'src/UI/icons/groupVidIconSVG'
 import { RequestSubEventModal } from 'src/modals/request-subevent-modal/request-subevent-modal'
 import { LinkArrowSVG } from 'src/UI/icons/linkArrowSVG'
 import { SingleVidIconSVG } from 'src/UI/icons/singleVidIconSVG'
+import { useGetAllVidsQuery } from 'src/store/vids/vids.api'
 
 export const EventProgramInfo = () => {
   const { id = '' } = useParams()
   const { subId = '' } = useParams()
   const { data: subEventData } = useGetSubEventProgramByIdQuery(subId)
   const { data: eventData } = useGetEventByIdQuery(id)
+  const { data: vidsData } = useGetAllVidsQuery(1)
+  const [vidId, setVidId] = useState<string>('')
   const { openModal } = useActions()
 
   const breakPoint = useBreakPoint()
@@ -49,24 +52,30 @@ export const EventProgramInfo = () => {
   useAdditionalCrumbs(subEventData?.title)
   const [allPagePhoto, setAllPagePhoto] = useState<ImageItemWithText[]>([])
   useEffect(() => {
-    if (eventData) {
+    if (subEventData) {
       const images: ImageItemWithText[] = []
-      if (eventData.mainphoto) {
-        images.push(eventData.mainphoto[0])
-      }
-      if (eventData.photos && Array.isArray(eventData.photos)) {
-        images.push(...eventData.photos)
+      if (subEventData.mainphoto) {
+        images.push(subEventData.mainphoto[0])
       }
       setAllPagePhoto(images)
     }
-  }, [eventData])
+  }, [subEventData])
+
+  useEffect(() => {
+    if (subEventData?.is_etnosport === 1) {
+      let idVid = vidsData?.vids.find((vidEl) => vidEl.title === subEventData?.vid)
+      if (idVid) setVidId(idVid?.id)
+    }
+  }, [subEventData])
 
   return (
     <div className={styles.eventInfoWrapper}>
-      <Link to={`/${AppRoute.Events}/${id}`} className={styles.linkBack}>
+      {/*
+        <Link to={`/${AppRoute.Events}/${id}`} className={styles.linkBack}>
         <LinkArrowSVG />
         {`Основное событие: ${eventData?.title}`}
       </Link>
+        */}
       <div className={styles.mainInfo}>
         <div className={styles.infoBlock}>
           <h2>{subEventData?.title}</h2>
@@ -75,7 +84,9 @@ export const EventProgramInfo = () => {
               {`${formatSingleDate(subEventData?.itemdate ?? new Date())}, ${formatTimeRange([subEventData?.begin_time, subEventData?.end_time])}`}
             </CustomText>
             <div className={styles.dot}></div>
-            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>{subEventData?.is_etnosport ? 'Этноспорт' : 'Исконная забава'}</CustomText>
+            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
+              {subEventData?.is_etnosport ? 'Этноспорт' : 'Исконная забава'}
+            </CustomText>
             <div className={styles.dot}></div>
             <FlexRow className={styles.vidRow}>
               {subEventData?.is_group ? (
@@ -91,10 +102,17 @@ export const EventProgramInfo = () => {
               )}
             </FlexRow>
             <div className={cn(styles.dot, styles._red)}></div>
-            <CustomText $fontSize={breakPoint === 'S' ? '18px' : '16px'}>
-              {`${subEventData?.vid}`}
-            </CustomText>
-            <div className={cn(styles.dot, styles._red)}></div>
+            {subEventData?.is_etnosport === 1 ? (
+              <Link
+                to={`/${AppRoute.About}/${AppRoute.AboutEtnosport}/${vidId}`}
+                className={styles.vidLink}
+              >
+                {`${subEventData?.vid}`}
+              </Link>
+            ) : (
+              subEventData?.is_etnosport === 0 && <p className={styles.vidLink}>{`${subEventData?.vid}`}</p>
+            )}
+            { subEventData?.is_etnosport !== 2 && <div className={cn(styles.dot, styles._red)}></div> }
             <CustomText
               className={styles.ageRating}
               $fontSize={breakPoint === 'S' ? '18px' : '16px'}
@@ -108,7 +126,8 @@ export const EventProgramInfo = () => {
             <a href='#'>Регламент проведения</a>
             <a href='#'>Требования к участникам</a>
           </FlexRow>
-          <FlexRow className={styles.regButtons}>
+          {/*
+            <FlexRow className={styles.regButtons}>
             <MainButton
               onClick={() =>
                 openModal(<RequestSubEventModal id_subEvent={subEventData?.id ?? ''} />)
@@ -117,6 +136,7 @@ export const EventProgramInfo = () => {
               Подать заявку
             </MainButton>
           </FlexRow>
+            */}
           <div className={styles.listInfo}>
             <div className={styles.locationInfo}>
               {subEventData?.address && (
@@ -131,8 +151,8 @@ export const EventProgramInfo = () => {
                   wrapperClassname={styles.infoRowEvent}
                 />
               )}
-
-              {subEventData?.organizator && (
+              {/*
+                {subEventData?.organizator && (
                 <InfoRow
                   title=''
                   label={
@@ -152,6 +172,7 @@ export const EventProgramInfo = () => {
                   wrapperClassname={styles.infoRowEvent}
                 />
               )}
+                */}
 
               {subEventData?.url && (
                 <InfoRow
