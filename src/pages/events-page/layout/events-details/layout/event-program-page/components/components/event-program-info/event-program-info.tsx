@@ -103,12 +103,11 @@ export const EventProgramInfo = () => {
             </FlexRow>
             <div className={cn(styles.dot, styles._red)}></div>
             {subEventData?.is_etnosport === 1 ? (
-              <Link
-                to={`/${AppRoute.About}/${AppRoute.AboutEtnosport}/${vidId}`}
+              <p
                 className={styles.vidLink}
               >
                 {`${subEventData?.vid}`}
-              </Link>
+              </p>
             ) : (
               subEventData?.is_etnosport === 0 && <p className={styles.vidLink}>{`${subEventData?.vid}`}</p>
             )}

@@ -1,6 +1,33 @@
 @use 'src/assets/styles/helpers' as *;
 
 .footer {
+  background: #CC1746;
+  padding: 21px 0;
+  font-size: 17px;
+  color: #FFFFFF;
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .footerRow {
+    justify-content: space-between;
+    align-items: center;
+    .socialsRow {
+      button {
+        width: 32px;
+        height: 32px;
+        background: #FFFFFF;
+        border-radius: 3px;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+/*
+.footer {
   background-color: var(--color-white);
 }
 
@@ -120,3 +147,5 @@
     align-self: flex-start;
   }
 }
+
+*/
