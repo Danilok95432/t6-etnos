@@ -78,11 +78,11 @@ export const HeaderLending = () => {
                 */}
               </FlexRow>
               <FlexRow className={styles.linksRow}>
-                <a href='#' className={styles.linkEl}>
+                <a href={`/${AppRoute.Events}/1/${AppRoute.EventDocs}`} className={styles.linkEl}>
                   <FileLinkSVG />
                   <span>Политика защиты и обработки персональных данных</span>
                 </a>
-                <a href='#' className={styles.linkEl}>
+                <a href={`/${AppRoute.Events}/1/${AppRoute.EventRules}`} className={styles.linkEl}>
                   <FileLinkSVG />
                   <span>Правила посещения игр</span>
                 </a>
