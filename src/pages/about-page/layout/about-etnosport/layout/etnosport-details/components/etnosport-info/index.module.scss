@@ -116,6 +116,10 @@ div.infoBlock {
     flex-direction: column;
     gap: 15px;
     font-size: 20px;
+		a {
+			font-size: 20px;
+			color: #E30613;
+		}
     @media (max-width: 768px) {
       height: 0;
       visibility: hidden;

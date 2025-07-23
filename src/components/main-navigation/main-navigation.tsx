@@ -20,11 +20,18 @@ export const MainNavigation: FC = () => {
 			<Container className={styles.menuContainer}>
 				<BurgerMenu menuItems={navigationElements} />
 				<MenuList />
-				<button className={styles.enterLK} onClick={() => openModal(<AuthModal />)}>
+				<Link to={'https://lk.этноспорт.рф'} className={styles.enterLK}>
+					<div className={styles.vector}>
+						<PersonIconSvg color='#CC1746' />
+					</div>
+				</Link>
+				{/*
+					<button className={styles.enterLK} onClick={() => openModal(<AuthModal />)}>
 					<div className={styles.vector}>
 						<PersonIconSvg color='#CC1746' />
 					</div>
 				</button>
+					*/}
 				{
 					/* 
 					<Link className={styles.searchLink} to={AppRoute.Search}>

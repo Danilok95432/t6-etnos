@@ -274,12 +274,12 @@ export const EventDetails: FC = () => {
           <h4>Финансовые партнеры</h4>
           <div className={styles.partnerSlider}>
             <Swiper {...eventSliderOptions} ref={swiperRef}>
-              {eventInfo?.partnerLinks?.map((slideItem, idx) => (
+              {eventInfo?.sponsors?.map((slideItem, idx) => (
                 <SwiperSlide key={idx} className={styles.partnerSlide}>
                   <div className={styles.partnerCard} key={idx}>
                     <a href={slideItem.link} className={styles.partnersLink}>
 												<img
-                          src={slideItem?.mainphotoPLL && slideItem.mainphotoPLL[0]?.thumbnail}
+                          src={slideItem?.mainphoto && slideItem.mainphoto[0]?.thumbnail}
                           alt='partner'
                           width={188}
                           height={105}

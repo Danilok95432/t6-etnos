@@ -34,6 +34,7 @@ import {
 } from 'src/store/auth/auth.api'
 import { toast } from 'react-toastify'
 import { LogoModalMobileSVG } from 'src/UI/icons/logoModalMobileSVG'
+import { AppRoute } from 'src/routes/main-routes/consts'
 
 type RegEventPartModalProps = {
   id: string
@@ -219,8 +220,14 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
                 <div className={styles.grayBox}>
                   <p>
                     Внимание! Завершение регистрации означает согласие с{' '}
-                    <a href='#'>Политикой защиты и обработки персональных данных</a> и{' '}
-                    <a href='#'>Правилами посещения игр</a>.
+                    <a href={`/${AppRoute.Events}/1/${AppRoute.EventDocs}`}>
+                      Политикой защиты и обработки персональных данных
+                    </a>{' '}
+                    и{' '}
+                    <a href={`/${AppRoute.Events}/1/${AppRoute.EventRules}`}>
+                      Правилами посещения игр
+                    </a>
+                    .
                   </p>
                 </div>
               </FlexRow>

@@ -1,0 +1,13 @@
+.docs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  .docsTitle {
+    font-size: 32px;
+  }
+  .docsText {
+    font-size: 20px;
+  }
+}

@@ -13,6 +13,7 @@ import { getDaysUntil, getDayWord } from 'src/helpers/utils'
 import { FileLinkSVG } from 'src/UI/icons/fileLinkSVG'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { AppRoute } from 'src/routes/main-routes/consts'
 
 export const HeaderLending = () => {
   const { openModal } = useActions()
@@ -114,11 +115,11 @@ export const HeaderLending = () => {
               </Link>
               */}
               <FlexRow className={styles.linksRow}>
-                <a href='#' className={styles.linkEl}>
+                <a href={`/${AppRoute.Events}/1/${AppRoute.EventDocs}`} className={styles.linkEl}>
                   <FileLinkSVG />
                   <span>Политика защиты и обработки персональных данных</span>
                 </a>
-                <a href='#' className={styles.linkEl}>
+                <a href={`/${AppRoute.Events}/1/${AppRoute.EventRules}`} className={styles.linkEl}>
                   <FileLinkSVG />
                   <span>Правила посещения игр</span>
                 </a>

@@ -82,6 +82,8 @@ import { TeamGroups } from 'src/pages/team-page/layout/team-details/layout/team-
 import { TeamVids } from 'src/pages/team-page/layout/team-details/layout/team-vids/team-vids'
 import { EventProgramLayout } from 'src/pages/events-page/layout/events-details/layout/event-program-page/event-program-layout'
 import { EventProgram } from 'src/pages/events-page/layout/events-details/layout/event-program-page/components/event-program'
+import { RulesPage } from 'src/pages/rules-page/rules-page'
+import { DocsPage } from 'src/pages/docs-page/docs-page'
 
 export const MainRoutes = () => {
 	return (
@@ -89,7 +91,6 @@ export const MainRoutes = () => {
 			<Route path={AppRoute.Home} element={<MainLayout />}>
 				<Route path={AppRoute.Home} element={<HomePage />} />
 				<Route path={AppRoute.Search} element={<SearchPage />} />
-
 				<Route path={AppRoute.About} element={<AboutLayout />}>
 					<Route index element={<AboutGeneral />} />
 					<Route path={AppRoute.AboutEtnosport} element={<AboutEtnosportLayout />}>
@@ -149,6 +150,8 @@ export const MainRoutes = () => {
 						<Route path={AppRoute.EventProgram} element={<EventProgramLayout />} >
 							<Route path=':subId' element={<EventProgram />} />
 						</Route>
+						<Route path={AppRoute.EventRules} element={<RulesPage />} />
+						<Route path={AppRoute.EventDocs} element={<DocsPage />} />
 					</Route>
 				</Route>
 

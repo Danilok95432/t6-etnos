@@ -17,7 +17,7 @@ export const EventDetailsLayout: FC = () => {
 	const [isProgramPage, setIsProgramPage] = useState<boolean>(false)
 
 	useEffect(() => {
-		setIsProgramPage(location.pathname.includes('/event-program'))
+		setIsProgramPage(location.pathname.includes('/event-program') || location.pathname.includes('/rules') || location.pathname.includes('/docs'))
 	}, [location.pathname])
 
 	return (

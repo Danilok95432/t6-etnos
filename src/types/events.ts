@@ -19,6 +19,12 @@ export type EventPartnerItem = {
 	mainphoto: ImageItemWithText[]
 }
 
+export type SponsorLinksType = {
+	link: string
+	title: string
+	mainphoto?: ImageItemWithText[]
+}
+
 export type OrganizerLinksType = {
 	link: string
 	title: string
@@ -64,6 +70,7 @@ export type EventItem = {
 	organizerGameLinks: OrganizerGameLinksType[]
 	partnerLinks: PartnerLinksType[]
 	partnerGeneralLinks: PartnerGeneralLinksType[]
+	sponsors: SponsorLinksType[]
 	news: CardNewsItem[]
 	videos: VideoItem[]
 	photos: ImageItem[]
@@ -78,6 +85,13 @@ export type EventItem = {
 	contact_email?: string
 	contact_telphone?: string
 	contact_tg?: string
+	rules?: {
+		id_event: string
+		rule_name: string
+		rule_text: string
+		politic_name: string
+		politic_text: string
+	}
 } & Omit<CardEventItem, 'date'>
 
 export type CardEventItem = {

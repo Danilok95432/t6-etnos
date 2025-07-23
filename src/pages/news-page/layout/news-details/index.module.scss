@@ -130,7 +130,10 @@
 			font-size: fluid(22, 18);
 			row-gap: fluid(20, 18);
 			padding-bottom: 20px;
-
+			a {
+				font-size: 20px;
+				color: #E30613;
+			}
 			p {
 				font-size: fluid(22, 18);
 			}

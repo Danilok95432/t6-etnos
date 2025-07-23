@@ -33,6 +33,7 @@ import {
 } from 'src/store/auth/auth.api'
 import { toast } from 'react-toastify'
 import { LogoModalMobileSVG } from 'src/UI/icons/logoModalMobileSVG'
+import { AppRoute } from 'src/routes/main-routes/consts'
 
 type RegEventGuestModalProps = {
   id: string
@@ -54,7 +55,7 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     mode: 'onBlur',
     resolver: yupResolver(regGuestSchema as any),
     defaultValues: {
-			group_list: [{ age: '', surname: '', firstname: '', fathname: '' }],
+			group_list: [],
 		},
   })
 
@@ -98,17 +99,13 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
     formData.append('phone', data.phone)
     formData.append('email', data.email ?? '')
     formData.append('use_group', booleanToNumberString(data.use_group))
-    if (data.use_group) {
-      formData.append('group_name', data.group_name ?? '')
-      formData.append('id_group_type', data.id_group_type ?? '')
-      formData.append('group_count', data.group_list?.length.toString() ?? '')
-      data.group_list?.forEach((group, index) => {
-        formData.append(`group_list_age[${index}]`, group.age)
-        formData.append(`group_list_surname[${index}]`, group.surname)
-        formData.append(`group_list_firstname[${index}]`, group.firstname)
-        formData.append(`group_list_fathname[${index}]`, group.fathname)
-      })
-    }
+    formData.append('group_count', data.group_list?.length.toString() ?? '')
+    data.group_list?.forEach((group, index) => {
+      formData.append(`group_list_age[${index}]`, group.age)
+      formData.append(`group_list_surname[${index}]`, group.surname)
+      formData.append(`group_list_firstname[${index}]`, group.firstname)
+      formData.append(`group_list_fathname[${index}]`, group.fathname)
+    })
     formData.append('use_car', booleanToNumberString(data.use_car))
     if (data.use_car) {
       formData.append('cars_count', data.cars_count ?? '')
@@ -224,7 +221,6 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
                 lockSearch={lockSearch}
               />
               <VisitSection
-                selectOptionsGroup={selectOptions?.guest_group_types}
                 selectOptionsLager={selectOptions?.lager_types}
                 selectOptionsCars={selectOptions?.car_types}
               />
@@ -233,8 +229,8 @@ export const RegEventGuestModal: FC<RegEventGuestModalProps> = ({ id }) => {
                 <div className={styles.grayBox}>
                   <p>
                     Внимание! Завершение регистрации означает согласие с{' '}
-                    <a href='#'>Политикой защиты и обработки персональных данных</a> и{' '}
-                    <a href='#'>Правилами посещения игр</a>.
+                    <a href={`/${AppRoute.Events}/1/${AppRoute.EventDocs}`}>Политикой защиты и обработки персональных данных</a> и{' '}
+                    <a href={`/${AppRoute.Events}/1/${AppRoute.EventRules}`}>Правилами посещения игр</a>.
                   </p>
                 </div>
               </FlexRow>
