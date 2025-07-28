@@ -2,7 +2,6 @@ import styles from '../../index.module.scss'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { FormInput } from 'src/UI/FormInput/FormInput'
 import { FC, useEffect, useRef } from 'react'
-import { GuestFields } from './components/GuestFields/GuestFields'
 
 type InfoSectionProps = {
   errorForm?: string
@@ -73,7 +72,6 @@ export const InfoSection: FC<InfoSectionProps> = ({
 				<FormInput name='age' label='Возраст' className={styles.shortInput} />
 			</FlexRow>
 			<FormInput name='email' label='Электронная почта' />
-			<GuestFields />
 		</div>
 	)
 }

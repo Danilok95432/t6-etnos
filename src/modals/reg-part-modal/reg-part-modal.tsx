@@ -220,11 +220,19 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
                 <div className={styles.grayBox}>
                   <p>
                     Внимание! Завершение регистрации означает согласие с{' '}
-                    <a href={`/${AppRoute.Events}/1/${AppRoute.EventDocs}`}>
+                    <a
+                      href={`/${AppRoute.Events}/1/${AppRoute.EventDocs}`}
+                      target='_blank'
+                      rel='noreferrer'
+                    >
                       Политикой защиты и обработки персональных данных
                     </a>{' '}
                     и{' '}
-                    <a href={`/${AppRoute.Events}/1/${AppRoute.EventRules}`}>
+                    <a
+                      href={`/${AppRoute.Events}/1/${AppRoute.EventRules}`}
+                      target='_blank'
+                      rel='noreferrer'
+                    >
                       Правилами посещения игр
                     </a>
                     .

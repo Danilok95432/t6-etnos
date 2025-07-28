@@ -1,6 +1,7 @@
 import { useFormContext, useFieldArray } from 'react-hook-form'
 import styles from './index.module.scss'
-import { type FC, type MouseEvent } from 'react'
+import { useEffect, type FC, type MouseEvent } from 'react'
+import { type RegGuestInputs } from 'src/modals/reg-guest-modal/schema'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { FormInput } from 'src/UI/FormInput/FormInput'
 import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
@@ -11,43 +12,75 @@ type GuestFieldsProps = {
 }
 
 export const GuestFields: FC<GuestFieldsProps> = ({ disabled = false }) => {
-	const { control } = useFormContext()
+	const { control, getValues, setValue } = useFormContext<RegGuestInputs>()
 	const { fields, append, remove } = useFieldArray({
 		name: 'group_list',
 		control,
 	})
+
+	useEffect(() => {
+		const currentList = getValues('group_list') ?? []
+		const undefinedItemsIndexes = currentList
+			.map((item, index) =>
+				item?.surname === undefined ||
+				item?.firstname === undefined ||
+				item?.fathname === undefined ||
+				item?.age === undefined
+					? index
+					: -1,
+			)
+			.filter((index) => index !== -1)
+			.reverse()
+
+		if (undefinedItemsIndexes.length > 0) {
+			undefinedItemsIndexes.forEach((index) => {
+				remove(index)
+			})
+		}
+	}, [fields, getValues, remove, setValue])
+
+	const handleAddGuest = (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+		append(
+			{
+				age: '',
+				surname: '',
+				firstname: '',
+				fathname: '',
+			},
+			{ shouldFocus: false },
+		)
+	}
+
+	const handleRemoveGuest = (index: number) => {
+		remove(index)
+	}
 
 	return (
 		<>
 			{fields.map((field, index) => (
 				<div key={field.id} className={styles.guestsWrapper}>
 					<FlexRow className={styles.groupInputs}>
-						<FormInput
-							name={`group_list[${field.id}].surname`}
-							label='Фамилия'
-							disabled={disabled}
-						/>
-						<FormInput name={`group_list[${field.id}].firstname`} label='Имя' disabled={disabled} />
+						<FormInput name={`group_list[${index}].surname`} label='Фамилия' disabled={disabled} />
+						<FormInput name={`group_list[${index}].firstname`} label='Имя' disabled={disabled} />
 					</FlexRow>
 					<FlexRow className={styles.groupInputs}>
 						<FormInput
-							name={`group_list[${field.id}].fathname`}
+							name={`group_list[${index}].fathname`}
 							label='Отчество'
 							disabled={disabled}
 							className={styles.inputWrapperContainer}
 						/>
 						<FormInput
-							name={`group_list[${field.id}].age`}
+							name={`group_list[${index}].age`}
 							label='Возраст'
 							disabled={disabled}
 							className={styles.shortInput}
 						/>
 						<button
 							className={styles.deleteButton}
-							onClick={(e: MouseEvent<HTMLButtonElement>) => {
-								e.preventDefault()
-								remove(Number(field.id))
-							}}
+							type='button'
+							onClick={() => handleRemoveGuest(index)}
 						>
 							<TrashIconSvg />
 						</button>
@@ -56,19 +89,7 @@ export const GuestFields: FC<GuestFieldsProps> = ({ disabled = false }) => {
 			))}
 
 			<div className={styles.buttonsRow}>
-				<MainButton
-					type='button'
-					onClick={(e: MouseEvent<HTMLButtonElement>) => {
-						e.preventDefault()
-						append({
-							age: '',
-							surname: '',
-							firstname: '',
-							fathname: '',
-						})
-					}}
-					disabled={disabled}
-				>
+				<MainButton type='button' onClick={handleAddGuest} disabled={disabled}>
 					Добавить
 				</MainButton>
 			</div>
