@@ -58,4 +58,7 @@
 
 .buttonsRow {
   padding-bottom: 15px;
+	@media (max-width: 768px) {
+		padding-top: 15px;
+	}
 }

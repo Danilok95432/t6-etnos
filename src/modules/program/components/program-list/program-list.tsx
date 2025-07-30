@@ -22,46 +22,50 @@ export const ProgramList: FC<ProgramListProps> = ({ list, viewMode = 'list' }) =
             <li key={programEL.id}>
               <p className={styles.programTime}>{programEL.time}</p>
               <span className={styles.programPlace}>{programEL.place}</span>
-              <Link to={`${AppRoute.EventProgram}/${programEL.id}`}>
+              {programEL?.use_real ? (
+                <Link to={`${AppRoute.EventProgram}/${programEL.id}`}>
+                  <span className={styles.programTitle}>{programEL.title}</span>
+                </Link>
+              ) : (
                 <span className={styles.programTitle}>{programEL.title}</span>
-              </Link>
-              {
-                /*
+              )}
+              {/*
                 {programEL.use_reg === 1 && (
                   <MainButton as='route' to={'#'} className={styles.requestBtn}>
                     Подать заявку
                   </MainButton>
                 )}
-                */
-              }
+                */}
             </li>
           ))}
         </ul>
       ) : (
         <div className={styles.listTabs}>
-          {list.map((programEL) => (
-            <figure className={styles.listTabCard} key={programEL.id}>
-              <div className={styles.imgWrapper}>
-                <img src={skeleton} alt='' />
-              </div>
-              <figcaption>
-                <Link to={`${AppRoute.EventProgram}/${programEL.id}`}>
-                  <h3 className={styles.programTitle}>{programEL.title}</h3>
-                </Link>
-                <p className={styles.programTime}>{programEL.time}</p>
-                <p className={styles.programPlace}>{programEL.place}</p>
-                {
-                /*
-                {programEL.use_reg === 1 && (
-                  <MainButton as='route' to={'#'} className={styles.requestBtn}>
-                    Подать заявку
-                  </MainButton>
-                )}
-                */
-              }
-              </figcaption>
-            </figure>
-          ))}
+          {list.map((programEL) => {
+            if (programEL?.use_real) {
+              return (
+                <figure className={styles.listTabCard} key={programEL.id}>
+                  <div className={styles.imgWrapper}>
+                    <img src={programEL?.photo[0]?.original ?? skeleton} alt='' />
+                  </div>
+                  <figcaption>
+                    <Link to={`${AppRoute.EventProgram}/${programEL.id}`}>
+                      <h3 className={styles.programTitle}>{programEL.title}</h3>
+                    </Link>
+                    <p className={styles.programTime}>{programEL.time}</p>
+                    <p className={styles.programPlace}>{programEL.place}</p>
+                    {/*
+                    {programEL.use_reg === 1 && (
+                      <MainButton as='route' to={'#'} className={styles.requestBtn}>
+                        Подать заявку
+                      </MainButton>
+                    )}
+                    */}
+                  </figcaption>
+                </figure>
+              )
+            }
+        })}
         </div>
       )}
     </>

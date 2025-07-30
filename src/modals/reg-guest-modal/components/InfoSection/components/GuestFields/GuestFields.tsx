@@ -90,7 +90,7 @@ export const GuestFields: FC<GuestFieldsProps> = ({ disabled = false }) => {
 
 			<div className={styles.buttonsRow}>
 				<MainButton type='button' onClick={handleAddGuest} disabled={disabled}>
-					Добавить
+					Добавить гостя
 				</MainButton>
 			</div>
 		</>
