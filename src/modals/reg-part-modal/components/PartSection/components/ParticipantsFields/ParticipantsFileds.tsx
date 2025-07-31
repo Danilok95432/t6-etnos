@@ -12,7 +12,12 @@ type ParticipantsFieldsProps = {
 }
 
 export const ParticipantsFields: FC<ParticipantsFieldsProps> = ({ disabled = false }) => {
-	const { control, getValues, setValue } = useFormContext<RegInputs>()
+	const {
+		control,
+		getValues,
+		setValue,
+		formState: { errors },
+	} = useFormContext<RegInputs>()
 	const { fields, append, remove } = useFieldArray({
 		name: 'group_list',
 		control,
@@ -41,33 +46,74 @@ export const ParticipantsFields: FC<ParticipantsFieldsProps> = ({ disabled = fal
 
 	return (
 		<>
-			{fields.map((field, index) => (
-				<div key={field.id} className={styles.guestsWrapper}>
-					<div className={styles.firstGroupInfo}>
-						<FormInput
-							name={`group_list.${index}.age`}
-							label='Возраст'
-							className={styles.shortInput}
-							disabled={disabled}
-						/>
-						<FormInput name={`group_list.${index}.surname`} label='Фамилия' disabled={disabled} />
+			{fields.map((field, index) => {
+				const groupListErrors = errors.group_list?.[index] ?? {}
+				return (
+					<div key={field.id} className={styles.guestsWrapper}>
+						<div className={styles.firstGroupInfo}>
+							<div className={styles.inputWrapperWithError}>
+								<FormInput
+									name={`group_list.${index}.age`}
+									label='Возраст'
+									className={styles.shortInput}
+									disabled={disabled}
+									error={groupListErrors.age?.message}
+								/>
+								{groupListErrors.age?.message && (
+									<div className={styles.errorBox}>
+										<span>{groupListErrors.age?.message}</span>
+									</div>
+								)}
+							</div>
+							<div className={styles.inputWrapperWithError}>
+								<FormInput
+									name={`group_list.${index}.surname`}
+									label='Фамилия'
+									disabled={disabled}
+									error={groupListErrors.surname?.message}
+								/>
+								{groupListErrors.surname?.message && (
+									<div className={styles.errorBox}>
+										<span>{groupListErrors.surname?.message}</span>
+									</div>
+								)}
+							</div>
+						</div>
+						<div className={styles.secondGroupInfo}>
+							<div className={styles.inputWrapperWithError}>
+								<FormInput
+									name={`group_list.${index}.firstname`}
+									label='Имя'
+									disabled={disabled}
+									error={groupListErrors.firstname?.message}
+								/>
+								{groupListErrors.firstname?.message && (
+									<div className={styles.errorBox}>
+										<span>{groupListErrors.firstname?.message}</span>
+									</div>
+								)}
+							</div>
+							<FormInput
+								name={`group_list.${index}.fathname`}
+								label='Отчество'
+								disabled={disabled}
+							/>
+						</div>
+						{index > 0 && (
+							<button
+								className={cn(styles.deleteButton, { [styles.disabled]: disabled })}
+								disabled={disabled}
+								onClick={(e: MouseEvent<HTMLButtonElement>) => {
+									e.preventDefault()
+									remove(index)
+								}}
+							>
+								<TrashIconSvg />
+							</button>
+						)}
 					</div>
-					<div className={styles.secondGroupInfo}>
-						<FormInput name={`group_list.${index}.firstname`} label='Имя' disabled={disabled} />
-						<FormInput name={`group_list.${index}.fathname`} label='Отчество' disabled={disabled} />
-					</div>
-					<button
-						className={cn(styles.deleteButton, { [styles.disabled]: disabled })}
-						disabled={disabled}
-						onClick={(e: MouseEvent<HTMLButtonElement>) => {
-							e.preventDefault()
-							remove(index)
-						}}
-					>
-						<TrashIconSvg />
-					</button>
-				</div>
-			))}
+				)
+			})}
 
 			<div className={styles.buttonsRow}>
 				<MainButton

@@ -23,6 +23,8 @@ export type RegistrationParticipant = {
 	use_folk: boolean
 	use_trader: boolean
 	use_master: boolean
+	use_org: boolean
+	use_volunteer: boolean
 	master_name: string
 	use_journalist: boolean
 	journal_name: string
@@ -59,7 +61,7 @@ export type GuestGroupList = {
 	age: string
 	surname: string
 	firstname: string
-	fathname: string
+	fathname?: string | null
 }
 
 export type GuestCarsList = {

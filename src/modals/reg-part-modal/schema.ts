@@ -1,5 +1,5 @@
 import { type GuestGroupList } from 'src/types/registration'
-import { type MultiSelOption } from 'src/types/select'
+import { SubEventOptions, type MultiSelOption } from 'src/types/select'
 import * as yup from 'yup'
 
 export type RegInputs = {
@@ -21,9 +21,12 @@ export type RegInputs = {
 	id_group_type?: string
 	id_event_role?: string
 	group_count?: string
-	group_list?: GuestGroupList[]
-	etno_list?: string | MultiSelOption[]
-	fun_list?: string | MultiSelOption[]
+	group_list?: GuestGroupList[] | null
+	sub_events_group?: SubEventOptions[] | string
+	sub_events_etno?: SubEventOptions[] | string
+	sub_events_fun?: SubEventOptions[] | string
+	use_org?: boolean
+	use_volunteer?: boolean
 	use_lager?: boolean
 	id_lager_type?: string
 	lager_count?: string
@@ -41,6 +44,30 @@ export type RegInputs = {
 	car_number?: string
 }
 
+const guestGroupItemSchema = yup.object().shape({
+	age: yup
+		.string()
+		.required('Возраст обязателен')
+		.matches(/^[0-9]+$/, 'Возраст должен содержать только цифры'),
+
+	surname: yup
+		.string()
+		.required('Фамилия обязательна')
+		.matches(/^[а-яА-ЯёЁa-zA-Z\- ]+$/, 'Фамилия содержит недопустимые символы'),
+
+	firstname: yup
+		.string()
+		.required('Имя обязательно')
+		.matches(/^[а-яА-ЯёЁa-zA-Z\- ]+$/, 'Имя содержит недопустимые символы'),
+
+	fathname: yup
+		.string()
+		.notRequired()
+		.matches(/^[а-яА-ЯёЁa-zA-Z\- ]*$/, 'Отчество содержит недопустимые символы'),
+})
+
+export const groupListSchema = yup.array().of(guestGroupItemSchema).defined()
+
 export const regSchema = yup.object().shape({
 	surname: yup.string().required('Введите фамилию'),
 	firstname: yup.string().required('Введите имя'),
@@ -54,4 +81,10 @@ export const regSchema = yup.object().shape({
 	id_city: yup.string().required('Введите название населенного пункта'),
 	email: yup.string().required('Введите электронную почту').email('Введите верную почту'),
 	phone: yup.string().required('Введите номер телефона').min(10, 'Недостаточно цифр в номере'),
+	use_group: yup.boolean(),
+	group_list: yup.lazy((_, context) => {
+		return context.parent.use_group
+			? groupListSchema.required('Добавьте хотя бы одного участника группы').defined()
+			: yup.mixed().notRequired()
+	}),
 })

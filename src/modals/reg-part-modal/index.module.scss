@@ -240,6 +240,17 @@ div.regModal {
 						align-items: start;
 					}
 				}
+				.headBoxSpecial {
+					background: #ebe9f4;
+					font-size: 18px;
+					display: flex;
+					align-items: center;
+					padding: 12px 15px 8px 15px;
+					border-radius: 5px;
+					@media (max-width: 768px) {
+						align-items: start;
+					}
+				}
 				.footerBox {
 					background: #f2f1f780;
 					font-size: 15px;
@@ -298,6 +309,14 @@ div.regModal {
 						display: flex;
 						flex-direction: column;
 						gap: 0;
+						.groupMultiSelectRow {
+							flex-direction: column;
+							width: 100%;
+							gap: 0;
+						}
+						.groupMultiSelect {
+							width: 100%;
+						}
 					}
 				}
 				.footerBoxTrader {

@@ -34,7 +34,7 @@
   }
   .deleteButton {
 		border: none;
-		background-color: #DD0A15;
+		background-color: #CC1746;
     color: #ffffff;
 		padding: 8px 10px;
 		margin-bottom: 15px;
@@ -56,4 +56,21 @@
       scale: unset;
     }
   }
+  .inputWrapperWithError {
+    position: relative;
+    width: max-content;
+    .errorBox {
+      position: absolute;
+      top: 52px;
+      left: 5px;
+      span {
+        font-size: 14px;
+        color: #CC1746;
+      }
+    }
+  }
+}
+
+.buttonsRow {
+  padding-top: 10px;
 }

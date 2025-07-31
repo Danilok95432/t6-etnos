@@ -49,23 +49,23 @@ export const HeaderLending = () => {
           {isSmallScreen ? (
             <FlexRow className={styles.controlsSmallRow}>
               <FlexRow className={styles.modalsRow}>
+                {/*
                 <p className={styles.starts}>
 									Регистрация участников игр <br /> начнётся с 1 августа
 								</p>
+                	*/}
                 <MainButton
                   className={styles.headerBtn}
                   onClick={() => openModal(<RegEventGuestModal id={'1'} />)}
                 >
                   Регистрация гостей
                 </MainButton>
-                {/*
-									<MainButton
+								<MainButton
 									className={styles.headerBtn}
 									onClick={() => openModal(<RegEventPartModal id={'1'} />)}
 								>
 									Регистрация участников
 								</MainButton>
-									*/}
                   {/*
                 <Link to={'https://lk.этноспорт.рф'} className={styles.enterLK}>
                   <div className={styles.vector}>
@@ -89,23 +89,23 @@ export const HeaderLending = () => {
           ) : (
             <FlexRow className={styles.controlsRow}>
               <FlexRow>
+                {/*
                 <p className={styles.starts}>
 									Регистрация участников игр <br /> начнётся с 1 августа
 								</p>
+                	*/}
                 <MainButton
                   className={styles.headerBtn}
                   onClick={() => openModal(<RegEventGuestModal id={'1'} />)}
                 >
                   Регистрация гостей
                 </MainButton>
-                {/*
 									<MainButton
 									className={styles.headerBtn}
 									onClick={() => openModal(<RegEventPartModal id={'1'} />)}
 								>
 									Регистрация участников
 								</MainButton>
-									*/}
               </FlexRow>
               {/*
               <Link to={'https://lk.этноспорт.рф'} className={styles.enterLK}>
