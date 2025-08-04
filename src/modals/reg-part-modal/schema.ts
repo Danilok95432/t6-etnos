@@ -1,5 +1,6 @@
-import { type GuestGroupList } from 'src/types/registration'
-import { SubEventOptions, type MultiSelOption } from 'src/types/select'
+/* eslint-disable @typescript-eslint/naming-convention */
+import { type GuestCarsList, type GuestGroupList } from 'src/types/registration'
+import { type SubEventOptions } from 'src/types/select'
 import * as yup from 'yup'
 
 export type RegInputs = {
@@ -27,6 +28,7 @@ export type RegInputs = {
 	sub_events_fun?: SubEventOptions[] | string
 	use_org?: boolean
 	use_volunteer?: boolean
+	trader_name?: string
 	use_lager?: boolean
 	id_lager_type?: string
 	lager_count?: string
@@ -37,11 +39,16 @@ export type RegInputs = {
 	use_trader?: boolean
 	use_master?: boolean
 	master_name?: string
+	id_car_type?: string
+	car_number?: string
 	use_journalist?: boolean
 	journal_name?: string
 	use_car?: boolean
-	id_car_type?: string
-	car_number?: string
+	cars_count?: string
+	cars_list?: GuestCarsList[]
+	trader_name_group?: string
+	master_name_group?: string
+	journal_name_group?: string
 }
 
 const guestGroupItemSchema = yup.object().shape({
@@ -83,7 +90,8 @@ export const regSchema = yup.object().shape({
 	phone: yup.string().required('Введите номер телефона').min(10, 'Недостаточно цифр в номере'),
 	use_group: yup.boolean(),
 	group_list: yup.lazy((_, context) => {
-		return context.parent.use_group
+		console.log(context.parent.use_group)
+		return context.parent.use_group === true
 			? groupListSchema.required('Добавьте хотя бы одного участника группы').defined()
 			: yup.mixed().notRequired()
 	}),

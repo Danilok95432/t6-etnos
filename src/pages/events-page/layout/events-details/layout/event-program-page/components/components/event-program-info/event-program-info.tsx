@@ -121,9 +121,9 @@ export const EventProgramInfo = () => {
             </CustomText>
           </FlexRow>
           <FlexRow className={styles.linkRules}>
-            <a href='#'>Правила вида</a>
-            <a href='#'>Регламент проведения</a>
-            <a href='#'>Требования к участникам</a>
+            {subEventData?.rules.includes('http') && <a href={subEventData?.rules} download>Правила вида</a>}
+            {subEventData?.reglament.includes('http')  && <a href={subEventData?.reglament} download>Регламент проведения</a>}
+            {subEventData?.trebovania.includes('http') && <a href={subEventData?.trebovania} download>Требования к участникам</a>}
           </FlexRow>
           {/*
             <FlexRow className={styles.regButtons}>

@@ -4,20 +4,27 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  @media (max-width: 840px) {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    row-gap: 0px;
+    column-gap: 10px;
+  }
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 5px;
+    row-gap: 10px;
+    column-gap: 10px;
   }
   .firstGroupInfo {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
     gap: 10px;
-    @media (max-width: 768px) {
+    @media (max-width: 500px) {
       flex-direction: row-reverse;
       gap: 5px;
     }
   }
   .secondGroupInfo {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -31,8 +38,12 @@
   }
   .shortInput {
     max-width: 80px;
+    @media (max-width: 840px) {
+      max-width: none;
+    }
   }
   .deleteButton {
+    max-width: max-content;
 		border: none;
 		background-color: #CC1746;
     color: #ffffff;
@@ -58,7 +69,10 @@
   }
   .inputWrapperWithError {
     position: relative;
-    width: max-content;
+    width: 100%;
+    @media (max-width: 500px) {
+      width: 100%;
+    }
     .errorBox {
       position: absolute;
       top: 52px;
@@ -67,6 +81,12 @@
         font-size: 14px;
         color: #CC1746;
       }
+    }
+  }
+  .shortInputWrapper {
+    max-width: 80px;
+    @media (max-width: 840px) {
+      max-width: none;
     }
   }
 }

@@ -41,6 +41,7 @@ export const PartSection: FC<PartSectionProps> = ({
 
 	const groupDisabled = !useGroup
 	const masterDisabled = !useMaster
+	const traderDisabled = !useTrader
 	const journalistDisabled = !useJournalist
 	const carsDisabled = !useCar
 	const lagerDisabled = !useLager
@@ -51,56 +52,155 @@ export const PartSection: FC<PartSectionProps> = ({
 
 	const filteredGroupList = subEvents.filter(
 		(el) =>
-			el.use_group && (groupType === '2' ? el.id_event_role === '2' : el.id_event_role === '4'),
+			el.use_group &&
+			(groupType === '2'
+				? el.id_event_role === '2'
+				: groupType === '4'
+					? el.id_event_role === '4'
+					: el.id_event_role === '7'),
 	)
 
 	return (
 		<div className={styles.formSection}>
-			<span className={styles.title}>Участие</span>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBox}>
-					<ControlledCheckbox
-						name='use_group'
-						type='checkbox'
-						disabled={
-							useSportsmen ||
-							useFolk ||
-							useMaster ||
-							useJournalist ||
-							useTrader ||
-							useVolunteer ||
-							useOrg
-						}
-					/>
-					<span>Ватага или коллектив</span>
-				</div>
-				<div className={styles.footerBox}>
-					<p>Ваши личные данные указаны выше. Не нужно повторять их в составе группы.</p>
-					<FlexRow className={styles.guestWrapper}>
-						<FlexRow className={styles.groupMultiSelectRow}>
-							<FlexRow className={styles.groupGuestsInputsStart}>
-								<FormInput
-									name='group_name'
-									label='Название группы'
-									disabled={groupDisabled}
-									className={styles.groupGuestInputMain}
-								/>
-								<FlexRow className={styles.groupGuestsInputsStartInner}>
-									<ControlledSelect
-										className={styles.selectForm}
-										name='id_event_role'
-										selectOptions={selectOptionsGroup}
-										disabled={groupDisabled}
-										label='Тип группы'
+			{!useSportsmen &&
+				!useFolk &&
+				!useMaster &&
+				!useJournalist &&
+				!useTrader &&
+				!useVolunteer &&
+				!useOrg && (
+					<>
+						<span className={styles.title}>1. Регистрация коллектива</span>
+						<span className={styles.subtitle}>
+							Здесь Вы можете зарегистрировать свой коллектив и получить пропуски на всех его
+							участников. Личная регистрация доступна ниже и только в случае, если Вы не
+							регистрировали коллектив.
+						</span>
+					</>
+				)}
+			<span className={styles.subtitle}>
+				Обязательно выберите хотя бы один из доступных типов участия.
+			</span>
+			{useSportsmen ||
+				useFolk ||
+				useMaster ||
+				useJournalist ||
+				useTrader ||
+				useVolunteer ||
+				(!useOrg && (
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBox}>
+							<ControlledCheckbox
+								name='use_group'
+								type='checkbox'
+								disabled={
+									useSportsmen ||
+									useFolk ||
+									useMaster ||
+									useJournalist ||
+									useTrader ||
+									useVolunteer ||
+									useOrg
+								}
+							/>
+							<span>Ватага или коллектив</span>
+						</div>
+						<div className={styles.footerBox}>
+							<p>Ваши личные данные указаны выше. Не нужно повторять их в составе группы.</p>
+							<FlexRow className={styles.guestWrapper}>
+								<FlexRow className={styles.groupMultiSelectRow}>
+									<FlexRow className={styles.groupGuestsInputsStart}>
+										<FormInput
+											name='group_name'
+											label='Название группы'
+											disabled={groupDisabled}
+											className={styles.groupGuestInputMain}
+										/>
+										<FlexRow className={styles.groupGuestsInputsStartInner}>
+											<ControlledSelect
+												className={styles.selectForm}
+												name='id_event_role'
+												selectOptions={selectOptionsGroup}
+												disabled={groupDisabled}
+												label='Тип группы'
+											/>
+										</FlexRow>
+									</FlexRow>
+									{groupType === '8' && (
+										<FormInput
+											name='trader_name_group'
+											label='Описание товаров'
+											className={styles.noMargin}
+											disabled={groupDisabled}
+										/>
+									)}
+									{groupType === '7' && (
+										<FormInput
+											name='master_name_group'
+											label='Название промысла'
+											className={styles.noMargin}
+											disabled={groupDisabled}
+										/>
+									)}
+									{groupType === '5' && (
+										<FormInput
+											name='journal_name_group'
+											label='Название издания, студии или канала'
+											className={styles.noMargin}
+											disabled={groupDisabled}
+										/>
+									)}
+									<ControlledMultipleSelect
+										className={styles.groupMultiSelect}
+										name='sub_events_group'
+										label='Подсобытия'
+										selectOptions={
+											filteredGroupList ?? [
+												{
+													label: 'Не выбрано',
+													value: '0',
+													selected: false,
+													use_group: false,
+													id_event_role: '',
+												},
+											]
+										}
+										placeholder='Выберите подсобытия'
+										disabled={
+											!useGroup || (groupType !== '2' && groupType !== '4' && groupType !== '7')
+										}
 									/>
 								</FlexRow>
+								<div className={styles.guestsList}>
+									<ParticipantsFields disabled={groupDisabled} />
+								</div>
 							</FlexRow>
+						</div>
+					</div>
+				))}
+			{!useGroup && (
+				<>
+					<span className={styles.title}>2. Личная регистрация</span>
+					<span className={styles.subtitle}>
+						Здесь Вы можете зарегистрироваться на отдельные виды программы (подсобытия), если
+						приехали на игры без компании. В случае, если Вы будете регистрировать коллектив, этот
+						раздел будет скрыт.
+					</span>
+				</>
+			)}
+			{!useGroup && (
+				<>
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBox}>
+							<ControlledCheckbox name='use_sportsmen' type='checkbox' disabled={useGroup} />
+							<span>Этноспорт</span>
+						</div>
+						<div className={styles.footerBox}>
 							<ControlledMultipleSelect
-								className={styles.groupMultiSelect}
-								name='sub_events_group'
+								name='sub_events_etno'
 								label='Подсобытия'
 								selectOptions={
-									filteredGroupList ?? [
+									filteredEtnoList ?? [
 										{
 											label: 'Не выбрано',
 											value: '0',
@@ -112,147 +212,109 @@ export const PartSection: FC<PartSectionProps> = ({
 								}
 								placeholder='Выберите подсобытия'
 								margin='0 0 10px 0'
-								disabled={!useGroup || (groupType !== '2' && groupType !== '4')}
+								disabled={
+									!useSportsmen ||
+									(selectOptionsGroup.find((el) => el.value === groupType)?.label !==
+										'Спортивная команда' &&
+										useGroup)
+								}
 							/>
-						</FlexRow>
-						<div className={styles.guestsList}>
-							<ParticipantsFields disabled={groupDisabled} />
 						</div>
-					</FlexRow>
-				</div>
-			</div>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBox}>
-					<ControlledCheckbox name='use_sportsmen' type='checkbox' disabled={useGroup} />
-					<span>Этноспорт</span>
-				</div>
-				<div className={styles.footerBox}>
-					<ControlledMultipleSelect
-						name='sub_events_etno'
-						label='Подсобытия'
-						selectOptions={
-							filteredEtnoList ?? [
-								{
-									label: 'Не выбрано',
-									value: '0',
-									selected: false,
-									use_group: false,
-									id_event_role: '',
-								},
-							]
-						}
-						placeholder='Выберите подсобытия'
-						margin='0 0 10px 0'
-						disabled={
-							!useSportsmen ||
-							(selectOptionsGroup.find((el) => el.value === groupType)?.label !==
-								'Спортивная команда' &&
-								useGroup)
-						}
-					/>
-					<p>
-						Регистрация на состязания этноспорта и отдельных спортсменов и спортивной ватаги
-						возможна только через личный кабинет. Ссылка на личный кабинет будет прислана Вам после
-						завершения регистрации в качестве участника основного события.
-					</p>
-				</div>
-			</div>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBox}>
-					<ControlledCheckbox name='use_folk' type='checkbox' disabled={useGroup} />
-					<span>Фольклорная программа</span>
-				</div>
-				<div className={styles.footerBox}>
-					<ControlledMultipleSelect
-						name='sub_events_fun'
-						label='Подсобытия'
-						selectOptions={
-							filteredFunList ?? [
-								{
-									label: 'Не выбрано',
-									value: '0',
-									selected: false,
-									use_group: false,
-									id_event_role: '',
-								},
-							]
-						}
-						placeholder='Выберите подсобытия'
-						margin='0 0 10px 0'
-						disabled={
-							!useFolk ||
-							(selectOptionsGroup.find((el) => el.value === groupType)?.label !==
-								'Фольклорный коллектив' &&
-								useGroup)
-						}
-					/>
-					<p>
-						Регистрация фольклорных коллективов возможная только через личный кабинет. Ссылка на
-						личный кабинет будет прислана Вам после завершения регистрации в качестве участника
-						основного события.
-					</p>
-				</div>
-			</div>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBoxSpecial}>
-					<ControlledCheckbox name='use_org' type='checkbox' disabled={useGroup} />
-					<span>Я организатор.</span>
-				</div>
-			</div>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBoxSpecial}>
-					<ControlledCheckbox name='use_volunteer' type='checkbox' disabled={useGroup} />
-					<span>Я волонтер.</span>
-				</div>
-			</div>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBox}>
-					<ControlledCheckbox name='use_trader' type='checkbox' disabled={useGroup} />
-					<span>Я торгую на ярмарке.</span>
-				</div>
-				<div className={styles.footerBox}>
-					<p>
-						Для того, чтобы подтвердить Ваше участие в ярмарке в качестве торговца, с Вами свяжется
-						представитель организаторов.
-					</p>
-					<div className={styles.footerBoxTrader}>
-						<FormInput
-							name='trader_name'
-							label='Описание товаров'
-							className={styles.noMargin}
-							disabled={masterDisabled}
-						/>
 					</div>
-				</div>
-			</div>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBox}>
-					<ControlledCheckbox name='use_master' type='checkbox' disabled={useGroup} />
-					<span>Я — мастер народных промыслов и ремесел</span>
-				</div>
-				<div className={styles.footerBox}>
-					<FormInput
-						name='master_name'
-						label='Название промысла'
-						className={styles.noMargin}
-						disabled={masterDisabled}
-					/>
-				</div>
-			</div>
-			<div className={styles.checkBoxWrapper}>
-				<div className={styles.headBox}>
-					<ControlledCheckbox name='use_journalist' type='checkbox' disabled={useGroup} />
-					<span>Я — журналист</span>
-				</div>
-				<div className={styles.footerBox}>
-					<FormInput
-						name='journal_name'
-						label='Название издания, студии или канала'
-						className={styles.noMargin}
-						disabled={journalistDisabled}
-					/>
-				</div>
-			</div>
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBox}>
+							<ControlledCheckbox name='use_folk' type='checkbox' disabled={useGroup} />
+							<span>Фольклорная программа</span>
+						</div>
+						<div className={styles.footerBox}>
+							<ControlledMultipleSelect
+								name='sub_events_fun'
+								label='Подсобытия'
+								selectOptions={
+									filteredFunList ?? [
+										{
+											label: 'Не выбрано',
+											value: '0',
+											selected: false,
+											use_group: false,
+											id_event_role: '',
+										},
+									]
+								}
+								placeholder='Выберите подсобытия'
+								margin='0 0 10px 0'
+								disabled={
+									!useFolk ||
+									(selectOptionsGroup.find((el) => el.value === groupType)?.label !==
+										'Фольклорный коллектив' &&
+										useGroup)
+								}
+							/>
+						</div>
+					</div>
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBoxSpecial}>
+							<ControlledCheckbox name='use_org' type='checkbox' disabled={useGroup} />
+							<span>Я организатор.</span>
+						</div>
+					</div>
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBoxSpecial}>
+							<ControlledCheckbox name='use_volunteer' type='checkbox' disabled={useGroup} />
+							<span>Я волонтер.</span>
+						</div>
+					</div>
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBox}>
+							<ControlledCheckbox name='use_trader' type='checkbox' disabled={useGroup} />
+							<span>Я торгую на ярмарке.</span>
+						</div>
+						<div className={styles.footerBox}>
+							<p>
+								Заявки на участие в ярмарке подаются до 15 августа. По результатам с Вами свяжется
+								представитель организаторов. Организаторы вправе отказать участникам ярмарки без
+								объяснения причин.
+							</p>
+							<div className={styles.footerBoxTrader}>
+								<FormInput
+									name='trader_name'
+									label='Описание товаров'
+									className={styles.noMargin}
+									disabled={traderDisabled}
+								/>
+							</div>
+						</div>
+					</div>
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBox}>
+							<ControlledCheckbox name='use_master' type='checkbox' disabled={useGroup} />
+							<span>Я — мастер народных промыслов и ремесел</span>
+						</div>
+						<div className={styles.footerBox}>
+							<FormInput
+								name='master_name'
+								label='Название промысла'
+								className={styles.noMargin}
+								disabled={masterDisabled}
+							/>
+						</div>
+					</div>
+					<div className={styles.checkBoxWrapper}>
+						<div className={styles.headBox}>
+							<ControlledCheckbox name='use_journalist' type='checkbox' disabled={useGroup} />
+							<span>Я — журналист</span>
+						</div>
+						<div className={styles.footerBox}>
+							<FormInput
+								name='journal_name'
+								label='Название издания, студии или канала'
+								className={styles.noMargin}
+								disabled={journalistDisabled}
+							/>
+						</div>
+					</div>
+				</>
+			)}
 			<div className={styles.checkBoxWrapper}>
 				<div className={styles.headBox}>
 					<ControlledCheckbox name='use_car' type='checkbox' />

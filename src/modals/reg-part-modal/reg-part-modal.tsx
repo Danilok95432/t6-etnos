@@ -61,7 +61,7 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
 	})
 
 	const {
-		formState: { isValid, errors },
+		formState: { errors },
 	} = methods
 
 	const useGroup = useWatch({ control: methods.control, name: 'use_group' })
@@ -165,12 +165,22 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
 		// Специальные категории
 		formData.append('use_folk', booleanToNumberString(data.use_folk))
 		formData.append('use_trader', booleanToNumberString(data.use_trader))
+		formData.append(
+			'trader_name',
+			data.use_group ? data.trader_name_group ?? '' : data.trader_name ?? '',
+		)
 		formData.append('use_master', booleanToNumberString(data.use_master))
 		formData.append('use_org', booleanToNumberString(data.use_org))
 		formData.append('use_volunteer', booleanToNumberString(data.use_volunteer))
-		formData.append('master_name', data.master_name ?? '')
+		formData.append(
+			'master_name',
+			data.use_group ? data.master_name_group ?? '' : data.master_name ?? '',
+		)
 		formData.append('use_journalist', booleanToNumberString(data.use_journalist))
-		formData.append('journal_name', data.journal_name ?? '')
+		formData.append(
+			'journal_name',
+			data.use_group ? data.journal_name_group ?? '' : data.journal_name ?? '',
+		)
 
 		formData.append('sub_events_list', selectedObjSubEvents)
 
@@ -257,8 +267,10 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
 						<span className={styles.title}>Регистрация участника</span>
 						<div className={styles.grayBox}>
 							<p>
-								Регистрация гостей и участников события строго обязательна. Это — требования
-								безопасности.
+								Регистрация гостей и участников строго обязательна. По итогам регистрации Вам будет
+								направлен СМС со ссылкой на пропуск. Проезд и проход на мероприятие осуществляется
+								исключительно на основании пропуска. Рекомендуем пропуск сохранить на телефон или
+								иметь в распечатанном виде. ВХОД БЕСПЛАТНЫЙ!
 							</p>
 						</div>
 					</FlexRow>
@@ -299,7 +311,7 @@ export const RegEventPartModal: FC<RegEventPartModalProps> = ({ id }) => {
 							</FlexRow>
 							<MainButton
 								type='submit'
-								disabled={!isCodeAccepted || !isValid || useFlags.filter((el) => el).length === 0}
+								disabled={!isCodeAccepted || useFlags.filter((el) => el).length === 0}
 							>
 								Завершить регистрацию
 							</MainButton>
