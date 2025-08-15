@@ -84,10 +84,14 @@ import { EventProgramLayout } from 'src/pages/events-page/layout/events-details/
 import { EventProgram } from 'src/pages/events-page/layout/events-details/layout/event-program-page/components/event-program'
 import { RulesPage } from 'src/pages/rules-page/rules-page'
 import { DocsPage } from 'src/pages/docs-page/docs-page'
+import { TerminalPage } from 'src/pages/registration-terminal/terminal-page'
+import { PrintPage } from 'src/pages/print-page/print-page'
 
 export const MainRoutes = () => {
 	return (
 		<Routes>
+			<Route path={'terminal'} element={<TerminalPage />} />
+			<Route path={'terminal/print'} element={<PrintPage />} />
 			<Route path={AppRoute.Home} element={<MainLayout />}>
 				<Route path={AppRoute.Home} element={<HomePage />} />
 				<Route path={AppRoute.Search} element={<SearchPage />} />
